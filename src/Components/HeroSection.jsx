@@ -4,14 +4,15 @@ import { ArrowRight, Code, ShieldCheck, Zap } from "lucide-react";
 
 // Import assets
 import dashboardImg from "../assets/dashboard_analytics_dark_1767871281648.png";
-import codeImg from "../assets/code_snippet_dark_1767871301384.png";
-import mobileImg from "../assets/mobile_ui_card_1767871321138.png";
+
 import serverImg from "../assets/server_metrics_card_1767871336352.png";
 // import heroDashboardImg from '../assets/hero-dashboard.png';
 import heroDashboardImg2 from "../assets/hero-dashboard-2.png";
 import heroDashboardImg3 from "../assets/hero-dashboard-3.png";
-import heroDashboardImg4 from "../assets/hero-dashboard-4.jpg";
+import heroDashboardImg4 from "../assets/hero-dashboard-4.png";
 import heroDashboardImg5 from "../assets/hero-dashboard-5.png";
+import heroDashboardImg6 from "../assets/hero-dashboard-6.png";
+import heroDashboardImg7 from "../assets/hero-dashboard-7.png";
 
 const HeroSection = () => {
   return (
@@ -38,7 +39,7 @@ const HeroSection = () => {
             scale: { duration: 0.8, delay: 0.2 },
             y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
           }}
-          className="absolute top-[15%] left-[-5%] md:left-[2%] lg:left-[2%] xl:left-[5%] 2xl:left-[2%] w-48 md:w-48 lg:w-52 xl:w-64 2xl:w-80 shadow-2xl rounded-2xl overflow-hidden glass-panel"
+          className="absolute top-[15%] left-[-5%] md:left-[2%] lg:left-[2%] xl:left-[3%] 2xl:left-[4%] w-48 md:w-48 lg:w-52 xl:w-64 2xl:w-80 shadow-2xl rounded-2xl overflow-hidden glass-panel"
           style={{ opacity: 0.9 }}
         >
           <img
@@ -64,7 +65,7 @@ const HeroSection = () => {
           className="absolute top-[18%] right-[-5%] md:right-[2%] lg:right-[2%] xl:right-[5%] 2xl:right-[3%] w-52 md:w-52 lg:w-56 xl:w-80 2xl:w-96 shadow-2xl rounded-xl overflow-hidden glass-panel"
         >
           <img
-            src={codeImg}
+            src={heroDashboardImg5}
             alt="Code Snippet"
             className="w-full h-auto rounded-xl"
           />
@@ -83,10 +84,10 @@ const HeroSection = () => {
             scale: { duration: 0.8, delay: 0.6 },
             y: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: 2 },
           }}
-          className="absolute bottom-[15%] left-[2%] md:left-[5%] lg:left-[5%] xl:left-[10%] 2xl:left-[8%] w-40 md:w-40 lg:w-44 xl:w-60 2xl:w-64 shadow-xl rounded-2xl overflow-hidden glass-panel"
+          className="absolute bottom-[15%] left-[2%] md:left-[5%] lg:left-[5%] xl:left-[10%] 2xl:left-[10%] w-40 md:w-40 lg:w-44 xl:w-60 2xl:w-64 shadow-xl rounded-2xl overflow-hidden glass-panel"
         >
           <img
-            src={heroDashboardImg5}
+            src={heroDashboardImg4}
             alt="Server Metrics"
             className="w-full h-auto rounded-2xl"
           />
@@ -118,7 +119,7 @@ const HeroSection = () => {
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{
-            opacity: 0.8,
+            opacity: 1,
             scale: 1,
             y: [0, -20, 0],
           }}
@@ -130,7 +131,7 @@ const HeroSection = () => {
           className="absolute top-[8%] right-[30%] w-32 xl:w-32 2xl:w-40 opacity-80 shadow-lg rounded-xl overflow-hidden glass-panel z-[-1] hidden xl:block"
         >
           <img
-            src={mobileImg}
+            src={heroDashboardImg6}
             alt="Server Metrics Small"
             className="w-full h-auto rounded-xl"
           />
@@ -140,16 +141,16 @@ const HeroSection = () => {
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{
-            opacity: 0.6,
+            opacity: 0.9,
             scale: 1,
             y: [0, 20, 0],
           }}
           transition={{
-            opacity: { duration: 1, delay: 0.7 },
-            scale: { duration: 1, delay: 0.7 },
+            opacity: { duration: 0.8, delay: 0.7 },
+            scale: { duration: 0.8, delay: 0.7 },
             y: { duration: 9, repeat: Infinity, ease: "easeInOut", delay: 2 },
           }}
-          className="absolute top-[40%] left-[-2%] w-36 xl:w-36 2xl:w-48 opacity-60 shadow-lg rounded-xl overflow-hidden glass-panel hidden xl:block"
+          className="absolute top-[40%] left-[0.1%] w-36 xl:w-36 2xl:w-48 shadow-lg rounded-xl overflow-hidden glass-panel hidden xl:block"
         >
           <img
             src={dashboardImg}
@@ -184,19 +185,19 @@ const HeroSection = () => {
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{
-            opacity: 0.6,
+            opacity: 0.9,
             scale: 1,
             y: [0, 15, 0],
           }}
           transition={{
-            opacity: { duration: 1, delay: 0.6 },
-            scale: { duration: 1, delay: 0.6 },
+            opacity: { duration: 0.8, delay: 0.6 },
+            scale: { duration: 0.8, delay: 0.6 },
             y: { duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 },
           }}
-          className="absolute top-[50%] right-[-2%] w-36 xl:w-36 2xl:w-44 opacity-60 shadow-lg rounded-xl overflow-hidden glass-panel hidden xl:block"
+          className="absolute top-[50%] right-[0.1%] w-36 xl:w-36 2xl:w-44 shadow-lg rounded-xl overflow-hidden glass-panel hidden xl:block"
         >
           <img
-            src={heroDashboardImg4}
+            src={heroDashboardImg7}
             alt="Mobile UI Small"
             className="w-full h-auto rounded-xl"
           />
@@ -270,7 +271,7 @@ const HeroSection = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
-          className="pt-16 flex items-center justify-center gap-8 text-bigchill opacity-80 drop-shadow-[0_0_25px_rgba(255,255,255,1)]"
+          className="pt-4 pb-8 flex items-center justify-center gap-8 text-bigchill opacity-80 drop-shadow-[0_0_25px_rgba(255,255,255,1)]"
         >
           {/* Simple SVG logos or text for trust proofs */}
           <div className="flex items-center gap-2 ">
