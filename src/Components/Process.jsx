@@ -1,5 +1,7 @@
 import React from "react";
 
+import testingAndDeployment from "../assets/Process-testing_and_deployment.png";
+
 export default function Process() {
   const steps = [
     {
@@ -20,8 +22,7 @@ export default function Process() {
       title: "3. Testing and Deployment",
       description:
         "Every detail is tested across devices and browsers before your site goes live.",
-      image:
-        "https://images.unsplash.com/photo-1555099962-4199c345e5dd?q=80&w=2940&auto=format&fit=crop",
+      image: testingAndDeployment,
     },
   ];
 
@@ -54,7 +55,7 @@ export default function Process() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 mb-8">
           {steps.map((step, index) => (
             <div key={index} className="text-left group cursor-pointer">
-              <div className="overflow-hidden rounded-2xl mb-3 aspect-[4/3] shadow-lg">
+              <div className="overflow-hidden rounded-2xl mb-6 aspect-[4/3] shadow-lg">
                 <img
                   src={step.image}
                   alt={step.title}
