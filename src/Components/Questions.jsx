@@ -49,8 +49,17 @@ const questions = [
 
 export default function Questions() {
   return (
-    <section className="py-20 bg-white">
-      <div className="container mx-auto px-6">
+    <section
+      className="relative pt-15 pb-20 bg-bigchill/5 overflow-hidden border-t-1"
+      style={{ borderColor: "#7C3AED" }}
+    >
+      {/* Background Gradient/Mesh (Subtle) */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-bigchill/20 rounded-full blur-[100px] mix-blend-multiply opacity-50 animate-blob" />
+        <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-purple-50/50 rounded-full blur-[100px] mix-blend-multiply opacity-70 animate-blob animation-delay-2000" />
+        <div className="absolute -bottom-32 left-1/3 w-[500px] h-[500px] bg-bigchill/20 rounded-full blur-[100px] mix-blend-multiply opacity-50 animate-blob animation-delay-4000" />
+      </div>
+      <div className="relative container mx-auto px-6 z-10">
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
@@ -79,6 +88,19 @@ export default function Questions() {
               </p>
             </div>
           ))}
+        </div>
+
+        {/* Contact Section */}
+        <div className="mt-25 text-center">
+          <h3 className="text-3xl font-bold text-gray-900 mb-4">
+            Still have questions?
+          </h3>
+          <p className="text-lg text-gray-600 mb-8">
+            Reach out directly and we'll answer anything.
+          </p>
+          <button className="px-8 py-3 border border-gray-300 rounded-lg text-gray-900 font-medium hover:bg-gray-50 transition-colors duration-200 cursor-pointer">
+            Contact
+          </button>
         </div>
       </div>
     </section>
