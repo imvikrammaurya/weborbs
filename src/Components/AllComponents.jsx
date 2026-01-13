@@ -1,6 +1,7 @@
 import HeroSection from "./HeroSection";
 import Navbar from "./Navbar";
 import Process from "./Process";
+import Questions from "./Questions";
 import WhatWeDo from "./WhatWeDo";
 
 export default function AllComponents() {
@@ -10,6 +11,7 @@ export default function AllComponents() {
       <HeroSection />
       <WhatWeDo />
       <Process />
+      <Questions />
     </div>
   );
 }
