@@ -52,7 +52,7 @@ export default function Process() {
         </div>
 
         {/* Steps Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 mb-14">
           {steps.map((step, index) => (
             <div key={index} className="text-left group cursor-pointer">
               <div className="overflow-hidden rounded-2xl mb-6 aspect-[4/3] shadow-lg">
@@ -75,7 +75,7 @@ export default function Process() {
         {/* Footer Actions */}
         <div className="flex items-center justify-center gap-6">
           <button className="bg-bigchill hover:bg-[#0b8a89] text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 cursor-pointer shadow-md hover:shadow-lg hover:-translate-y-0.5">
-            Launch
+            Start Your Project
           </button>
           {/* Arrow button removed as requested */}
         </div>
