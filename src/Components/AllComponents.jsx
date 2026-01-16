@@ -4,6 +4,7 @@ import Process from "./Process";
 import WhatWeDo from "./WhatWeDo";
 import Questions from "./Questions";
 import ClientVoice from "./ClientVoice";
+import Footer from "./Footer";
 
 export default function AllComponents() {
   return (
@@ -14,6 +15,7 @@ export default function AllComponents() {
       <Process />
       <ClientVoice />
       <Questions />
+      <Footer />
     </div>
   );
 }
