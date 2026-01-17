@@ -4,22 +4,25 @@ import Logo from "../assets/weborbs.png";
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-white px-8 py-12 md:px-16 lg:px-24 font-sans">
+    <footer className="bg-black text-white px-8 pt-12 pb-4 md:px-16 lg:px-24 font-sans">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
         {/* Logo and Subscribe Section */}
         <div className="col-span-1 md:col-span-1">
-          <img src={Logo} alt="Logo" className="h-16 mb-4 object-contain" />
-          <p className="text-gray-300 mb-6 text-sm">
-            Get updates on new features and releases.
-          </p>
-          <div className="flex gap-2 mb-4">
+          <div className="flex items-center gap-4 mb-6">
+            <img src={Logo} alt="Logo" className="h-16 object-contain" />
+            <p className="text-gray-300 text-sm">
+              Get expert insights on building better websites and scaling your
+              business.
+            </p>
+          </div>
+          <div className="flex flex-col gap-2 mb-4">
             <input
               type="email"
               placeholder="Your email"
               className="bg-transparent border border-gray-800 rounded px-4 py-2 text-sm text-gray-300 w-full focus:outline-none focus:border-gray-600"
             />
-            <button className="bg-[#2a2a2a] hover:bg-[#3a3a3a] text-white px-6 py-2 rounded text-sm font-medium transition-colors">
-              Subscribe
+            <button className="bg-[#2a2a2a] hover:bg-[#3a3a3a] text-white px-6 py-2 rounded text-sm font-medium transition-colors whitespace-nowrap w-full">
+              Join for Free
             </button>
           </div>
           <p className="text-[10px] text-gray-400">
@@ -33,27 +36,27 @@ export default function Footer() {
           <ul className="space-y-4 text-sm text-gray-400">
             <li>
               <a href="#" className="hover:text-white transition-colors">
-                Web design
+                Website Design
               </a>
             </li>
             <li>
               <a href="#" className="hover:text-white transition-colors">
-                App development
+                Website Development
               </a>
             </li>
             <li>
               <a href="#" className="hover:text-white transition-colors">
-                Maintenance
+                App Development
               </a>
             </li>
             <li>
               <a href="#" className="hover:text-white transition-colors">
-                Scaling
+                Performance & Scaling
               </a>
             </li>
             <li>
               <a href="#" className="hover:text-white transition-colors">
-                Company
+                Ongoing Maintenance
               </a>
             </li>
           </ul>
@@ -65,7 +68,12 @@ export default function Footer() {
           <ul className="space-y-4 text-sm text-gray-400">
             <li>
               <a href="#" className="hover:text-white transition-colors">
-                Our work
+                Our Work
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:text-white transition-colors">
+                About Us
               </a>
             </li>
             <li>
@@ -83,17 +91,12 @@ export default function Footer() {
                 Careers
               </a>
             </li>
-            <li>
-              <a href="#" className="hover:text-white transition-colors">
-                Follow us
-              </a>
-            </li>
           </ul>
         </div>
 
         {/* Facebook / Socials Column */}
         <div className="col-span-1">
-          <h3 className="font-bold mb-6 text-sm md:text-base">Facebook</h3>
+          <h3 className="font-bold mb-6 text-sm md:text-base">Follow Us</h3>
           <ul className="space-y-4 text-sm text-gray-400">
             <li>
               <a
@@ -144,32 +147,35 @@ export default function Footer() {
           <div className="mt-8 text-sm text-gray-400 flex items-start gap-2">
             <span className="mt-1">&copy;</span>
             <p>
-              2025 Generic
+              2026 <br />
+              Weborbs
               <br />
-              Digital Services
-              <br />
-              Studio.
             </p>
           </div>
         </div>
       </div>
 
+      <div className="mb-4 text-sm text-gray-400 font-medium text-center">
+        Trusted by businesses to design, build, and manage reliable digital
+        products.
+      </div>
+
       {/* Bottom Bar */}
-      <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-start md:items-center text-sm text-gray-400 gap-4">
+      <div className="border-t border-gray-800 pt-4 flex flex-col md:flex-row justify-between items-start md:items-center text-sm text-gray-400 gap-4">
         <div>
-          <a href="#" className="hover:text-white transition-colors">
-            Privacy policy
+          <a href="#" className="hover:text-white transition-colors opacity-60">
+            © 2026 WebOrbs. All rights reserved.
           </a>
         </div>
         <div className="flex gap-6">
           <a href="#" className="hover:text-white transition-colors">
-            Terms of service
+            Terms of Service
           </a>
           <a href="#" className="hover:text-white transition-colors">
-            Cookies settings
+            Disclaimer
           </a>
           <a href="#" className="hover:text-white transition-colors">
-            Cookies Settings
+            Privacy Policy
           </a>
         </div>
       </div>
