@@ -2,6 +2,8 @@
 
 @theme {
   --color-bigchill: #0ea5a4;
+  --font-heading: "Unbounded", sans-serif;
+  --font-sans: "Inter", sans-serif;
   --animate-blob: blob 7s infinite;
 
   @keyframes blob {
@@ -29,4 +31,19 @@
 
 .animation-delay-4000 {
   animation-delay: 4s;
+}
+
+@layer base {
+  :root {
+    font-family: var(--font-sans);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+  }
 }

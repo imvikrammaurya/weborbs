@@ -3,9 +3,6 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "engines": {
-    "node": "22.x"
-  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -14,10 +11,12 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
-    "framer-motion": "^12.24.12",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.29.0",
     "lucide-react": "^0.562.0",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
