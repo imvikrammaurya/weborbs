@@ -14,9 +14,12 @@ import heroDashboardImg5 from "../assets/hero-dashboard-5.png";
 import heroDashboardImg6 from "../assets/hero-dashboard-6.png";
 import heroDashboardImg7 from "../assets/hero-dashboard-7.png";
 
-const HeroSection = () => {
+const HeroSection = ({ openModal }) => {
   return (
-    <section className="relative w-full min-h-screen overflow-hidden bg-bigchill/5 flex flex-col items-center justify-center pt-32 pb-12 px-4 md:px-8">
+    <section
+      id="hero"
+      className="relative w-full min-h-screen overflow-hidden bg-bigchill/5 flex flex-col items-center justify-center pt-32 pb-12 px-4 md:px-8"
+    >
       {/* Background Gradient/Mesh (Subtle) */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-bigchill/20 rounded-full blur-[100px] mix-blend-multiply opacity-50 animate-blob" />
@@ -246,14 +249,20 @@ const HeroSection = () => {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4"
         >
-          <button className="w-full sm:w-auto px-8 py-4 bg-bigchill text-white font-semibold rounded-lg hover:brightness-110 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2 group">
+          <a
+            href="#contact"
+            className="w-full sm:w-auto px-8 py-4 bg-bigchill text-white font-semibold rounded-lg hover:brightness-110 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2 group"
+          >
             Let’s Build Your Product
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </button>
-          <button className="w-full sm:w-auto px-8 py-4 bg-white text-gray-700 font-semibold rounded-lg border border-gray-200 hover:bg-gray-50 hover:border-bigchill/30 transition-all duration-200 flex items-center justify-center gap-2">
+          </a>
+          <a
+            href="#services"
+            className="w-full sm:w-auto px-8 py-4 bg-white text-gray-700 font-semibold rounded-lg border border-gray-200 hover:bg-gray-50 hover:border-bigchill/30 transition-all duration-200 flex items-center justify-center gap-2"
+          >
             Learn More
             <Code className="w-4 h-4 text-gray-500" />
-          </button>
+          </a>
         </motion.div>
 
         {/* Secondary CTA */}
@@ -261,6 +270,7 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
+          onClick={openModal}
           className="!mt-2 pb-4 text-m font-medium text-gray-400 grayscale opacity-80 hover:opacity-100 transition-opacity cursor-pointer drop-shadow-[0_0_25px_rgba(255,255,255,1)]"
         >
           Not sure yet? Book a free 10-minute call.

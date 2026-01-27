@@ -48,10 +48,11 @@ const questions = [
   },
 ];
 
-export default function Questions() {
+export default function Questions({ openModal }) {
   return (
     <section
-      className="relative pt-25 pb-20 bg-bigchill/5 overflow-hidden border-t-1"
+      id="contact"
+      className="relative pt-15 pb-20 bg-bigchill/5 overflow-hidden border-t-1"
       style={{ borderColor: "#7C3AED" }}
     >
       {/* Background Gradient/Mesh (Subtle) */}
@@ -99,7 +100,10 @@ export default function Questions() {
           <p className="text-lg text-gray-600 mb-8">
             Reach out directly and we'll answer anything.
           </p>
-          <button className="px-8 py-4 bg-bigchill text-white font-semibold rounded-lg hover:brightness-110 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 inline-flex items-center gap-2 group cursor-pointer">
+          <button
+            onClick={openModal}
+            className="px-8 py-4 bg-bigchill text-white font-semibold rounded-lg hover:brightness-110 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 inline-flex items-center gap-2 group cursor-pointer"
+          >
             Book a Free Call
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </button>

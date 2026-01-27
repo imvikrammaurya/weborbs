@@ -3,7 +3,10 @@ import { LayoutTemplate, LayoutGrid, LifeBuoy, ArrowRight } from "lucide-react";
 
 const WhatWeDo = () => {
   return (
-    <section className="bg-black text-white py-20 px-6 md:px-12 lg:px-24">
+    <section
+      id="services"
+      className="bg-black text-white py-20 px-6 md:px-12 lg:px-24"
+    >
       <div className="max-w-7xl mx-auto text-center">
         {/* Header Section */}
         <div className="mb-16 space-y-4">
@@ -60,9 +63,12 @@ const WhatWeDo = () => {
 
         {/* Footer Actions */}
         <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
-          <button className="bg-white/10 hover:bg-white/20 text-white px-8 py-3 rounded-lg font-medium transition-colors duration-300">
-            See How We Work
-          </button>
+          <a
+            href="#process"
+            className="bg-white/10 hover:bg-white/20 text-white px-8 py-3 rounded-lg font-medium transition-colors duration-300"
+          >
+            Explore our process
+          </a>
           {/* <a href="#" className="flex items-center gap-2 text-white font-medium hover:text-gray-300 transition-colors group">
                         Arrow <span className="group-hover:translate-x-1 transition-transform">&gt;</span>
                     </a> */}

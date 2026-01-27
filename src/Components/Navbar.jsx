@@ -55,10 +55,10 @@ const Navbar = () => {
   }, [isMobileMenuOpen]);
 
   const navLinks = [
-    { name: "Services", href: "#" },
-    { name: "Solutions", href: "#" },
-    { name: "Work", href: "#" },
-    { name: "About", href: "#" },
+    { name: "Services", href: "#services" },
+    { name: "Solutions", href: "#process" },
+    { name: "Work", href: "#testimonials" },
+    { name: "About", href: "#contact" },
   ];
 
   return (
@@ -75,18 +75,12 @@ const Navbar = () => {
             {/* Logo */}
             <div className="flex-shrink-0 flex items-center gap-2 cursor-pointer group">
               <div
-                className={`w-6 h-6 rounded flex items-center justify-center transition-colors ${
-                  isScrolled
-                    ? "bg-slate-900 text-white"
-                    : "bg-slate-900 text-white"
-                }`}
+                className={`w-6 h-6 rounded flex items-center justify-center transition-colors ${isScrolled ? "bg-slate-900 text-white" : "bg-slate-900 text-white"}`}
               >
                 <Globe size={14} strokeWidth={2.5} />
               </div>
               <span
-                className={`font-bold text-base tracking-tight transition-colors ${
-                  isScrolled ? "text-slate-900" : "text-slate-900"
-                }`}
+                className={`font-bold text-base tracking-tight transition-colors ${isScrolled ? "text-slate-900" : "text-slate-900"}`}
               >
                 WebOrbs
               </span>
@@ -107,8 +101,8 @@ const Navbar = () => {
                     flashingKey === link.name
                       ? "text-bigchill"
                       : activeLink === link.name
-                      ? "text-slate-900"
-                      : "text-slate-600 hover:text-slate-900"
+                        ? "text-slate-900"
+                        : "text-slate-600 hover:text-slate-900"
                   }`}
                 >
                   {link.name}
@@ -130,18 +124,16 @@ const Navbar = () => {
                   Resources
                   <ChevronDown
                     size={11}
-                    className={`transition-transform duration-200 ${
-                      isResourcesOpen ? "rotate-180" : ""
-                    }`}
+                    className={`transition-transform duration-200 ${isResourcesOpen ? "rotate-180" : ""}`}
                   />
                 </button>
 
-                {/* Dropdown Menu (Simple Hover + Click Toggle) */}
+                {/* Dropdown Menu (Click Toggle Only) */}
                 <div
                   className={`absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 transition-all duration-200 delay-150 transform origin-top-left ring-1 ring-black/5 ${
                     isResourcesOpen
                       ? "opacity-100 visible"
-                      : "opacity-0 invisible group-hover:opacity-100 group-hover:visible"
+                      : "opacity-0 invisible"
                   }`}
                 >
                   <a
@@ -234,8 +226,8 @@ const Navbar = () => {
                     flashingKey === link.name
                       ? "text-bigchill"
                       : activeLink === link.name
-                      ? "text-slate-900"
-                      : "text-slate-600"
+                        ? "text-slate-900"
+                        : "text-slate-600"
                   }`}
                   onClick={() => {
                     handleInteraction(link.name);
@@ -253,11 +245,7 @@ const Navbar = () => {
 
             <div className="flex flex-col">
               <button
-                className={`w-full flex items-center justify-between text-lg font-medium py-3 border-b border-slate-50 transition-colors ${
-                  flashingKey === "resources-mobile"
-                    ? "text-bigchill"
-                    : "text-slate-600"
-                }`}
+                className={`w-full flex items-center justify-between text-lg font-medium py-3 border-b border-slate-50 transition-colors ${flashingKey === "resources-mobile" ? "text-bigchill" : "text-slate-600"}`}
                 onClick={() => {
                   handleInteraction("resources-mobile");
                   setIsResourcesOpen(!isResourcesOpen);
@@ -266,9 +254,7 @@ const Navbar = () => {
                 Resources
                 <ChevronDown
                   size={16}
-                  className={`transition-transform duration-300 ${
-                    isResourcesOpen ? "rotate-180" : ""
-                  }`}
+                  className={`transition-transform duration-300 ${isResourcesOpen ? "rotate-180" : ""}`}
                 />
               </button>
 
@@ -302,11 +288,7 @@ const Navbar = () => {
             <div className="mt-6">
               <a
                 href="#"
-                className={`inline-block text-base font-medium transition-colors ${
-                  flashingKey === "signin-mobile"
-                    ? "text-bigchill"
-                    : "text-slate-900 hover:text-slate-600"
-                }`}
+                className={`inline-block text-base font-medium transition-colors ${flashingKey === "signin-mobile" ? "text-bigchill" : "text-slate-900 hover:text-slate-600"}`}
                 onClick={() => {
                   handleInteraction("signin-mobile");
                   setIsMobileMenuOpen(false);
@@ -318,8 +300,9 @@ const Navbar = () => {
 
             {/* Primary CTA at Bottom */}
             <div className="mt-auto pt-8 pb-4">
-              <button
-                className={`w-full text-lg font-medium py-4 rounded-xl shadow-sm transition-all ${
+              <a
+                href="#contact"
+                className={`w-full text-lg font-medium py-4 rounded-xl shadow-sm transition-all text-center block ${
                   flashingKey === "startproject-mobile"
                     ? "bg-white text-bigchill border-2 border-bigchill"
                     : "bg-slate-900 text-white hover:bg-slate-800"
@@ -330,7 +313,7 @@ const Navbar = () => {
                 }}
               >
                 Start a Project
-              </button>
+              </a>
             </div>
           </div>
         </div>

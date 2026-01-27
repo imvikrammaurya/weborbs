@@ -151,11 +151,11 @@ const Why = () => {
               {/* Inner Split Layout */}
               <div className="flex-1 flex items-center justify-between gap-20 relative z-10">
                 {/* Left Side: Navigation */}
-                <div className="w-1/3 flex flex-col space-y-6">
+                <div className="w-1/3 flex flex-col space-y-3">
                   {reasons.map((reason, idx) => (
                     <div
                       key={reason.id}
-                      className={`text-2xl font-medium transition-all duration-300 cursor-pointer flex items-center gap-4 ${
+                      className={`text-xl font-medium transition-all duration-300 cursor-pointer flex items-center gap-4 ${
                         idx === activeIndex
                           ? "text-white translate-x-2"
                           : "text-gray-600 hover:text-gray-400"
@@ -174,7 +174,7 @@ const Why = () => {
                 </div>
 
                 {/* Right Side: Dynamic Content */}
-                <div className="flex-1 relative h-[50vh] flex items-center">
+                <div className="flex-1 relative h-full flex items-center pb-8">
                   {reasons.map((reason, idx) => (
                     <motion.div
                       key={reason.id}
@@ -193,11 +193,11 @@ const Why = () => {
                         <reason.icon size={32} strokeWidth={1.5} />
                       </div>
 
-                      <h3 className="text-5xl md:text-6xl font-heading font-bold text-white mb-6 leading-tight">
+                      <h3 className="text-4xl md:text-5xl font-heading font-bold text-white mb-6 leading-tight">
                         {reason.title}
                       </h3>
 
-                      <p className="text-xl md:text-2xl text-gray-400/90 leading-relaxed font-light">
+                      <p className="text-lg md:text-xl text-gray-400/90 leading-relaxed font-light">
                         {reason.text}
                       </p>
                     </motion.div>

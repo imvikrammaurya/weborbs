@@ -28,10 +28,16 @@ const testimonials = [
   },
 ];
 
+import SplashCursor from "./SplashCursor";
+
 export default function ClientVoice() {
   return (
-    <div className="bg-[#111] text-white py-20 px-4 md:px-8 lg:px-16">
-      <div className="max-w-7xl mx-auto">
+    <div
+      id="testimonials"
+      className="relative bg-[#111] text-white py-20 px-4 md:px-8 lg:px-16 overflow-hidden"
+    >
+      <SplashCursor />
+      <div className="relative z-10 max-w-7xl mx-auto">
         <div className="mb-16">
           <h2 className="text-5xl md:text-6xl font-bold mb-4 tracking-tight">
             Client voices
