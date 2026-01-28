@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X, ChevronDown, Globe } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -8,10 +9,33 @@ const Navbar = () => {
   const [flashingKey, setFlashingKey] = useState(null);
   const [isVisible, setIsVisible] = useState(true);
   const [isResourcesOpen, setIsResourcesOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const isHomePage = location.pathname === "/";
 
   const handleInteraction = (key) => {
     setFlashingKey(key);
     setTimeout(() => setFlashingKey(null), 200);
+  };
+
+  const handleNavigation = (href) => {
+    if (!href.startsWith("#")) {
+      // It's a page navigation (e.g. /about)
+      return;
+    }
+
+    // It's a hash link
+    if (isHomePage) {
+      // If on home, typical anchor behavior (scroll)
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      // If on another page, navigate to home then scroll
+      navigate(`/${href}`);
+    }
   };
 
   // Scroll detection
@@ -58,7 +82,7 @@ const Navbar = () => {
     { name: "Services", href: "#services" },
     { name: "Solutions", href: "#process" },
     { name: "Work", href: "#testimonials" },
-    { name: "About", href: "#contact" },
+    { name: "About", href: "/about" },
   ];
 
   return (
@@ -73,14 +97,25 @@ const Navbar = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-6">
             {/* Logo */}
-            <div className="flex-shrink-0 flex items-center gap-2 cursor-pointer group">
+            <div
+              className="flex-shrink-0 flex items-center gap-2 cursor-pointer group"
+              onClick={() => navigate("/")}
+            >
               <div
-                className={`w-6 h-6 rounded flex items-center justify-center transition-colors ${isScrolled ? "bg-slate-900 text-white" : "bg-slate-900 text-white"}`}
+                className={`w-6 h-6 rounded flex items-center justify-center transition-colors ${
+                  location.pathname === "/about" && !isScrolled
+                    ? "bg-white text-slate-900"
+                    : "bg-slate-900 text-white"
+                }`}
               >
                 <Globe size={14} strokeWidth={2.5} />
               </div>
               <span
-                className={`font-bold text-base tracking-tight transition-colors ${isScrolled ? "text-slate-900" : "text-slate-900"}`}
+                className={`font-bold text-base tracking-tight transition-colors ${
+                  location.pathname === "/about" && !isScrolled
+                    ? "text-white"
+                    : "text-slate-900"
+                }`}
               >
                 WebOrbs
               </span>
@@ -88,26 +123,53 @@ const Navbar = () => {
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-4">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => {
-                    setActiveLink(link.name);
-                    handleInteraction(link.name);
-                    setIsResourcesOpen(false); // Close dropdown if other link clicked
-                  }}
-                  className={`text-sm font-medium transition-colors ${
-                    flashingKey === link.name
-                      ? "text-bigchill"
-                      : activeLink === link.name
-                        ? "text-slate-900"
-                        : "text-slate-600 hover:text-slate-900"
-                  }`}
-                >
-                  {link.name}
-                </a>
-              ))}
+              {navLinks.map((link) =>
+                link.href.startsWith("#") ? (
+                  <button
+                    key={link.name}
+                    onClick={() => {
+                      setActiveLink(link.name);
+                      handleInteraction(link.name);
+                      handleNavigation(link.href);
+                      setIsResourcesOpen(false);
+                    }}
+                    className={`text-sm font-medium transition-colors ${
+                      flashingKey === link.name
+                        ? "text-bigchill"
+                        : activeLink === link.name && isHomePage
+                          ? "text-slate-900"
+                          : location.pathname === "/about" && !isScrolled
+                            ? "text-white hover:text-gray-300"
+                            : "text-slate-600 hover:text-slate-900"
+                    }`}
+                  >
+                    {link.name}
+                  </button>
+                ) : (
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    onClick={() => {
+                      setActiveLink(link.name);
+                      handleInteraction(link.name);
+                      setIsResourcesOpen(false);
+                    }}
+                    className={`text-sm font-medium transition-colors ${
+                      flashingKey === link.name
+                        ? "text-bigchill"
+                        : location.pathname === link.href
+                          ? link.href === "/about" && !isScrolled
+                            ? "text-white"
+                            : "text-slate-900"
+                          : location.pathname === "/about" && !isScrolled
+                            ? "text-white hover:text-gray-300"
+                            : "text-slate-600 hover:text-slate-900"
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                ),
+              )}
 
               <div className="relative group">
                 <button
@@ -118,7 +180,9 @@ const Navbar = () => {
                   className={`flex items-center gap-1 text-sm font-medium transition-colors focus:outline-none ${
                     flashingKey === "resources"
                       ? "text-bigchill"
-                      : "text-slate-600 hover:text-slate-900"
+                      : location.pathname === "/about" && !isScrolled
+                        ? "text-white hover:text-gray-300"
+                        : "text-slate-600 hover:text-slate-900"
                   }`}
                 >
                   Resources
@@ -163,10 +227,12 @@ const Navbar = () => {
               <a
                 href="#"
                 onClick={() => handleInteraction("signin")}
-                className={`font-medium text-sm transition-colors border border-slate-200 hover:border-slate-400 px-4 py-1 rounded-full ${
+                className={`font-medium text-sm transition-colors border px-4 py-1 rounded-full ${
                   flashingKey === "signin"
                     ? "text-bigchill border-bigchill"
-                    : "text-slate-600 hover:text-slate-900"
+                    : location.pathname === "/about" && !isScrolled
+                      ? "text-white border-white/20 hover:border-white hover:bg-white/10"
+                      : "text-slate-600 border-slate-200 hover:border-slate-400 hover:text-slate-900"
                 }`}
               >
                 Sign in
@@ -177,7 +243,11 @@ const Navbar = () => {
             <div className="md:hidden flex items-center">
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="text-slate-800 hover:text-slate-600 focus:outline-none p-1"
+                className={`focus:outline-none p-1 transition-colors ${
+                  location.pathname === "/about" && !isScrolled
+                    ? "text-white hover:text-gray-300"
+                    : "text-slate-800 hover:text-slate-600"
+                }`}
                 aria-label="Toggle menu"
               >
                 {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -218,26 +288,47 @@ const Navbar = () => {
           {/* Mobile Content */}
           <div className="flex-1 flex flex-col px-6 py-6 overflow-y-auto">
             <div className="flex flex-col space-y-1">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className={`text-lg font-medium py-3 border-b border-slate-50 transition-colors ${
-                    flashingKey === link.name
-                      ? "text-bigchill"
-                      : activeLink === link.name
-                        ? "text-slate-900"
-                        : "text-slate-600"
-                  }`}
-                  onClick={() => {
-                    handleInteraction(link.name);
-                    setActiveLink(link.name);
-                    setIsMobileMenuOpen(false);
-                  }}
-                >
-                  {link.name}
-                </a>
-              ))}
+              {navLinks.map((link) =>
+                link.href.startsWith("#") ? (
+                  <button
+                    key={link.name}
+                    onClick={() => {
+                      handleInteraction(link.name);
+                      setActiveLink(link.name);
+                      handleNavigation(link.href);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className={`text-lg font-medium py-3 border-b border-slate-50 transition-colors text-left ${
+                      flashingKey === link.name
+                        ? "text-bigchill"
+                        : activeLink === link.name && isHomePage
+                          ? "text-slate-900"
+                          : "text-slate-600"
+                    }`}
+                  >
+                    {link.name}
+                  </button>
+                ) : (
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    className={`text-lg font-medium py-3 border-b border-slate-50 transition-colors text-left ${
+                      flashingKey === link.name
+                        ? "text-bigchill"
+                        : location.pathname === link.href
+                          ? "text-slate-900"
+                          : "text-slate-600"
+                    }`}
+                    onClick={() => {
+                      handleInteraction(link.name);
+                      setActiveLink(link.name);
+                      setIsMobileMenuOpen(false);
+                    }}
+                  >
+                    {link.name}
+                  </Link>
+                ),
+              )}
             </div>
 
             {/* Subtle Divider before Resources */}
@@ -309,6 +400,7 @@ const Navbar = () => {
                 }`}
                 onClick={() => {
                   handleInteraction("startproject-mobile");
+                  handleNavigation("#contact");
                   setIsMobileMenuOpen(false);
                 }}
               >
