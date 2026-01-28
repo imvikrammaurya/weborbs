@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
+import WorkWithUsModal from "./WorkWithUsModal";
 import {
   Server,
   Smartphone,
@@ -57,6 +58,10 @@ const Card = ({ icon: Icon, title, description, children }) => (
 );
 
 const About = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => setIsModalOpen(true);
+  const handleCloseModal = () => setIsModalOpen(false);
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white selection:bg-[var(--color-bigchill)] selection:text-white">
       {/* Background Ambience */}
@@ -661,17 +666,25 @@ const About = () => {
               </h3>
               <p className="text-gray-400 mb-6 max-w-2xl mx-auto">
                 If you are a skilled developer, designer, tester, or DevOps
-                engineer, apply through our Join Us form. When clients read
-                this, they won’t see “a small team.” They’ll see a professional
-                network-driven company.
+                engineer, apply through our Join Us form.
               </p>
-              <button className="px-8 py-4 bg-[var(--color-bigchill)] text-white font-bold rounded-full hover:bg-opacity-90 transition-all">
+              <motion.button
+                onClick={handleOpenModal}
+                whileHover={{
+                  boxShadow: "0px 0px 20px rgba(14, 165, 164, 0.6)",
+                }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                className="px-8 py-4 bg-[var(--color-bigchill)] text-white font-bold rounded-full"
+              >
                 Join Our Network
-              </button>
+              </motion.button>
             </motion.div>
           </div>
         </Section>
       </div>
+
+      <WorkWithUsModal isOpen={isModalOpen} onClose={handleCloseModal} />
     </div>
   );
 };
