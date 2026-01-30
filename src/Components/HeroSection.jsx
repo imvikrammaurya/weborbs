@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Code, ShieldCheck, Zap } from "lucide-react";
+import { Link } from "react-router-dom";
 
 // Import assets
 import dashboardImg from "../assets/dashboard_analytics_dark_1767871281648.png";
@@ -249,20 +250,20 @@ const HeroSection = ({ openModal }) => {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4"
         >
-          <a
-            href="#contact"
+          <Link
+            to="/contact"
             className="w-full sm:w-auto px-8 py-4 bg-bigchill text-white font-semibold rounded-lg hover:brightness-110 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2 group"
           >
             Let’s Build Your Product
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </a>
-          <a
-            href="#services"
+          </Link>
+          <Link
+            to="/learn-more"
             className="w-full sm:w-auto px-8 py-4 bg-white text-gray-700 font-semibold rounded-lg border border-gray-200 hover:bg-gray-50 hover:border-bigchill/30 transition-all duration-200 flex items-center justify-center gap-2"
           >
             Learn More
             <Code className="w-4 h-4 text-gray-500" />
-          </a>
+          </Link>
         </motion.div>
 
         {/* Secondary CTA */}

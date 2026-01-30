@@ -5,6 +5,8 @@ import About from "./Components/About";
 import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
 
+import LearnMore from "./Components/LearnMore";
+
 function App() {
   return (
     <Router>
@@ -12,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<AllComponents />} />
         <Route path="/about" element={<About />} />
+        <Route path="/learn-more" element={<LearnMore />} />
       </Routes>
       <Footer />
     </Router>
