@@ -2,19 +2,18 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import WorkWithUsModal from "./WorkWithUsModal";
 import {
-  Server,
-  Smartphone,
   ShieldCheck,
-  Palette,
-  Cloud,
-  DollarSign,
-  CheckCircle,
+  Ruler,
   ArrowRight,
-  Monitor,
-  Layout,
-  Zap,
+  Server,
+  Cpu,
+  Globe,
+  Network,
+  CheckCircle,
+  XCircle,
 } from "lucide-react";
 
+// --- Animation Variants ---
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
@@ -25,7 +24,7 @@ const staggerContainer = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
+      staggerChildren: 0.15,
     },
   },
 };
@@ -42,649 +41,673 @@ const Section = ({ children, className = "" }) => (
   </motion.section>
 );
 
-const Card = ({ icon: Icon, title, description, children }) => (
+// --- SVG Logos (Simplified for clarity) ---
+const TechLogos = {
+  React: () => (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      className="w-12 h-12"
+    >
+      <circle cx="12" cy="12" r="3" />
+      <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(0 12 12)" />
+      <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)" />
+      <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)" />
+    </svg>
+  ),
+  NextJS: () => (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      className="w-12 h-12"
+    >
+      <path d="M4 4h16v16H4z" strokeOpacity="0.5" />
+      <path d="M9 8l6 8" />
+      <path d="M15 8v8" />
+      <path d="M9 16V8" />
+    </svg>
+  ),
+  NodeJS: () => (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      className="w-12 h-12"
+    >
+      <path d="M12 3l9 5v8l-9 5-9-5V8l9-5z" />
+      <path d="M12 12v9" />
+      <path d="M12 12l9-5" />
+      <path d="M12 12L3 7" />
+    </svg>
+  ),
+  AWS: () => (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      className="w-12 h-12"
+    >
+      <path d="M4 14c2 3 8 4 11 2 2-1 3-3 3-3" />
+      <path d="M9 9l3 3-3 3" />
+      <path d="M17 9l-1 1" />
+    </svg>
+  ),
+  TypeScript: () => (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      className="w-12 h-12"
+    >
+      <rect x="4" y="4" width="16" height="16" rx="2" strokeOpacity="0.5" />
+      <path d="M8 18v-6h4" />
+      <path d="M16 18c0-2-3-2-3-4s3-2 3 0" />
+    </svg>
+  ),
+  Docker: () => (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      className="w-12 h-12"
+    >
+      <path d="M4 16h16v4H4z" />
+      <path d="M4 12h4v4H4z" />
+      <path d="M8 12h4v4H8z" />
+      <path d="M12 12h4v4h-4z" />
+      <path d="M12 8h4v4h-4z" />
+      <path d="M8 8h4v4H8z" />
+    </svg>
+  ),
+  PostgreSQL: () => (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      className="w-12 h-12"
+    >
+      <path d="M12 3c-4.5 0-8 3-8 8 0 3.5 2.5 6.5 6 7.5l-1 2.5h6l-1-2.5c3.5-1 6-4 6-7.5 0-5-3.5-8-8-8z" />
+      <path d="M12 8v4" />
+    </svg>
+  ),
+  Tailwind: () => (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      className="w-12 h-12"
+    >
+      <path d="M4 12c0-2 2-4 4-4 2 0 4 2 4 4 0 2-2 4-4 4-2 0-4-2-4-4z" />
+      <path d="M16 12c0-2 2-4 4-4 2 0 4 2 4 4 0 2-2 4-4 4-2 0-4-2-4-4z" />
+      <path d="M8 16c2 2 6 2 8 0" />
+    </svg>
+  ),
+};
+
+// --- Sub-Components ---
+
+const BentoCard = ({
+  title,
+  subtitle,
+  icon: Icon,
+  size = "medium",
+  bgClass = "bg-white/5",
+  iconColor = "text-[var(--color-bigchill)]",
+}) => {
+  const sizeClasses = {
+    large: "md:col-span-2 md:row-span-2 min-h-[300px]",
+    medium: "md:col-span-1 md:row-span-1 min-h-[200px]",
+    wide: "md:col-span-2 min-h-[200px]",
+  };
+
+  // Center content for large cards
+  const isLarge = size === "large";
+
+  return (
+    <motion.div
+      variants={fadeInUp}
+      whileHover={{ y: -5 }}
+      className={`relative overflow-hidden rounded-3xl p-8 glass-panel border border-white/5 ${bgClass} ${sizeClasses[size]} group flex flex-col`}
+    >
+      {/* Watermark Icon */}
+      <div
+        className={`absolute pointer-events-none opacity-5 transition-opacity duration-500 group-hover:opacity-10 
+                ${isLarge ? "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-150" : "top-0 right-0 p-4"}`}
+      >
+        <Icon
+          size={isLarge ? 240 : 120}
+          className={iconColor}
+          strokeWidth={isLarge ? 0.5 : 1}
+        />
+      </div>
+
+      <div
+        className={`relative z-10 h-full flex flex-col ${isLarge ? "justify-center items-center text-center" : "justify-end"}`}
+      >
+        <div
+          className={`mb-6 p-4 ${isLarge ? "bg-[var(--color-bigchill)]/10 text-[var(--color-bigchill)] w-20 h-20 flex items-center justify-center rounded-2xl" : `${iconColor === "text-white" ? "bg-white/20" : "bg-[var(--color-bigchill)]/20"} w-fit rounded-xl ${iconColor}`}`}
+        >
+          <Icon
+            size={isLarge ? 48 : 32}
+            fill="currentColor"
+            fillOpacity={0.2}
+            strokeWidth={2}
+          />
+        </div>
+        <h3
+          className={`text-2xl md:text-3xl font-bold font-serif mb-4 ${isLarge ? "" : ""}`}
+        >
+          {title}
+        </h3>
+        <p
+          className={`text-gray-400 group-hover:text-gray-300 transition-colors leading-relaxed ${isLarge ? "text-lg max-w-lg" : ""}`}
+        >
+          {subtitle}
+        </p>
+      </div>
+    </motion.div>
+  );
+};
+
+const FounderCard = ({
+  name,
+  role,
+  description,
+  icon: Icon,
+  skills,
+  align = "left",
+}) => (
   <motion.div
     variants={fadeInUp}
-    whileHover={{ y: -5 }}
-    className="glass-panel p-6 rounded-2xl h-full flex flex-col items-start border-l-4 border-l-[var(--color-bigchill)]"
+    className="glass-panel p-8 rounded-3xl border border-white/10 hover:border-[var(--color-bigchill)]/50 transition-all duration-300 relative overflow-hidden h-full"
   >
-    <div className="p-3 bg-[var(--color-bigchill)]/10 rounded-lg mb-4 text-[var(--color-bigchill)]">
-      <Icon size={32} />
+    <div className={`flex flex-col gap-6 relative z-10 h-full`}>
+      {/* Header */}
+      <div
+        className={`flex flex-col md:flex-row gap-5 items-center ${align === "right" ? "md:flex-row-reverse md:text-right" : "md:flex-row md:text-left"}`}
+      >
+        <div
+          className={`w-24 h-24 shrink-0 rounded-full flex items-center justify-center bg-gradient-to-br from-gray-800 to-black border-2 border-white/10 shadow-xl group-hover:border-[var(--color-bigchill)]/30`}
+        >
+          <Icon
+            size={40}
+            className="text-gray-300"
+            fill="currentColor"
+            fillOpacity={0.2}
+            strokeWidth={1.5}
+          />
+        </div>
+        <div className="flex-1 text-center md:text-left">
+          <div className={align === "right" ? "md:text-right" : ""}>
+            <h3 className="text-2xl font-bold font-serif mb-1">{name}</h3>
+            <p className="text-[var(--color-bigchill)] font-bold tracking-wide text-sm uppercase">
+              {role}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div
+        className={`flex-1 ${align === "right" ? "md:text-right" : "md:text-left"}`}
+      >
+        <p className="text-gray-300 leading-relaxed text-base opacity-90">
+          {description}
+        </p>
+      </div>
+
+      {/* Skills */}
+      <div
+        className={`flex flex-wrap gap-2 mt-auto pt-6 ${align === "right" ? "justify-center md:justify-end" : "justify-center md:justify-start"}`}
+      >
+        {skills.map((skill, i) => (
+          <span
+            key={i}
+            className="px-3 py-1 bg-white/5 rounded-full text-xs font-semibold text-gray-400 border border-white/5 hover:bg-white/10 hover:text-white transition-colors cursor-default"
+          >
+            {skill}
+          </span>
+        ))}
+      </div>
     </div>
-    <h3 className="text-xl font-bold mb-3 font-heading">{title}</h3>
-    {description && <p className="text-gray-400 mb-4">{description}</p>}
-    <div className="text-sm text-gray-400">{children}</div>
   </motion.div>
 );
+
+const TimelineStep = ({ step, title, description, isActive, isCompleted }) => (
+  <div
+    className={`flex-1 relative group min-w-[140px] md:min-w-0 ${isActive || isCompleted ? "opacity-100" : "opacity-60 hover:opacity-100"} transition-opacity p-2`}
+  >
+    <div className="flex items-center mb-4">
+      <div
+        className={`relative w-12 h-12 rounded-full flex items-center justify-center border-2 font-bold z-10 transition-all duration-500 
+                ${
+                  isActive || isCompleted
+                    ? "border-[var(--color-bigchill)] bg-[var(--color-bigchill)] text-white" +
+                      (isActive
+                        ? " shadow-[0_0_20px_rgba(14,165,164,0.6)] scale-110"
+                        : "")
+                    : "border-white/20 bg-black/50 text-gray-400 group-hover:border-[var(--color-bigchill)] group-hover:text-[var(--color-bigchill)]"
+                }`}
+      >
+        {step}
+      </div>
+      <div
+        className={`flex-1 h-0.5 ml-3 transition-colors duration-500 rounded-full ${isCompleted ? "bg-[var(--color-bigchill)] shadow-[0_0_10px_rgba(14,165,164,0.4)]" : "bg-white/10 group-hover:bg-[var(--color-bigchill)]/30"}`}
+      />
+    </div>
+    <h4
+      className={`text-lg font-bold mb-1 transition-colors ${isActive || isCompleted ? "text-[var(--color-bigchill)]" : "text-gray-200 group-hover:text-white"}`}
+    >
+      {title}
+    </h4>
+    <p className="text-gray-500 text-sm group-hover:text-gray-300 transition-colors duration-300 leading-snug">
+      {description}
+    </p>
+  </div>
+);
+
+const TechMarquee = () => {
+  // Array of Logo Components
+  const logos = [
+    { c: TechLogos.React, n: "React" },
+    { c: TechLogos.NextJS, n: "Next.js" },
+    { c: TechLogos.TypeScript, n: "TypeScript" },
+    { c: TechLogos.NodeJS, n: "Node.js" },
+    { c: TechLogos.AWS, n: "AWS" },
+    { c: TechLogos.Docker, n: "Docker" },
+    { c: TechLogos.PostgreSQL, n: "PostgreSQL" },
+    { c: TechLogos.Tailwind, n: "Tailwind" },
+  ];
+
+  return (
+    <div className="w-full overflow-hidden bg-white/5 py-12 border-y border-white/5">
+      <div className="relative flex overflow-x-hidden group">
+        <div className="animate-marquee group-hover:[animation-play-state:paused] whitespace-nowrap flex gap-20 items-center pl-10">
+          {[...logos, ...logos, ...logos].map((item, i) => (
+            <div
+              key={i}
+              className="group/logo flex flex-col items-center gap-3 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer transform hover:scale-110"
+            >
+              <item.c />
+            </div>
+          ))}
+        </div>
+        <div className="absolute top-0 animate-marquee2 group-hover:[animation-play-state:paused] whitespace-nowrap flex gap-20 items-center pl-10">
+          {[...logos, ...logos, ...logos].map((item, i) => (
+            <div
+              key={`dup-${i}`}
+              className="group/logo flex flex-col items-center gap-3 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer transform hover:scale-110"
+            >
+              <item.c />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const About = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleOpenModal = () => setIsModalOpen(true);
-  const handleCloseModal = () => setIsModalOpen(false);
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white selection:bg-[var(--color-bigchill)] selection:text-white">
+    <div className="min-h-screen bg-[#0a0a0a] text-white selection:bg-[var(--color-bigchill)] selection:text-white font-sans">
       {/* Background Ambience */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-[var(--color-bigchill)]/10 rounded-full blur-[100px] animate-blob" />
-        <div className="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-purple-900/10 rounded-full blur-[100px] animate-blob animation-delay-2000" />
+        <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-[var(--color-bigchill)]/5 rounded-full blur-[120px] animate-blob" />
+        <div className="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-indigo-900/10 rounded-full blur-[120px] animate-blob animation-delay-2000" />
       </div>
 
       <div className="relative z-10">
-        {/* Hero Section */}
-        <Section className="min-h-[80vh] flex flex-col justify-center items-center text-center pt-32">
+        {/* 1. Narrative Hero */}
+        <Section className="min-h-[85vh] flex flex-col justify-center items-center text-center pt-32 pb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="mb-8 px-5 py-2 rounded-full border border-white/10 bg-white/5 text-sm font-medium text-gray-400 tracking-wide uppercase"
+          >
+            Engineering Value, Not Just Code
+          </motion.div>
+
           <motion.h1
-            className="text-5xl md:text-7xl font-bold font-heading mb-6 tracking-tight"
-            initial={{ opacity: 0, scale: 0.9 }}
+            className="text-5xl md:text-7xl font-bold font-serif mb-8 tracking-tight max-w-5xl leading-[1.1]"
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
           >
-            About <span className="text-[var(--color-bigchill)]">WebOrbs</span>
+            The <span className="text-[var(--color-bigchill)]">WebOrbs</span>{" "}
+            Story
           </motion.h1>
-          <motion.p
-            className="text-lg md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed"
-            variants={fadeInUp}
-          >
-            We designs, builds, manages, and scales websites, web applications,
-            and mobile applications for businesses of all sizes.
-          </motion.p>
+
           <motion.div
             variants={fadeInUp}
-            className="mt-12 p-8 border border-white/10 rounded-3xl bg-white/5 backdrop-blur-sm max-w-5xl"
+            className="max-w-3xl mx-auto space-y-8 text-lg md:text-xl text-gray-300 leading-relaxed font-light"
           >
-            <p className="text-xl text-gray-200">
-              Our approach is simple: deliver premium-quality products using
-              modern technologies while keeping the cost as low as possible. We
-              believe that great software should be smart, efficient,
-              transparent, and affordable.
+            <p>
+              At WebOrbs, we noticed a flaw in the software industry: businesses
+              were forced to choose between{" "}
+              <span className="text-gray-500 font-normal">expensive</span>,{" "}
+              <span className="text-gray-500 font-normal">
+                slow-moving agencies
+              </span>{" "}
+              or{" "}
+              <span className="text-gray-500 font-normal">
+                unreliable, solitary freelancers
+              </span>
+              . We built{" "}
+              <span className="text-[var(--color-bigchill)] font-semibold">
+                WebOrbs
+              </span>{" "}
+              to be the{" "}
+              <span className="text-[var(--color-bigchill)] font-semibold">
+                Bridge
+              </span>
+              .
+            </p>
+            <p>
+              We are a modern digital agency that combines the stability of
+              corporate architecture with the agility of a distributed freelance
+              network. We strip away the "agency fluff"—expensive offices and
+              idle employees—and pass those savings directly to you.
             </p>
           </motion.div>
         </Section>
 
-        {/* Philosophy */}
+        {/* 2. Philosophy Bento Grid */}
         <Section>
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold font-heading mb-6">
-              No “One-Size-Fits-All”
-            </h2>
-            <p className="text-gray-300 text-lg leading-relaxed">
-              We don’t build “one-size-fits-all” products. Every project is
-              tailored according to your business size, audience, and goals. You
-              only pay for what you actually need. No unnecessary features. No
-              overpowered infrastructure. No hidden costs.
-            </p>
-          </div>
-        </Section>
-
-        {/* Team Structure */}
-        <Section>
-          <div className="mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold font-heading mb-6">
-              Our Team Structure
-            </h2>
-            <p className="text-gray-300 max-w-3xl text-lg">
-              At WebOrbs, we operate with a distributed and highly flexible team
-              model. Instead of limiting ourselves to a small in-house team, we
-              collaborate with multiple skilled professionals from all over
-              India on a freelance basis.
-            </p>
-          </div>
-
           <motion.div
             variants={staggerContainer}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:grid-rows-2 gap-6 max-w-6xl mx-auto"
           >
-            <Card
-              icon={Layout}
-              title="Front-End Developers"
-              description="Specialists in modern UI/UX design, responsive layouts, animations, and performance-optimized interfaces."
-            >
-              <ul className="list-disc pl-4 space-y-1">
-                <li>React, Next.js</li>
-                <li>TypeScript</li>
-                <li>Advanced CSS</li>
-              </ul>
-            </Card>
+            <BentoCard
+              size="large"
+              icon={Ruler}
+              title="No One-Size-Fits-All"
+              subtitle="We don’t sell you enterprise-grade AWS servers if you only need a lightweight database. Whether you are a local gym or a SaaS startup, we custom-engineer your tech stack to fit your budget."
+            />
 
-            <Card
-              icon={Server}
-              title="Back-End Developers"
-              description="Professionals experienced in building secure, scalable, and high-performance systems."
-            >
-              <ul className="list-disc pl-4 space-y-1">
-                <li>Node.js, Express</li>
-                <li>MongoDB, PostgreSQL</li>
-                <li>Cloud Services, APIs</li>
-              </ul>
-            </Card>
+            <BentoCard
+              size="medium"
+              icon={Network}
+              title="The Freelance Advantage"
+              subtitle="Access to top-tier talent across India without the agency markup. We recruit strictly on a project basis."
+              bgClass="bg-gradient-to-br from-indigo-900/20 to-black border-indigo-500/20"
+              iconColor="text-indigo-400"
+            />
 
-            <Card
-              icon={Smartphone}
-              title="Mobile App Developers"
-              description="Developers focused on creating fast, smooth, and user-friendly mobile applications."
-            >
-              <ul className="list-disc pl-4 space-y-1">
-                <li>React Native</li>
-                <li>Cross-platform</li>
-                <li>Modern Frameworks</li>
-              </ul>
-            </Card>
-
-            <Card
+            <BentoCard
+              size="medium"
               icon={ShieldCheck}
-              title="Testing & QA Team"
-              description="A dedicated group ensuring every product is bug-free, optimized, and secure."
-            >
-              <ul className="list-disc pl-4 space-y-1">
-                <li>Bug-free</li>
-                <li>Performance-optimized</li>
-                <li>Secure & Fully functional</li>
-              </ul>
-            </Card>
-
-            <Card
-              icon={Palette}
-              title="UI/UX Designers"
-              description="Designers who craft clean, modern, and professional interfaces that focus on user experience and conversion."
-            >
-              <p>Modern & Professional Interfaces.</p>
-            </Card>
-
-            <Card
-              icon={Cloud}
-              title="DevOps & Deployment"
-              description="Experts handling hosting, CI/CD pipelines, server optimization, and security."
-            >
-              <ul className="list-disc pl-4 space-y-1">
-                <li>Hosting & CI/CD</li>
-                <li>Cloud Infrastructure</li>
-                <li>Security Configurations</li>
-              </ul>
-            </Card>
+              title="Transparent Pricing"
+              subtitle="No hidden costs. Detailed contracts. You pay for engineering, not our office rent."
+            />
           </motion.div>
-
-          <div className="mt-12 bg-[var(--color-bigchill)]/10 border border-[var(--color-bigchill)]/20 p-8 rounded-2xl">
-            <h3 className="text-2xl font-bold font-heading mb-4 text-[var(--color-bigchill)]">
-              The Advantage
-            </h3>
-            <p className="text-gray-300 mb-4">
-              We can scale our team instantly depending on your project size.
-            </p>
-            <div className="grid md:grid-cols-2 gap-4">
-              <div className="bg-black/20 p-4 rounded-lg">
-                <strong className="text-white block mb-1">
-                  Small Project?
-                </strong>
-                <span className="text-gray-400">
-                  We assign a compact, efficient team.
-                </span>
-              </div>
-              <div className="bg-black/20 p-4 rounded-lg">
-                <strong className="text-white block mb-1">
-                  Large Project?
-                </strong>
-                <span className="text-gray-400">
-                  We deploy multiple specialists at once.
-                </span>
-              </div>
-            </div>
-            <p className="mt-4 font-semibold text-white">
-              You get the power of a large development company without paying
-              enterprise-level prices.
-            </p>
-          </div>
         </Section>
 
-        {/* Comparison Section */}
-        <Section className="bg-white/5">
-          <h2 className="text-3xl md:text-4xl font-bold font-heading mb-8 text-center">
-            Why Our Team Model Works Better
-          </h2>
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <h3 className="text-2xl font-bold text-red-400">
-                Traditional Agencies
-              </h3>
-              <p className="text-gray-400">
-                Hire full-time employees, which increases overhead costs. Those
-                costs are passed on to clients.
-              </p>
-              <div className="h-px bg-white/10 w-full" />
-              <p className="text-gray-500 italic">
-                "High Overhead = High Prices"
-              </p>
-            </div>
-
-            <div className="space-y-6">
-              <h3 className="text-2xl font-bold text-[var(--color-bigchill)]">
-                WebOrbs Approach
-              </h3>
-              <p className="text-gray-300">Our freelance-based model means:</p>
-              <ul className="space-y-3">
-                {[
-                  "Lower operational costs",
-                  "Faster hiring of specialized talent",
-                  "Access to top developers from across India",
-                  "More affordable pricing for clients",
-                  "Better quality control",
-                ].map((item, i) => (
-                  <li key={i} className="flex items-center space-x-3">
-                    <CheckCircle
-                      size={20}
-                      className="text-[var(--color-bigchill)]"
-                    />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-              <p className="text-gray-300 mt-4 border-l-4 border-[var(--color-bigchill)] pl-4">
-                We avoid that. We don’t compromise on skill. We only collaborate
-                with freelancers who are proven in their domain and have strong
-                real-world project experience.
-              </p>
-            </div>
-          </div>
-        </Section>
-
-        {/* Project Allocation */}
+        {/* 3. Leadership & Core Strategy */}
         <Section>
-          <h2 className="text-3xl md:text-4xl font-bold font-heading mb-8 text-center">
-            Project-Based Team Allocation
-          </h2>
-          <div className="glass-panel p-8 rounded-2xl max-w-3xl mx-auto text-center">
-            <p className="text-lg text-gray-300 mb-6">
-              For every project, we create a custom team that may include:
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              {[
-                "1–2 Front-End Developers",
-                "1–2 Back-End Developers",
-                "1 QA Engineer",
-                "1 UI/UX Designer",
-                "1 Deployment Specialist",
-              ].map((role, i) => (
-                <span
-                  key={i}
-                  className="px-4 py-2 bg-white/10 rounded-full text-sm font-medium border border-white/10 hover:bg-[var(--color-bigchill)] hover:border-[var(--color-bigchill)] transition-colors"
-                >
-                  {role}
-                </span>
-              ))}
-            </div>
-            <p className="mt-8 text-xl font-semibold text-[var(--color-bigchill)]">
-              This ensures that your product is built by specialists, not
-              generalists.
-            </p>
-          </div>
-        </Section>
-
-        {/* Trust */}
-        <Section>
-          <div className="text-center max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold font-heading mb-6">
-              Trust Through Structure, Not Size
+          <div className="mb-20 text-center">
+            <h2 className="text-4xl md:text-5xl font-bold font-serif mb-6">
+              Leadership & Core Strategy
             </h2>
-            <p className="text-gray-300 mb-8">
-              We don’t believe that a company’s credibility comes from showing
-              how many “core members” it has. It comes from:
+            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+              WebOrbs is driven by two distinct forces: Creative Innovation and
+              Corporate Stability.
             </p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {[
-                { label: "Quality of Work", icon: Zap },
-                { label: "Structure of Workflow", icon: Layout },
-                { label: "Transparency", icon: Monitor },
-                { label: "Results Delivered", icon: CheckCircle },
-              ].map((item, i) => (
-                <div
-                  key={i}
-                  className="flex flex-col items-center p-4 bg-white/5 rounded-xl"
-                >
-                  <item.icon
-                    className="text-[var(--color-bigchill)] mb-3"
-                    size={28}
-                  />
-                  <span className="font-medium text-center">{item.label}</span>
-                </div>
-              ))}
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto mb-8 auto-rows-fr">
+            <FounderCard
+              name="Vikram Maurya"
+              role="Head of Product & Design"
+              icon={Cpu}
+              description="With a deep focus on Product Strategy and User Interface Design, Vikram ensures your product isn't just built, but crafted for user retention. As a specialist in Generative AI, he orchestrates the integration of AI tools to accelerate development."
+              skills={[
+                "Product Strategy",
+                "UI/UX Design",
+                "Generative AI",
+                "Web Security",
+              ]}
+            />
+
+            <FounderCard
+              name="Nishant Singh"
+              role="Head of Engineering & Operations"
+              icon={Server}
+              align="right"
+              description="Coming from a rigorous background in US Healthcare Operations, Nishant brings unmatched discipline to our infrastructure. He oversees the technical delivery network, ensuring that our systems scale seamlessly without crashing."
+              skills={[
+                "System Architecture",
+                "Cloud Operations",
+                "Scalability",
+                "Team Management",
+              ]}
+            />
+          </div>
+
+          {/* The Delivery Network Card */}
+          <motion.div
+            variants={fadeInUp}
+            className="max-w-6xl mx-auto rounded-3xl p-10 relative overflow-hidden glass-panel border border-white/10 group mt-8"
+          >
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
+            <div className="absolute top-0 right-0 p-10 opacity-30 text-[var(--color-bigchill)] pointer-events-none">
+              <Globe size={300} strokeWidth={0.5} />
             </div>
-            <p className="mt-8 text-gray-400 text-sm">
-              Our distributed team structure allows us to handle multiple
-              projects simultaneously while maintaining consistency, security,
-              and performance in every delivery.
+
+            <div className="relative z-10 flex flex-col md:flex-row items-center gap-8 text-center md:text-left">
+              <div className="p-6 bg-white/5 rounded-full border border-white/10 shrink-0">
+                <Network
+                  size={48}
+                  className="text-[var(--color-bigchill)]"
+                  fill="currentColor"
+                  fillOpacity={0.2}
+                />
+              </div>
+              <div>
+                <h3 className="text-3xl font-bold font-serif mb-3">
+                  The Delivery Network
+                </h3>
+                <p className="text-gray-300 text-lg leading-relaxed max-w-2xl">
+                  Beyond our core leadership, WebOrbs operates a vetted network
+                  of{" "}
+                  <span className="text-white font-semibold">
+                    10+ specialized engineers
+                  </span>
+                  . From Cloud Architects to React Native experts, we assemble
+                  the perfect squad for your specific project scale.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </Section>
+
+        {/* 4. The Glass Kitchen (Timeline) */}
+        <Section className="bg-white/5 my-12 rounded-[3rem] mx-4 md:mx-8 border border-white/5">
+          <div className="text-center mb-16 pt-8">
+            <h2 className="text-3xl md:text-4xl font-bold font-serif mb-4">
+              The "Glass Kitchen" Approach
+            </h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              We hate black boxes. That’s why we introduced the WebOrbs Live
+              Tracker. When you sign a contract, you receive a unique{" "}
+              <strong>Reference ID</strong> to see exactly where your project
+              stands in real-time.
             </p>
+          </div>
+
+          <div className="flex flex-col md:flex-row gap-4 max-w-7xl mx-auto px-6 overflow-x-auto pb-12 items-start justify-between">
+            {[
+              { step: 1, title: "Planning", desc: "Scope & Contract" },
+              { step: 2, title: "Designing", desc: "UI/UX Wireframes" },
+              { step: 3, title: "Development", desc: "Coding phase" }, // Active
+              { step: 4, title: "Testing", desc: "QA & Security" },
+              { step: 5, title: "Hosting", desc: "Server Setup" },
+              { step: 6, title: "Deployment", desc: "Live Launch" },
+            ].map((item, index) => (
+              <TimelineStep
+                key={index}
+                step={item.step}
+                title={item.title}
+                description={item.desc}
+                isActive={index === 2} // Make step 3 active for demo
+                isCompleted={index < 2}
+              />
+            ))}
           </div>
         </Section>
 
-        {/* What We Build */}
-        <Section className="bg-white/5">
-          <div className="grid lg:grid-cols-2 gap-16">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold font-heading mb-8">
-                What We Build
-              </h2>
-              <ul className="space-y-4">
+        {/* 5. Trust Signals: Capabilities & Anti-WP */}
+        <Section className="py-20">
+          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto items-stretch">
+            {/* Capabilities Card */}
+            <div className="glass-panel border border-white/10 p-8 rounded-2xl flex flex-col h-full">
+              <div className="flex items-center gap-3 mb-8">
+                <div className="p-3 bg-[var(--color-bigchill)]/10 rounded-lg text-[var(--color-bigchill)]">
+                  <Cpu size={28} fill="currentColor" fillOpacity={0.2} />
+                </div>
+                <h3 className="text-3xl font-bold font-serif">Capabilities</h3>
+              </div>
+
+              <div className="grid grid-cols-2 gap-x-4 gap-y-6">
                 {[
-                  "Static websites",
-                  "Full-stack web applications",
-                  "Mobile applications",
-                  "Admin dashboards",
-                  "SaaS platforms",
-                  "Internal business tools",
-                  "Subscription-based products",
-                ].map((item, i) => (
-                  <li
-                    key={i}
-                    className="flex items-center space-x-3 text-lg text-gray-300"
-                  >
-                    <div className="w-2 h-2 bg-[var(--color-bigchill)] rounded-full" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold font-heading mb-8">
-                Technology Stack
-              </h2>
-              <div className="flex flex-wrap gap-3">
-                {[
-                  "MongoDB",
-                  "PostgreSQL",
-                  "TypeScript",
-                  "Next.js",
-                  "React",
-                  "Node.js",
-                  "Express",
-                  "AWS",
-                  "Google Cloud",
-                  "React Native",
-                  "TailwindCSS",
-                ].map((tech, i) => (
-                  <span
-                    key={i}
-                    className="px-4 py-2 border border-white/20 rounded-lg text-gray-300 hover:border-[var(--color-bigchill)] hover:text-[var(--color-bigchill)] transition-all cursor-default"
-                  >
-                    {tech}
-                  </span>
+                  "Real-time Data Processing",
+                  "Secure Payment Gateways",
+                  "AI Integration (LLMs)",
+                  "SaaS Multi-tenancy",
+                  "Trading Dashboards",
+                  "Custom CRM Systems",
+                  "Mobile Apps (iOS/Android)",
+                  "Cloud Automation",
+                ].map((cap, i) => (
+                  <div key={i} className="flex items-start gap-2 text-gray-300">
+                    <CheckCircle
+                      size={18}
+                      className="text-[var(--color-bigchill)] shrink-0 mt-[3px]"
+                      fill="currentColor"
+                      fillOpacity={0.2}
+                    />
+                    <span className="text-sm font-medium">{cap}</span>
+                  </div>
                 ))}
               </div>
-              <p className="mt-6 text-gray-400 text-sm">
-                We never use outdated tools. If you’re paying for a product, it
-                must be built using modern, future-ready technology.
-              </p>
             </div>
-          </div>
-        </Section>
 
-        {/* Smart Budget & Process Grid */}
-        <Section>
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Smart Budget */}
-            <div className="glass-panel p-8 rounded-2xl">
-              <div className="flex items-center space-x-3 mb-4">
-                <DollarSign
-                  className="text-[var(--color-bigchill)]"
-                  size={32}
-                />
-                <h3 className="text-2xl font-bold font-heading">
-                  Smart Budget
+            {/* Tech We Don't Use Card */}
+            <div className="bg-red-900/5 border border-red-500/10 p-8 rounded-2xl flex flex-col h-full">
+              <div className="flex items-center gap-3 mb-8">
+                <div className="p-3 bg-red-500/10 rounded-lg text-red-500">
+                  <XCircle size={28} fill="currentColor" fillOpacity={0.2} />
+                </div>
+                <h3 className="text-3xl font-bold font-serif text-gray-200">
+                  The Tech We Don't Use
                 </h3>
               </div>
-              <p className="text-gray-300 mb-4">
-                We strongly believe in intelligent infrastructure planning. We
-                never force expensive infrastructure when it isn’t needed.
+
+              <p className="text-gray-400 mb-6 text-lg">
+                We prefer performance over shortcuts. That implies:
               </p>
-              <div className="bg-black/30 p-4 rounded-xl border border-white/5 mb-4">
-                <p className="text-sm text-gray-400">Small Audience?</p>
-                <p className="text-white">
-                  Lightweight databases & cost-efficient hosting.
-                </p>
-              </div>
-              <div className="bg-black/30 p-4 rounded-xl border border-white/5 mb-6">
-                <p className="text-sm text-gray-400">Large Audience?</p>
-                <p className="text-white">
-                  Scalable cloud solutions like AWS or Google Cloud.
-                </p>
-              </div>
-              <p className="font-semibold text-[var(--color-bigchill)]">
-                Target: Deliver ₹1,00,000 quality for ₹30,000–₹40,000.
-              </p>
-            </div>
-
-            {/* Other Process Details */}
-            <div className="space-y-6">
-              <div className="glass-panel p-6 rounded-2xl">
-                <h4 className="text-xl font-bold font-heading mb-2">
-                  Domain & Hosting
-                </h4>
-                <p className="text-gray-300 text-sm">
-                  Usually, clients purchase their own domain. We handle setup,
-                  deployment, and configuration. We can also purchase it on your
-                  behalf if needed.
-                </p>
-              </div>
-
-              <div className="glass-panel p-6 rounded-2xl">
-                <h4 className="text-xl font-bold font-heading mb-2">
-                  Project Tracking
-                </h4>
-                <p className="text-gray-300 text-sm mb-3">
-                  You receive a Reference ID to track every stage:
-                </p>
-                <div className="flex flex-wrap gap-2 text-xs text-gray-400">
-                  {[
-                    "Planning",
-                    "Designing",
-                    "Development",
-                    "Testing",
-                    "Hosting",
-                    "Deployment",
-                  ].map((step, i) => (
-                    <span
-                      key={i}
-                      className="px-2 py-1 bg-white/5 rounded border border-white/10"
-                    >
-                      {step}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="glass-panel p-6 rounded-2xl">
-                <h4 className="text-xl font-bold font-heading mb-2">
-                  Delivery Commitment
-                </h4>
-                <p className="text-gray-300 text-sm">
-                  We usually deliver projects before the deadline. In rare cases
-                  of delay, we notify you in advance with full transparency.
-                </p>
-              </div>
-            </div>
-          </div>
-        </Section>
-
-        {/* Free Consultation & Contact */}
-        <Section className="bg-[var(--color-bigchill)] text-white relative overflow-hidden rounded-3xl mx-4 md:mx-12 my-12">
-          <div className="absolute inset-0 bg-black/20" />
-          <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl md:text-5xl font-bold font-heading mb-6">
-                Free Consultation
-              </h2>
-              <p className="text-lg md:text-xl opacity-90 mb-6">
-                Book a free 10-minute call. Explain your idea, and we'll suggest
-                the best technical solution with a cost and timeline estimate.
-              </p>
-              <div className="space-y-2 mb-8">
-                <p className="font-semibold">Available Slots:</p>
-                <div className="grid grid-cols-2 gap-2 text-sm opacity-90">
-                  <span>1:00 PM – 2:00 PM</span>
-                  <span>3:00 PM – 4:00 PM</span>
-                  <span>5:00 PM – 6:00 PM</span>
-                  <span>7:00 PM – 8:00 PM</span>
-                </div>
-              </div>
-            </div>
-            <div className="flex flex-col space-y-4">
-              <div className="bg-white/20 backdrop-blur-md p-6 rounded-xl border border-white/30">
-                <h3 className="font-bold text-xl mb-4">Connect With Us</h3>
-                <ul className="space-y-3">
-                  <li className="flex items-center space-x-2">
-                    <ArrowRight size={18} /> <span>Contact Form</span>
-                  </li>
-                  <li className="flex items-center space-x-2">
-                    <ArrowRight size={18} /> <span>Request A Call</span>
-                  </li>
-                  <li className="flex items-center space-x-2">
-                    <ArrowRight size={18} /> <span>Email</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </Section>
-
-        {/* Pricing & Policy */}
-        <Section>
-          <div className="grid md:grid-cols-2 gap-12">
-            <div>
-              <h3 className="text-2xl font-bold font-heading mb-4">
-                Transparent Pricing
-              </h3>
-              <p className="text-gray-300 mb-2">
-                All prices on our website are base prices.
-              </p>
-              <div className="bg-white/5 p-4 rounded-lg border-l-4 border-yellow-500 mb-6">
-                <p className="text-sm text-gray-400">
-                  Additional charges apply for:
-                </p>
-                <div className="flex flex-wrap gap-2 mt-2">
-                  <span className="px-3 py-1 bg-yellow-500/20 text-yellow-500 rounded text-xs">
-                    Extra Features
-                  </span>
-                  <span className="px-3 py-1 bg-yellow-500/20 text-yellow-500 rounded text-xs">
-                    Advanced Automation
-                  </span>
-                  <span className="px-3 py-1 bg-yellow-500/20 text-yellow-500 rounded text-xs">
-                    Custom Integrations
-                  </span>
-                </div>
-              </div>
-              <p className="text-sm text-gray-400">
-                We discuss these clearly before starting. No surprises later.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-2xl font-bold font-heading mb-4">
-                Contract Policy
-              </h3>
-              <ul className="space-y-2 text-sm text-gray-300">
-                <li className="flex items-start space-x-2">
-                  <span className="w-1.5 h-1.5 bg-gray-500 rounded-full mt-2" />
-                  <span>
-                    Contract covers Total Cost, Timeline, Tech Stack, and Scope.
-                  </span>
+              <ul className="space-y-4 text-gray-300 flex-1">
+                <li className="flex items-center gap-3 opacity-90 p-3 bg-red-500/5 rounded-lg border border-red-500/5">
+                  <span className="w-2 h-2 bg-red-500 rounded-full" />
+                  No WordPress Templates
                 </li>
-                <li className="flex items-start space-x-2">
-                  <span className="w-1.5 h-1.5 bg-gray-500 rounded-full mt-2" />
-                  <span>5–6 Design revisions allowed.</span>
+                <li className="flex items-center gap-3 opacity-90 p-3 bg-red-500/5 rounded-lg border border-red-500/5">
+                  <span className="w-2 h-2 bg-red-500 rounded-full" />
+                  No "Drag-and-Drop" Site Builders
                 </li>
-                <li className="flex items-start space-x-2">
-                  <span className="w-1.5 h-1.5 bg-gray-500 rounded-full mt-2" />
-                  <span>2 Minor changes allowed after design approval.</span>
+                <li className="flex items-center gap-3 opacity-90 p-3 bg-red-500/5 rounded-lg border border-red-500/5">
+                  <span className="w-2 h-2 bg-red-500 rounded-full" />
+                  No Bloated Themes
                 </li>
               </ul>
-              <div className="mt-4 p-3 border border-red-500/30 bg-red-500/10 rounded-lg text-xs text-red-300">
-                Major changes (Theme, New Features) require additional cost.
-              </div>
+              <p className="mt-8 text-sm text-gray-500 border-t border-red-500/10 pt-6">
+                We write custom, clean code. This ensures your application is
+                fast, secure, and truly scalable.
+              </p>
             </div>
           </div>
         </Section>
 
-        {/* More Than Client Projects */}
-        <Section className="bg-white/5">
-          <div className="text-center max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold font-heading mb-6">
-              More Than Client Projects
-            </h2>
-            <p className="text-gray-300 mb-8">
-              WebOrbs also develops its own digital products like SaaS tools,
-              Dashboards, Automation systems, and Business utilities.
-            </p>
-            <div className="glass-panel p-6 rounded-xl inline-block text-left">
-              <h4 className="font-bold text-lg mb-2">
-                Example: Gym Management Dashboard
-              </h4>
-              <ul className="text-gray-400 text-sm space-y-1 list-disc pl-4">
-                <li>Member registration</li>
-                <li>Notifications</li>
-                <li>Daily operations</li>
-              </ul>
-            </div>
-          </div>
-        </Section>
+        {/* 6. Tech Stack Marquee (Logo Version) */}
+        <div className="py-16 bg-black border-y border-white/5">
+          <p className="text-center text-xs font-bold tracking-[0.2em] text-gray-600 uppercase mb-12">
+            Powering Next-Gen Applications
+          </p>
+          <TechMarquee />
+        </div>
 
-        {/* Mission & CTA */}
-        <Section className="pb-32">
-          <div className="flex flex-col items-center text-center max-w-4xl mx-auto space-y-8">
-            <h2 className="text-5xl md:text-6xl font-bold font-heading">
-              Our Mission
-            </h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 w-full">
-              <div className="p-4 rounded-xl border border-white/10 hover:border-[var(--color-bigchill)] transition-colors">
-                <span className="block font-bold text-lg text-white">Low</span>
-                <span className="text-gray-500 text-sm">Budget</span>
-              </div>
-              <div className="p-4 rounded-xl border border-white/10 hover:border-[var(--color-bigchill)] transition-colors">
-                <span className="block font-bold text-lg text-white">High</span>
-                <span className="text-gray-500 text-sm">Quality</span>
-              </div>
-              <div className="p-4 rounded-xl border border-white/10 hover:border-[var(--color-bigchill)] transition-colors">
-                <span className="block font-bold text-lg text-white">Full</span>
-                <span className="text-gray-500 text-sm">Transparency</span>
-              </div>
-              <div className="p-4 rounded-xl border border-white/10 hover:border-[var(--color-bigchill)] transition-colors">
-                <span className="block font-bold text-lg text-white">
-                  Better
-                </span>
-                <span className="text-gray-500 text-sm">Standards</span>
-              </div>
-            </div>
-
-            <p className="text-xl text-gray-300 italic">
-              "We build trust, long-term partnerships, and scalable digital
-              solutions that grow with your business."
-            </p>
-
+        {/* 7. Split CTA */}
+        <Section className="pb-32 pt-20">
+          <div className="flex flex-col items-center text-center max-w-4xl mx-auto space-y-12">
             <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="mt-12 p-8 bg-gradient-to-r from-gray-900 to-black border border-white/20 rounded-3xl w-full"
+              whileHover={{ scale: 1.01 }}
+              className="p-12 bg-gradient-to-b from-[var(--color-bigchill)]/10 to-black border border-[var(--color-bigchill)]/30 rounded-3xl w-full relative overflow-hidden group shadow-[0_0_80px_-20px_rgba(14,165,164,0.3)]"
             >
-              <h3 className="text-2xl font-bold font-heading mb-4">
-                Work With Us
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(ellipse_at_top,rgba(14,165,164,0.2),transparent_70%)] pointer-events-none" />
+
+              <h3 className="text-4xl md:text-5xl font-bold font-serif mb-6 relative z-10 text-white leading-tight">
+                Ready to build something <br />{" "}
+                <span className="text-[var(--color-bigchill)]">
+                  world-class?
+                </span>
               </h3>
-              <p className="text-gray-400 mb-6 max-w-2xl mx-auto">
-                If you are a skilled developer, designer, tester, or DevOps
-                engineer, apply through our Join Us form.
+              <p className="text-gray-300 mb-10 max-w-lg mx-auto relative z-10 text-lg">
+                Stop searching. Start building. Let's engineer your vision.
               </p>
-              <motion.button
-                onClick={handleOpenModal}
-                whileHover={{
-                  boxShadow: "0px 0px 20px rgba(14, 165, 164, 0.6)",
-                }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                className="px-8 py-4 bg-[var(--color-bigchill)] text-white font-bold rounded-full"
-              >
-                Join Our Network
-              </motion.button>
+
+              <div className="relative z-10">
+                <motion.button
+                  onClick={() =>
+                    document
+                      .getElementById("contact")
+                      ?.scrollIntoView({ behavior: "smooth" })
+                  }
+                  whileHover={{
+                    boxShadow: "0px 0px 30px rgba(14, 165, 164, 0.4)",
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-10 py-5 bg-[var(--color-bigchill)] text-white text-lg font-bold rounded-full flex items-center gap-3 mx-auto transition-all"
+                >
+                  Start Your Project <ArrowRight size={20} />
+                </motion.button>
+              </div>
             </motion.div>
+
+            <div className="pt-8 w-full max-w-md">
+              <p className="text-gray-600 text-sm mb-3 font-medium">
+                Are you a top 1% developer?
+              </p>
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="text-gray-400 hover:text-white text-sm font-medium flex items-center justify-center gap-2 mx-auto transition-colors group"
+              >
+                Join our Delivery Network{" "}
+                <ArrowRight
+                  size={14}
+                  className="group-hover:translate-x-1 transition-transform"
+                />
+              </button>
+            </div>
           </div>
         </Section>
       </div>
 
-      <WorkWithUsModal isOpen={isModalOpen} onClose={handleCloseModal} />
+      <WorkWithUsModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 };
