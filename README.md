@@ -1,7 +1,7 @@
-# WebOrbs 🌐  
+# Vooklu 🌐  
 **Digital Products Built for Scale**
 
-WebOrbs is a modern business website for a digital agency that designs, builds, and manages high-performance websites and applications.  
+Vooklu is a modern business website for a digital agency that designs, builds, and manages high-performance websites and applications.  
 It represents a professional, enterprise-ready brand while staying approachable for small and growing businesses.
 
 The website focuses on:
@@ -14,7 +14,7 @@ The website focuses on:
 
 ## 🚀 What We Do
 
-WebOrbs provides end-to-end digital solutions:
+Vooklu provides end-to-end digital solutions:
 
 - 🎨 **Website Design**  
   Clean, modern, pixel-perfect UI/UX.
@@ -51,7 +51,7 @@ To create a website that:
 - Builds trust instantly
 - Feels enterprise-grade
 - Converts visitors into clients
-- Represents WebOrbs as a long-term technical partner
+- Represents Vooklu as a long-term technical partner
 
 Not just a portfolio. A **real business platform**.
 
@@ -70,7 +70,7 @@ Not just a portfolio. A **real business platform**.
 ## 📦 Installation & Setup
 
 ```bash
-git clone https://github.com/yourusername/weborbs.git
-cd weborbs
+git clone https://github.com/yourusername/vooklu.git
+cd vooklu
 npm install
 npm run dev

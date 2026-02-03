@@ -52,7 +52,7 @@ const WorkWithUsModal = ({ isOpen, onClose }) => {
     meetings: "",
     hours: "",
     timeSlot: "",
-    whyWeborbs: "",
+    whyVooklu: "",
     goodFit: "",
     declaration: {
       trueInfo: false,
@@ -100,7 +100,7 @@ const WorkWithUsModal = ({ isOpen, onClose }) => {
             meetings: "",
             hours: "",
             timeSlot: "",
-            whyWeborbs: "",
+            whyVooklu: "",
             goodFit: "",
             declaration: {
               trueInfo: false,
@@ -145,7 +145,7 @@ const WorkWithUsModal = ({ isOpen, onClose }) => {
         if (value && !/^https?:\/\//.test(value))
           error = "URL must start with http:// or https://";
         break;
-      case "whyWeborbs":
+      case "whyVooklu":
       case "goodFit":
       case "projects":
       case "strongestSkill":
@@ -194,7 +194,7 @@ const WorkWithUsModal = ({ isOpen, onClose }) => {
       "internet",
       "meetings",
       "hours",
-      "whyWeborbs",
+      "whyVooklu",
       "goodFit",
       "currentSalary",
     ];
@@ -412,11 +412,10 @@ const WorkWithUsModal = ({ isOpen, onClose }) => {
           name={name}
           value={formData[name]}
           onChange={handleChange}
-          className={`w-full bg-white/5 border rounded-lg p-3 text-white focus:outline-none transition-colors ${
-            errors[name]
-              ? "border-red-500/50 focus:border-red-500 bg-red-500/5"
-              : "border-white/10 focus:border-[var(--color-bigchill)]"
-          }`}
+          className={`w-full bg-white/5 border rounded-lg p-3 text-white focus:outline-none transition-colors ${errors[name]
+            ? "border-red-500/50 focus:border-red-500 bg-red-500/5"
+            : "border-white/10 focus:border-[var(--color-bigchill)]"
+            }`}
           placeholder={placeholder}
         />
         {errors[name] && (
@@ -441,11 +440,10 @@ const WorkWithUsModal = ({ isOpen, onClose }) => {
           name={name}
           value={formData[name]}
           onChange={handleChange}
-          className={`w-full bg-white/5 border rounded-lg p-3 text-white focus:outline-none transition-colors appearance-none ${
-            errors[name]
-              ? "border-red-500/50 focus:border-red-500 bg-red-500/5"
-              : "border-white/10 focus:border-[var(--color-bigchill)]"
-          }`}
+          className={`w-full bg-white/5 border rounded-lg p-3 text-white focus:outline-none transition-colors appearance-none ${errors[name]
+            ? "border-red-500/50 focus:border-red-500 bg-red-500/5"
+            : "border-white/10 focus:border-[var(--color-bigchill)]"
+            }`}
         >
           <option value="" className="bg-[#0a0a0a]">
             Select {label.replace("*", "").trim()}
@@ -491,11 +489,10 @@ const WorkWithUsModal = ({ isOpen, onClose }) => {
         value={formData[name]}
         onChange={handleChange}
         rows={rows}
-        className={`w-full bg-white/5 border rounded-lg p-3 text-white focus:outline-none transition-colors ${
-          errors[name]
-            ? "border-red-500/50 focus:border-red-500 bg-red-500/5"
-            : "border-white/10 focus:border-[var(--color-bigchill)]"
-        }`}
+        className={`w-full bg-white/5 border rounded-lg p-3 text-white focus:outline-none transition-colors ${errors[name]
+          ? "border-red-500/50 focus:border-red-500 bg-red-500/5"
+          : "border-white/10 focus:border-[var(--color-bigchill)]"
+          }`}
       />
       {errors[name] && (
         <p className="text-red-500 text-xs mt-1">{errors[name]}</p>
@@ -531,7 +528,7 @@ const WorkWithUsModal = ({ isOpen, onClose }) => {
                   Work With Us
                 </h2>
                 <p className="text-[var(--color-bigchill)] text-sm font-semibold tracking-wide mt-1">
-                  JOIN THE WEBORBS NETWORK
+                  JOIN THE VOOKLU NETWORK
                 </p>
               </div>
               <button
@@ -553,9 +550,9 @@ const WorkWithUsModal = ({ isOpen, onClose }) => {
                     Application Received
                   </h3>
                   <p className="text-gray-300 max-w-lg text-lg">
-                    Thank you for applying to Weborbs. Our team will review your
-                    application and contact you if your profile matches our
-                    current requirements.
+                    Thank you for applying to Vooklu. Our team will review your
+                    application and get back to you if there's a match for our
+                    Vooklu freelance network. {" "}
                   </p>
                   <button
                     onClick={onClose}
@@ -570,7 +567,7 @@ const WorkWithUsModal = ({ isOpen, onClose }) => {
                     We’re always looking to collaborate with skilled developers,
                     designers, testers, and technical professionals across
                     India. Fill out this form to apply and become part of the
-                    Weborbs freelance network.{" "}
+                    Vooklu freelance network.{" "}
                     <span className="font-semibold text-white">
                       Only serious and committed professionals should apply.
                     </span>
@@ -742,11 +739,10 @@ const WorkWithUsModal = ({ isOpen, onClose }) => {
                             )}
                           </label>
                           <div
-                            className={`flex flex-wrap gap-4 p-3 rounded-lg border transition-colors ${
-                              errors.preference
-                                ? "border-red-500/50 bg-red-500/5"
-                                : "border-transparent"
-                            }`}
+                            className={`flex flex-wrap gap-4 p-3 rounded-lg border transition-colors ${errors.preference
+                              ? "border-red-500/50 bg-red-500/5"
+                              : "border-transparent"
+                              }`}
                           >
                             {["freelance", "contract", "longTerm"].map(
                               (key) => (
@@ -788,11 +784,10 @@ const WorkWithUsModal = ({ isOpen, onClose }) => {
                             Upload Resume / CV (PDF only) *
                           </label>
                           <div
-                            className={`relative border-2 border-dashed rounded-lg p-6 text-center transition-colors bg-white/5 ${
-                              errors.resume
-                                ? "border-red-500/50 bg-red-500/5 hover:border-red-500"
-                                : "border-white/20 hover:border-[var(--color-bigchill)]/50"
-                            }`}
+                            className={`relative border-2 border-dashed rounded-lg p-6 text-center transition-colors bg-white/5 ${errors.resume
+                              ? "border-red-500/50 bg-red-500/5 hover:border-red-500"
+                              : "border-white/20 hover:border-[var(--color-bigchill)]/50"
+                              }`}
                           >
                             <input
                               type="file"
@@ -986,20 +981,20 @@ const WorkWithUsModal = ({ isOpen, onClose }) => {
                       </div>
                     </section>
 
-                    {/* Why Weborbs ? */}
+                    {/* Why Vooklu ? */}
                     <section className="space-y-6">
                       <div className="flex items-center space-x-2 text-xl font-bold text-white mb-4 border-b border-white/10 pb-2">
                         <Shield
                           size={24}
                           className="text-[var(--color-bigchill)]"
                         />
-                        <h3>Why Weborbs?</h3>
+                        <h3>Why Vooklu?</h3>
                       </div>
 
                       <div className="space-y-6">
                         {renderTextarea(
-                          "Why do you want to work with Weborbs?",
-                          "whyWeborbs",
+                          "Why do you want to work with Vooklu?",
+                          "whyVooklu",
                           3,
                           true,
                         )}
@@ -1049,7 +1044,7 @@ const WorkWithUsModal = ({ isOpen, onClose }) => {
                         <span
                           className={`${errors["declaration.freelanceBasis"] ? "text-red-500" : "text-gray-300"} text-sm group-hover:text-white transition-colors`}
                         >
-                          I understand that Weborbs works primarily on a
+                          I understand that Vooklu works primarily on a
                           freelance and contract basis.
                         </span>
                       </label>
@@ -1078,7 +1073,7 @@ const WorkWithUsModal = ({ isOpen, onClose }) => {
                         type="submit"
                         className="w-full py-4 text-white font-bold text-lg rounded-full transition-all transform block text-center shadow-lg bg-[var(--color-bigchill)] hover:bg-opacity-90 hover:shadow-[var(--color-bigchill)]/20 hover:-translate-y-1 cursor-pointer"
                       >
-                        Apply to Work With Weborbs
+                        Apply to Work With Vooklu
                       </button>
                     </div>
                   </form>

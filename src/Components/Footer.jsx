@@ -148,7 +148,7 @@ export default function Footer() {
             <span className="mt-1">&copy;</span>
             <p>
               2026 <br />
-              Weborbs
+              Vooklu
               <br />
             </p>
           </div>
@@ -164,7 +164,7 @@ export default function Footer() {
       <div className="border-t border-gray-800 pt-4 flex flex-col md:flex-row justify-between items-start md:items-center text-sm text-gray-400 gap-4">
         <div>
           <a href="#" className="hover:text-white transition-colors opacity-60">
-            © 2026 WebOrbs. All rights reserved.
+            © 2026 Vooklu. All rights reserved.
           </a>
         </div>
         <div className="flex gap-6">

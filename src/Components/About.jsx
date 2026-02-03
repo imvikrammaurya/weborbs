@@ -290,14 +290,13 @@ const TimelineStep = ({ step, title, description, isActive, isCompleted }) => (
     <div className="flex items-center mb-4">
       <div
         className={`relative w-12 h-12 rounded-full flex items-center justify-center border-2 font-bold z-10 transition-all duration-500 
-                ${
-                  isActive || isCompleted
-                    ? "border-[var(--color-bigchill)] bg-[var(--color-bigchill)] text-white" +
-                      (isActive
-                        ? " shadow-[0_0_20px_rgba(14,165,164,0.6)] scale-110"
-                        : "")
-                    : "border-white/20 bg-black/50 text-gray-400 group-hover:border-[var(--color-bigchill)] group-hover:text-[var(--color-bigchill)]"
-                }`}
+                ${isActive || isCompleted
+            ? "border-[var(--color-bigchill)] bg-[var(--color-bigchill)] text-white" +
+            (isActive
+              ? " shadow-[0_0_20px_rgba(14,165,164,0.6)] scale-110"
+              : "")
+            : "border-white/20 bg-black/50 text-gray-400 group-hover:border-[var(--color-bigchill)] group-hover:text-[var(--color-bigchill)]"
+          }`}
       >
         {step}
       </div>
@@ -386,7 +385,7 @@ const About = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
           >
-            The <span className="text-[var(--color-bigchill)]">WebOrbs</span>{" "}
+            The <span className="text-[var(--color-bigchill)]">Vooklu</span>{" "}
             Story
           </motion.h1>
 
@@ -395,7 +394,7 @@ const About = () => {
             className="max-w-3xl mx-auto space-y-8 text-lg md:text-xl text-gray-300 leading-relaxed font-light"
           >
             <p>
-              At WebOrbs, we noticed a flaw in the software industry: businesses
+              At Vooklu, we noticed a flaw in the software industry: businesses
               were forced to choose between{" "}
               <span className="text-gray-500 font-normal">expensive</span>,{" "}
               <span className="text-gray-500 font-normal">
@@ -407,7 +406,7 @@ const About = () => {
               </span>
               . We built{" "}
               <span className="text-[var(--color-bigchill)] font-semibold">
-                WebOrbs
+                Vooklu
               </span>{" "}
               to be the{" "}
               <span className="text-[var(--color-bigchill)] font-semibold">
@@ -462,7 +461,7 @@ const About = () => {
               Leadership & Core Strategy
             </h2>
             <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-              WebOrbs is driven by two distinct forces: Creative Innovation and
+              Vooklu is driven by two distinct forces: Creative Innovation and
               Corporate Stability.
             </p>
           </div>
@@ -520,7 +519,7 @@ const About = () => {
                   The Delivery Network
                 </h3>
                 <p className="text-gray-300 text-lg leading-relaxed max-w-2xl">
-                  Beyond our core leadership, WebOrbs operates a vetted network
+                  Beyond our core leadership, Vooklu operates a vetted network
                   of{" "}
                   <span className="text-white font-semibold">
                     10+ specialized engineers
@@ -540,7 +539,7 @@ const About = () => {
               The "Glass Kitchen" Approach
             </h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
-              We hate black boxes. That’s why we introduced the WebOrbs Live
+              We hate black boxes. That’s why we introduced the Vooklu Live
               Tracker. When you sign a contract, you receive a unique{" "}
               <strong>Reference ID</strong> to see exactly where your project
               stands in real-time.

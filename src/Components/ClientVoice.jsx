@@ -8,7 +8,7 @@ const testimonials = [
     name: "Sarah Mitchell",
     role: "CEO, TechVenture Inc",
     image: "https://i.pravatar.cc/150?u=sarah",
-    company: "WebOrbs",
+    company: "Vooklu",
   },
   {
     quote:
@@ -16,7 +16,7 @@ const testimonials = [
     name: "James Chen",
     role: "Founder, Digital Innovations",
     image: "https://i.pravatar.cc/150?u=james",
-    company: "WebOrbs",
+    company: "Vooklu",
   },
   {
     quote:
@@ -24,7 +24,7 @@ const testimonials = [
     name: "Emma Rodriguez",
     role: "Product Manager, Growth Labs",
     image: "https://i.pravatar.cc/150?u=emma",
-    company: "WebOrbs",
+    company: "Vooklu",
   },
 ];
 

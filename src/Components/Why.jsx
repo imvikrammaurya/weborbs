@@ -13,7 +13,7 @@ const reasons = [
   {
     id: 1,
     title: "One Partner. Complete Ownership.",
-    text: "From idea to launch to long-term maintenance, WebOrbs takes full responsibility for your digital product so you never have to juggle multiple teams.",
+    text: "From idea to launch to long-term maintenance, Vooklu takes full responsibility for your digital product so you never have to juggle multiple teams.",
     category: "End-to-End Responsibility",
     icon: ShieldCheck,
   },
@@ -48,7 +48,7 @@ const reasons = [
   {
     id: 6,
     title: "You Focus on Growth. We Handle the Tech.",
-    text: "WebOrbs removes technical stress so you can focus on running and scaling your business.",
+    text: "Vooklu removes technical stress so you can focus on running and scaling your business.",
     category: "Peace of Mind",
     icon: Smile,
   },
@@ -129,7 +129,7 @@ const Why = () => {
               <div className="flex justify-between items-end mb-12 relative z-10">
                 <div>
                   <motion.h2 className="text-4xl md:text-5xl font-heading font-bold text-white tracking-tight">
-                    Why WebOrbs?
+                    Why Vooklu?
                   </motion.h2>
                   <p className="text-gray-400 mt-2 text-xl font-light">
                     We’re not just developers. We’re your long-term digital
@@ -155,18 +155,16 @@ const Why = () => {
                   {reasons.map((reason, idx) => (
                     <div
                       key={reason.id}
-                      className={`text-xl font-medium transition-all duration-300 cursor-pointer flex items-center gap-4 ${
-                        idx === activeIndex
+                      className={`text-xl font-medium transition-all duration-300 cursor-pointer flex items-center gap-4 ${idx === activeIndex
                           ? "text-white translate-x-2"
                           : "text-gray-600 hover:text-gray-400"
-                      }`}
+                        }`}
                     >
                       <div
-                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                          idx === activeIndex
+                        className={`w-2 h-2 rounded-full transition-all duration-300 ${idx === activeIndex
                             ? "bg-bigchill shadow-[0_0_8px_#0EA5A4]"
                             : "bg-gray-700"
-                        }`}
+                          }`}
                       />
                       {reason.category}
                     </div>
@@ -228,7 +226,7 @@ const Why = () => {
       <div className="lg:hidden py-20 px-4 flex flex-col gap-12 bg-white/95">
         <div className="text-center mb-10">
           <h2 className="text-4xl font-heading font-bold text-gray-900">
-            Why WebOrbs?
+            Why Vooklu?
           </h2>
           <p className="text-gray-600 mt-2 text-lg">
             We’re not just developers. We’re your long-term digital partner.

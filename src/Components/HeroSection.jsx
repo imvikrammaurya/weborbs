@@ -217,7 +217,7 @@ const HeroSection = ({ openModal }) => {
           className="flex items-center justify-center space-x-2 mb-6"
         >
           <span className="px-3 py-1 text-sm font-medium text-bigchill bg-white rounded-full border border-bigchill/30 shadow-sm">
-            WebOrbs = Built Digital Products for Scale.
+            Vooklu = Built Digital Products for Scale.
           </span>
         </motion.div>
 
@@ -239,7 +239,7 @@ const HeroSection = ({ openModal }) => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed backdrop-blur-[6px] bg-white/55 px-4 py-3 rounded-[10px]"
         >
-          WebOrbs delivers the high-performance digital infrastructure you need.
+          Vooklu delivers the high-performance digital infrastructure you need.
           Clean code, pixel-perfect design, and enterprise reliability—shipped
           at startup speed.
         </motion.p>
