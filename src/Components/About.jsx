@@ -11,6 +11,11 @@ import {
   Network,
   CheckCircle,
   XCircle,
+  PenTool,
+  Code2,
+  Workflow,
+  Layout,
+  ClipboardCheck,
 } from "lucide-react";
 
 // --- Animation Variants ---
@@ -219,65 +224,42 @@ const BentoCard = ({
   );
 };
 
-const FounderCard = ({
-  name,
-  role,
-  description,
-  icon: Icon,
-  skills,
-  align = "left",
-}) => (
+const EcoCard = ({ title, icon: Icon, text, tags }) => (
   <motion.div
     variants={fadeInUp}
-    className="glass-panel p-8 rounded-3xl border border-white/10 hover:border-[var(--color-bigchill)]/50 transition-all duration-300 relative overflow-hidden h-full"
+    className="group relative p-8 rounded-3xl border border-white/10 bg-white/5 hover:border-[var(--color-bigchill)]/30 transition-all duration-300 h-full flex flex-col"
   >
-    <div className={`flex flex-col gap-6 relative z-10 h-full`}>
-      {/* Header */}
-      <div
-        className={`flex flex-col md:flex-row gap-5 items-center ${align === "right" ? "md:flex-row-reverse md:text-right" : "md:flex-row md:text-left"}`}
-      >
-        <div
-          className={`w-24 h-24 shrink-0 rounded-full flex items-center justify-center bg-gradient-to-br from-gray-800 to-black border-2 border-white/10 shadow-xl group-hover:border-[var(--color-bigchill)]/30`}
-        >
-          <Icon
-            size={40}
-            className="text-gray-300"
-            fill="currentColor"
-            fillOpacity={0.2}
-            strokeWidth={1.5}
-          />
-        </div>
-        <div className="flex-1 text-center md:text-left">
-          <div className={align === "right" ? "md:text-right" : ""}>
-            <h3 className="text-2xl font-bold font-serif mb-1">{name}</h3>
-            <p className="text-[var(--color-bigchill)] font-bold tracking-wide text-sm uppercase">
-              {role}
-            </p>
-          </div>
-        </div>
+    <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-bigchill)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
+
+    <div className="relative z-10 flex flex-col h-full">
+      <div className="mb-6 p-4 bg-white/5 w-fit rounded-2xl border border-white/5 group-hover:bg-[var(--color-bigchill)]/20 group-hover:border-[var(--color-bigchill)]/30 transition-colors">
+        <Icon
+          size={32}
+          className="text-[var(--color-bigchill)]"
+          strokeWidth={1.5}
+        />
       </div>
 
-      {/* Content */}
-      <div
-        className={`flex-1 ${align === "right" ? "md:text-right" : "md:text-left"}`}
-      >
-        <p className="text-gray-300 leading-relaxed text-base opacity-90">
-          {description}
+      <h3 className="text-2xl font-bold font-sans mb-4 text-white group-hover:text-[var(--color-bigchill)] transition-colors">
+        {title}
+      </h3>
+
+      <p className="text-gray-400 leading-relaxed mb-6 flex-grow">{text}</p>
+
+      <div className="mt-auto">
+        <p className="text-xs font-bold text-gray-400 mb-3 uppercase tracking-widest opacity-80">
+          Core Capabilities
         </p>
-      </div>
-
-      {/* Skills */}
-      <div
-        className={`flex flex-wrap gap-2 mt-auto pt-6 ${align === "right" ? "justify-center md:justify-end" : "justify-center md:justify-start"}`}
-      >
-        {skills.map((skill, i) => (
-          <span
-            key={i}
-            className="px-3 py-1 bg-white/5 rounded-full text-xs font-semibold text-gray-400 border border-white/5 hover:bg-white/10 hover:text-white transition-colors cursor-default"
-          >
-            {skill}
-          </span>
-        ))}
+        <div className="flex flex-wrap gap-2">
+          {tags.map((tag, i) => (
+            <span
+              key={i}
+              className="text-xs font-medium px-3 py-1 rounded-full bg-[var(--color-bigchill)]/10 text-[var(--color-bigchill)] border border-[var(--color-bigchill)]/20"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   </motion.div>
@@ -454,79 +436,103 @@ const About = () => {
           </motion.div>
         </Section>
 
-        {/* 3. Leadership & Core Strategy */}
+        {/* 3. Operational Operational Structure */}
         <Section>
-          <div className="mb-20 text-center">
+          <div className="mb-16 text-center">
             <h2 className="text-4xl md:text-5xl font-bold font-serif mb-6">
-              Leadership & Core Strategy
+              Our Operational Structure
             </h2>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-              Vooklu is driven by two distinct forces: Creative Innovation and
-              Corporate Stability.
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+              We bridge the gap between complex engineering and business
+              reliability. Vooklu operates as a unified machine driven by three
+              core divisions.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto mb-8 auto-rows-fr">
-            <FounderCard
-              name="Vikram Maurya"
-              role="Head of Product & Design"
-              icon={Cpu}
-              description="With a deep focus on Product Strategy and User Interface Design, Vikram ensures your product isn't just built, but crafted for user retention. As a specialist in Generative AI, he orchestrates the integration of AI tools to accelerate development."
-              skills={[
-                "Product Strategy",
-                "UI/UX Design",
-                "Generative AI",
-                "Web Security",
+          <div className="grid md:grid-cols-3 gap-6 max-w-7xl mx-auto mb-12">
+            <EcoCard
+              title="Product Strategy & Experience"
+              icon={PenTool}
+              text="Great software starts with clear intent. Our Strategy Division translates your business goals into user-centric digital roadmaps. We don't just design screens; we engineer user journeys, ensuring every pixel serves a business function before a single line of code is written."
+              tags={[
+                "UI/UX Architecture",
+                "Product Roadmapping",
+                "Prototype Validation",
               ]}
             />
-
-            <FounderCard
-              name="Nishant Singh"
-              role="Head of Engineering & Operations"
-              icon={Server}
-              align="right"
-              description="Coming from a rigorous background in US Healthcare Operations, Nishant brings unmatched discipline to our infrastructure. He oversees the technical delivery network, ensuring that our systems scale seamlessly without crashing."
-              skills={[
-                "System Architecture",
-                "Cloud Operations",
-                "Scalability",
-                "Team Management",
+            <EcoCard
+              title="Core Engineering & Architecture"
+              icon={Code2}
+              text="Our development is anchored by senior technical architects who oversee every build. We adhere to strict coding standards, utilizing 'One Codebase' methodologies to deploy unified applications across Web, Mobile, and Desktop. This ensures your product is scalable, secure, and future-proof."
+              tags={[
+                "MERN Ecosystem",
+                "Cloud Infrastructure",
+                "Cross-Platform Development",
+              ]}
+            />
+            <EcoCard
+              title="Delivery & Operations"
+              icon={ClipboardCheck}
+              text="Execution is our product. Our Operations Unit applies corporate-grade project management rigor to agile development. We bridge the gap between complex engineering and business deadlines, ensuring that every project is delivered on time, within budget, and defect-free."
+              tags={[
+                "Agile Project Management",
+                "Quality Assurance",
+                "Deployment Strategy",
               ]}
             />
           </div>
 
-          {/* The Delivery Network Card */}
+          {/* Squad/Pod Banner */}
           <motion.div
             variants={fadeInUp}
-            className="max-w-6xl mx-auto rounded-3xl p-10 relative overflow-hidden glass-panel border border-white/10 group mt-8"
+            className="max-w-7xl mx-auto rounded-3xl p-8 md:p-12 relative overflow-hidden text-center md:text-left border border-white/10 bg-gradient-to-r from-gray-900 via-gray-900 to-[var(--color-bigchill)]/10"
           >
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
-            <div className="absolute top-0 right-0 p-10 opacity-30 text-[var(--color-bigchill)] pointer-events-none">
-              <Globe size={300} strokeWidth={0.5} />
-            </div>
-
-            <div className="relative z-10 flex flex-col md:flex-row items-center gap-8 text-center md:text-left">
-              <div className="p-6 bg-white/5 rounded-full border border-white/10 shrink-0">
-                <Network
-                  size={48}
-                  className="text-[var(--color-bigchill)]"
-                  fill="currentColor"
-                  fillOpacity={0.2}
-                />
-              </div>
-              <div>
-                <h3 className="text-3xl font-bold font-serif mb-3">
-                  The Delivery Network
+            <div className="flex flex-col md:flex-row items-center justify-between gap-10 relative z-10">
+              <div className="max-w-xl">
+                <h3 className="text-3xl font-bold font-serif mb-2">
+                  The Vooklu Development Squad
                 </h3>
-                <p className="text-gray-300 text-lg leading-relaxed max-w-2xl">
-                  Beyond our core leadership, Vooklu operates a vetted network
-                  of{" "}
-                  <span className="text-white font-semibold">
-                    10+ specialized engineers
-                  </span>
-                  . From Cloud Architects to React Native experts, we assemble
-                  the perfect squad for your specific project scale.
+                <h4 className="text-xl font-medium text-[var(--color-bigchill)] mb-4">
+                  How We Assemble Your Team
+                </h4>
+                <p className="text-gray-300 text-lg leading-relaxed">
+                  We don't rely on generalists. For every enterprise project, we
+                  deploy a specialized "Pod" tailored to your technology stack:
                 </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 w-full md:w-auto">
+                {[
+                  {
+                    role: "1x Lead Architect",
+                    desc: "Oversees system design and security.",
+                  },
+                  {
+                    role: "2-3x Senior Developers",
+                    desc: "Specialized in React, Node, or Mobile.",
+                  },
+                  {
+                    role: "1x QA Specialist",
+                    desc: "Dedicated to breaking the code before users do.",
+                  },
+                  {
+                    role: "1x Delivery Manager",
+                    desc: "Your single point of contact for updates.",
+                  },
+                ].map((item, i) => (
+                  <div
+                    key={i}
+                    className="flex flex-col items-center text-center p-4 rounded-xl border border-white/5 bg-black/20 hover:border-[var(--color-bigchill)]/30 transition-colors w-full sm:w-auto sm:min-w-[140px] sm:max-w-[180px]"
+                  >
+                    <div className="w-2 h-2 rounded-full bg-[var(--color-bigchill)] shadow-[0_0_10px_var(--color-bigchill)] mb-3" />
+                    <div className="font-bold text-white text-sm mb-1">
+                      {item.role}
+                    </div>
+                    <div className="text-[10px] text-gray-400 uppercase tracking-wider leading-tight">
+                      {item.desc}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </motion.div>

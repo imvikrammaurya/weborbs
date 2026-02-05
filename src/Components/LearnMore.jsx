@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import BookingModal from "./BookingModal";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -33,6 +34,8 @@ import serverImg from "../assets/server_metrics_card_1767871336352.png";
 import mobileImg from "../assets/hero-dashboard-7.png"; // Assuming this is mobile-like
 
 const LearnMore = () => {
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -76,12 +79,12 @@ const LearnMore = () => {
                 Get Started
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </a>
-              <a
-                href="#contact"
+              <button
+                onClick={() => setIsBookingModalOpen(true)}
                 className="w-full sm:w-auto px-8 py-4 bg-white/5 text-white font-semibold rounded-lg border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all flex items-center justify-center gap-2"
               >
                 Book a Free Call
-              </a>
+              </button>
             </div>
           </motion.div>
 
@@ -791,12 +794,12 @@ const LearnMore = () => {
           </h2>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-            <a
-              href="#contact"
-              className="px-10 py-5 bg-[var(--color-bigchill)] text-white text-lg font-bold rounded-full shadow-[0_0_40px_rgba(14,165,164,0.4)] hover:shadow-[0_0_60px_rgba(14,165,164,0.6)] hover:-translate-y-1 transition-all"
+            <button
+              onClick={() => setIsBookingModalOpen(true)}
+              className="px-10 py-5 bg-[var(--color-bigchill)] text-white text-lg font-bold rounded-full shadow-[0_0_40px_rgba(14,165,164,0.4)] hover:shadow-[0_0_60px_rgba(14,165,164,0.6)] hover:-translate-y-1 transition-all cursor-pointer"
             >
               Get a Free Consultation
-            </a>
+            </button>
             <Link
               to="/about"
               className="px-10 py-5 bg-white/10 text-white text-lg font-bold rounded-full border border-white/20 hover:bg-white/20 transition-all flex items-center gap-2"
@@ -806,6 +809,11 @@ const LearnMore = () => {
           </div>
         </motion.div>
       </section>
+
+      <BookingModal
+        isOpen={isBookingModalOpen}
+        onClose={() => setIsBookingModalOpen(false)}
+      />
     </div>
   );
 };
