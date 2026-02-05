@@ -89,8 +89,8 @@ const Navbar = () => {
     <>
       <nav
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-in-out ${isScrolled
-            ? "bg-white/[0.96] backdrop-blur-md shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05)] py-2"
-            : "bg-transparent py-3"
+          ? "bg-white/[0.96] backdrop-blur-md shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05)] py-2"
+          : "bg-transparent py-3"
           } ${isVisible ? "translate-y-0" : "-translate-y-full"}`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -101,18 +101,12 @@ const Navbar = () => {
               onClick={() => navigate("/")}
             >
               <div
-                className={`w-6 h-6 rounded flex items-center justify-center transition-colors ${location.pathname === "/about" && !isScrolled
-                    ? "bg-white text-slate-900"
-                    : "bg-slate-900 text-white"
-                  }`}
+                className="w-6 h-6 rounded flex items-center justify-center transition-colors bg-slate-900 text-white"
               >
                 <Globe size={14} strokeWidth={2.5} />
               </div>
               <span
-                className={`font-bold text-base tracking-tight transition-colors ${location.pathname === "/about" && !isScrolled
-                    ? "text-white"
-                    : "text-slate-900"
-                  }`}
+                className="font-bold text-base tracking-tight transition-colors text-slate-900"
               >
                 Vooklu
               </span>
@@ -131,12 +125,10 @@ const Navbar = () => {
                       setIsResourcesOpen(false);
                     }}
                     className={`text-sm font-medium transition-colors ${flashingKey === link.name
-                        ? "text-bigchill"
-                        : activeLink === link.name && isHomePage
-                          ? "text-slate-900"
-                          : location.pathname === "/about" && !isScrolled
-                            ? "text-white hover:text-gray-300"
-                            : "text-slate-600 hover:text-slate-900"
+                      ? "text-bigchill"
+                      : activeLink === link.name && isHomePage
+                        ? "text-slate-900"
+                        : "text-slate-600 hover:text-slate-900"
                       }`}
                   >
                     {link.name}
@@ -151,14 +143,10 @@ const Navbar = () => {
                       setIsResourcesOpen(false);
                     }}
                     className={`text-sm font-medium transition-colors ${flashingKey === link.name
-                        ? "text-bigchill"
-                        : location.pathname === link.href
-                          ? link.href === "/about" && !isScrolled
-                            ? "text-white"
-                            : "text-slate-900"
-                          : location.pathname === "/about" && !isScrolled
-                            ? "text-white hover:text-gray-300"
-                            : "text-slate-600 hover:text-slate-900"
+                      ? "text-bigchill"
+                      : location.pathname === link.href
+                        ? "text-slate-900"
+                        : "text-slate-600 hover:text-slate-900"
                       }`}
                   >
                     {link.name}
@@ -173,10 +161,8 @@ const Navbar = () => {
                     setIsResourcesOpen(!isResourcesOpen);
                   }}
                   className={`flex items-center gap-1 text-sm font-medium transition-colors focus:outline-none ${flashingKey === "resources"
-                      ? "text-bigchill"
-                      : location.pathname === "/about" && !isScrolled
-                        ? "text-white hover:text-gray-300"
-                        : "text-slate-600 hover:text-slate-900"
+                    ? "text-bigchill"
+                    : "text-slate-600 hover:text-slate-900"
                     }`}
                 >
                   Resources
@@ -189,8 +175,8 @@ const Navbar = () => {
                 {/* Dropdown Menu (Click Toggle Only) */}
                 <div
                   className={`absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 transition-all duration-200 delay-150 transform origin-top-left ring-1 ring-black/5 ${isResourcesOpen
-                      ? "opacity-100 visible"
-                      : "opacity-0 invisible"
+                    ? "opacity-100 visible"
+                    : "opacity-0 invisible"
                     }`}
                 >
                   <a
@@ -221,10 +207,8 @@ const Navbar = () => {
                 href="#"
                 onClick={() => handleInteraction("signin")}
                 className={`font-medium text-sm transition-colors border px-4 py-1 rounded-full ${flashingKey === "signin"
-                    ? "text-bigchill border-bigchill"
-                    : location.pathname === "/about" && !isScrolled
-                      ? "text-white border-white/20 hover:border-white hover:bg-white/10"
-                      : "text-slate-600 border-slate-200 hover:border-slate-400 hover:text-slate-900"
+                  ? "text-bigchill border-bigchill"
+                  : "text-slate-600 border-slate-200 hover:border-slate-400 hover:text-slate-900"
                   }`}
               >
                 Sign in
@@ -235,10 +219,7 @@ const Navbar = () => {
             <div className="md:hidden flex items-center">
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className={`focus:outline-none p-1 transition-colors ${location.pathname === "/about" && !isScrolled
-                    ? "text-white hover:text-gray-300"
-                    : "text-slate-800 hover:text-slate-600"
-                  }`}
+                className="focus:outline-none p-1 transition-colors text-slate-800 hover:text-slate-600"
                 aria-label="Toggle menu"
               >
                 {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -289,10 +270,10 @@ const Navbar = () => {
                       setIsMobileMenuOpen(false);
                     }}
                     className={`text-lg font-medium py-3 border-b border-slate-50 transition-colors text-left ${flashingKey === link.name
-                        ? "text-bigchill"
-                        : activeLink === link.name && isHomePage
-                          ? "text-slate-900"
-                          : "text-slate-600"
+                      ? "text-bigchill"
+                      : activeLink === link.name && isHomePage
+                        ? "text-slate-900"
+                        : "text-slate-600"
                       }`}
                   >
                     {link.name}
@@ -302,10 +283,10 @@ const Navbar = () => {
                     key={link.name}
                     to={link.href}
                     className={`text-lg font-medium py-3 border-b border-slate-50 transition-colors text-left ${flashingKey === link.name
-                        ? "text-bigchill"
-                        : location.pathname === link.href
-                          ? "text-slate-900"
-                          : "text-slate-600"
+                      ? "text-bigchill"
+                      : location.pathname === link.href
+                        ? "text-slate-900"
+                        : "text-slate-600"
                       }`}
                     onClick={() => {
                       handleInteraction(link.name);
@@ -340,8 +321,8 @@ const Navbar = () => {
               {/* Mobile Submenu */}
               <div
                 className={`overflow-hidden transition-all duration-300 ease-in-out ${isResourcesOpen
-                    ? "max-h-40 opacity-100 mt-2"
-                    : "max-h-0 opacity-0"
+                  ? "max-h-40 opacity-100 mt-2"
+                  : "max-h-0 opacity-0"
                   }`}
               >
                 <div className="flex flex-col space-y-3 pl-4 border-l-2 border-slate-100 ml-1">
@@ -381,8 +362,8 @@ const Navbar = () => {
               <a
                 href="#contact"
                 className={`w-full text-lg font-medium py-4 rounded-xl shadow-sm transition-all text-center block ${flashingKey === "startproject-mobile"
-                    ? "bg-white text-bigchill border-2 border-bigchill"
-                    : "bg-slate-900 text-white hover:bg-slate-800"
+                  ? "bg-white text-bigchill border-2 border-bigchill"
+                  : "bg-slate-900 text-white hover:bg-slate-800"
                   }`}
                 onClick={() => {
                   handleInteraction("startproject-mobile");

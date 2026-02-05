@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import WorkWithUsModal from "./WorkWithUsModal";
+import ThreeDCarousel from "./ThreeDCarousel";
+import ScrollTimeline from "./ScrollTimeline";
 import {
   ShieldCheck,
   Ruler,
@@ -182,7 +184,7 @@ const BentoCard = ({
     <motion.div
       variants={fadeInUp}
       whileHover={{ y: -5 }}
-      className={`relative overflow-hidden rounded-3xl p-8 glass-panel border border-white/5 ${bgClass} ${sizeClasses[size]} group flex flex-col`}
+      className={`relative overflow-hidden rounded-3xl p-8 border border-white/10 ${isLarge ? "bg-[#0a0a0a]" : "bg-[#111]"} ${sizeClasses[size]} group flex flex-col shadow-xl`}
     >
       {/* Watermark Icon */}
       <div
@@ -210,7 +212,7 @@ const BentoCard = ({
           />
         </div>
         <h3
-          className={`text-2xl md:text-3xl font-bold font-serif mb-4 ${isLarge ? "" : ""}`}
+          className={`text-2xl md:text-3xl font-bold font-serif mb-4 text-white ${isLarge ? "" : ""}`}
         >
           {title}
         </h3>
@@ -227,7 +229,7 @@ const BentoCard = ({
 const EcoCard = ({ title, icon: Icon, text, tags }) => (
   <motion.div
     variants={fadeInUp}
-    className="group relative p-8 rounded-3xl border border-white/10 bg-white/5 hover:border-[var(--color-bigchill)]/30 transition-all duration-300 h-full flex flex-col"
+    className="group relative p-8 rounded-3xl border border-white/10 bg-[#111] hover:border-[var(--color-bigchill)]/30 transition-all duration-300 h-full flex flex-col shadow-lg"
   >
     <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-bigchill)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
 
@@ -250,15 +252,8 @@ const EcoCard = ({ title, icon: Icon, text, tags }) => (
         <p className="text-xs font-bold text-gray-400 mb-3 uppercase tracking-widest opacity-80">
           Core Capabilities
         </p>
-        <div className="flex flex-wrap gap-2">
-          {tags.map((tag, i) => (
-            <span
-              key={i}
-              className="text-xs font-medium px-3 py-1 rounded-full bg-[var(--color-bigchill)]/10 text-[var(--color-bigchill)] border border-[var(--color-bigchill)]/20"
-            >
-              {tag}
-            </span>
-          ))}
+        <div className="w-full bg-[var(--color-bigchill)]/10 text-[var(--color-bigchill)] border border-[var(--color-bigchill)]/20 rounded-xl px-4 py-3 text-sm font-medium leading-relaxed">
+          {tags.join(" • ")}
         </div>
       </div>
     </div>
@@ -311,9 +306,9 @@ const TechMarquee = () => {
   ];
 
   return (
-    <div className="w-full overflow-hidden bg-white/5 py-12 border-y border-white/5">
+    <div className="w-full overflow-hidden bg-white/5 py-12 border-y border-white/5 text-white">
       <div className="relative flex overflow-x-hidden group">
-        <div className="animate-marquee group-hover:[animation-play-state:paused] whitespace-nowrap flex gap-20 items-center pl-10">
+        <div className="animate-marquee-right group-hover:[animation-play-state:paused] whitespace-nowrap flex gap-20 items-center pl-10">
           {[...logos, ...logos, ...logos].map((item, i) => (
             <div
               key={i}
@@ -323,7 +318,7 @@ const TechMarquee = () => {
             </div>
           ))}
         </div>
-        <div className="absolute top-0 animate-marquee2 group-hover:[animation-play-state:paused] whitespace-nowrap flex gap-20 items-center pl-10">
+        <div className="absolute top-0 animate-marquee-right-2 group-hover:[animation-play-state:paused] whitespace-nowrap flex gap-20 items-center pl-10">
           {[...logos, ...logos, ...logos].map((item, i) => (
             <div
               key={`dup-${i}`}
@@ -342,56 +337,54 @@ const About = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white selection:bg-[var(--color-bigchill)] selection:text-white font-sans">
-      {/* Background Ambience */}
-      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-[var(--color-bigchill)]/5 rounded-full blur-[120px] animate-blob" />
-        <div className="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-indigo-900/10 rounded-full blur-[120px] animate-blob animation-delay-2000" />
-      </div>
+    <div className="min-h-screen text-gray-900 selection:bg-[var(--color-bigchill)] selection:text-white font-sans relative">
+
 
       <div className="relative z-10">
         {/* 1. Narrative Hero */}
-        <Section className="min-h-[85vh] flex flex-col justify-center items-center text-center pt-32 pb-20">
+        <Section className="min-h-[85vh] flex flex-col justify-center items-center text-center pt-32 pb-20 relative overflow-hidden">
+          {/* Removed local background gradient to expose global one */}
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="mb-8 px-5 py-2 rounded-full border border-white/10 bg-white/5 text-sm font-medium text-gray-400 tracking-wide uppercase"
+            className="mb-8 px-5 py-2 rounded-full border border-bigchill/20 bg-bigchill/10 text-sm font-bold text-bigchill tracking-wide uppercase relative z-10"
           >
             Engineering Value, Not Just Code
           </motion.div>
 
           <motion.h1
-            className="text-5xl md:text-7xl font-bold font-serif mb-8 tracking-tight max-w-5xl leading-[1.1]"
+            className="text-5xl md:text-7xl font-bold font-serif mb-8 tracking-tight max-w-5xl leading-[1.1] relative z-10 text-gray-900"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
           >
-            The <span className="text-[var(--color-bigchill)]">Vooklu</span>{" "}
+            The <span className="text-transparent bg-clip-text bg-gradient-to-r from-bigchill to-teal-600">Vooklu</span>{" "}
             Story
           </motion.h1>
 
           <motion.div
             variants={fadeInUp}
-            className="max-w-3xl mx-auto space-y-8 text-lg md:text-xl text-gray-300 leading-relaxed font-light"
+            className="max-w-3xl mx-auto space-y-8 text-lg md:text-xl text-gray-900 leading-relaxed font-medium relative z-10"
           >
             <p>
               At Vooklu, we noticed a flaw in the software industry: businesses
               were forced to choose between{" "}
-              <span className="text-gray-500 font-normal">expensive</span>,{" "}
-              <span className="text-gray-500 font-normal">
+              <span className="text-black font-bold">expensive</span>,{" "}
+              <span className="text-black font-bold">
                 slow-moving agencies
               </span>{" "}
               or{" "}
-              <span className="text-gray-500 font-normal">
+              <span className="text-black font-bold">
                 unreliable, solitary freelancers
               </span>
               . We built{" "}
-              <span className="text-[var(--color-bigchill)] font-semibold">
+              <span className="text-bigchill font-bold">
                 Vooklu
               </span>{" "}
               to be the{" "}
-              <span className="text-[var(--color-bigchill)] font-semibold">
+              <span className="text-bigchill font-bold">
                 Bridge
               </span>
               .
@@ -407,130 +400,173 @@ const About = () => {
 
         {/* 2. Philosophy Bento Grid */}
         <Section>
-          <motion.div
-            variants={staggerContainer}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:grid-rows-2 gap-6 max-w-6xl mx-auto"
-          >
-            <BentoCard
-              size="large"
-              icon={Ruler}
-              title="No One-Size-Fits-All"
-              subtitle="We don’t sell you enterprise-grade AWS servers if you only need a lightweight database. Whether you are a local gym or a SaaS startup, we custom-engineer your tech stack to fit your budget."
-            />
+          <div className="border border-white/10 rounded-[3rem] p-6 md:p-8 bg-white/[0.02] max-w-6xl mx-auto shadow-2xl">
+            <motion.div
+              variants={staggerContainer}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:grid-rows-2 gap-6"
+            >
+              <BentoCard
+                size="large"
+                icon={Ruler}
+                title="No One-Size-Fits-All"
+                subtitle="We don’t sell you enterprise-grade AWS servers if you only need a lightweight database. Whether you are a local gym or a SaaS startup, we custom-engineer your tech stack to fit your budget."
+              />
 
-            <BentoCard
-              size="medium"
-              icon={Network}
-              title="The Freelance Advantage"
-              subtitle="Access to top-tier talent across India without the agency markup. We recruit strictly on a project basis."
-              bgClass="bg-gradient-to-br from-indigo-900/20 to-black border-indigo-500/20"
-              iconColor="text-indigo-400"
-            />
+              <BentoCard
+                size="medium"
+                icon={Network}
+                title="The Freelance Advantage"
+                subtitle="Access to top-tier talent across India without the agency markup. We recruit strictly on a project basis."
+                bgClass="bg-gradient-to-br from-indigo-900/20 to-black border-indigo-500/20"
+                iconColor="text-indigo-400"
+              />
 
-            <BentoCard
-              size="medium"
-              icon={ShieldCheck}
-              title="Transparent Pricing"
-              subtitle="No hidden costs. Detailed contracts. You pay for engineering, not our office rent."
-            />
-          </motion.div>
+              <BentoCard
+                size="medium"
+                icon={ShieldCheck}
+                title="Transparent Pricing"
+                subtitle="No hidden costs. Detailed contracts. You pay for engineering, not our office rent."
+              />
+            </motion.div>
+          </div>
         </Section>
 
         {/* 3. Operational Operational Structure */}
         <Section>
           <div className="mb-16 text-center">
-            <h2 className="text-4xl md:text-5xl font-bold font-serif mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold font-serif mb-6 text-gray-900">
               Our Operational Structure
             </h2>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               We bridge the gap between complex engineering and business
               reliability. Vooklu operates as a unified machine driven by three
               core divisions.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 max-w-7xl mx-auto mb-12">
-            <EcoCard
-              title="Product Strategy & Experience"
-              icon={PenTool}
-              text="Great software starts with clear intent. Our Strategy Division translates your business goals into user-centric digital roadmaps. We don't just design screens; we engineer user journeys, ensuring every pixel serves a business function before a single line of code is written."
-              tags={[
-                "UI/UX Architecture",
-                "Product Roadmapping",
-                "Prototype Validation",
+          <div className="max-w-7xl mx-auto mb-12">
+            <ThreeDCarousel
+              items={[
+                <EcoCard
+                  title="Product Strategy & Experience"
+                  icon={PenTool}
+                  text="Great software starts with clear intent. Our Strategy Division translates your business goals into user-centric digital roadmaps. We don't just design screens; we engineer user journeys, ensuring every pixel serves a business function before a single line of code is written."
+                  tags={[
+                    "UI/UX Architecture",
+                    "Product Roadmapping",
+                    "Prototype Validation",
+                  ]}
+                />,
+                <EcoCard
+                  title="Core Engineering & Architecture"
+                  icon={Code2}
+                  text="Our development is anchored by senior technical architects who oversee every build. We adhere to strict coding standards, utilizing 'One Codebase' methodologies to deploy unified applications across Web, Mobile, and Desktop. This ensures your product is scalable, secure, and future-proof."
+                  tags={[
+                    "MERN Ecosystem",
+                    "Cloud Infrastructure",
+                    "Cross-Platform Development",
+                  ]}
+                />,
+                <EcoCard
+                  title="Delivery & Operations"
+                  icon={ClipboardCheck}
+                  text="Execution is our product. Our Operations Unit applies corporate-grade project management rigor to agile development. We bridge the gap between complex engineering and business deadlines, ensuring that every project is delivered on time, within budget, and defect-free."
+                  tags={[
+                    "Agile Project Management",
+                    "Quality Assurance",
+                    "Deployment Strategy",
+                  ]}
+                />
               ]}
-            />
-            <EcoCard
-              title="Core Engineering & Architecture"
-              icon={Code2}
-              text="Our development is anchored by senior technical architects who oversee every build. We adhere to strict coding standards, utilizing 'One Codebase' methodologies to deploy unified applications across Web, Mobile, and Desktop. This ensures your product is scalable, secure, and future-proof."
-              tags={[
-                "MERN Ecosystem",
-                "Cloud Infrastructure",
-                "Cross-Platform Development",
-              ]}
-            />
-            <EcoCard
-              title="Delivery & Operations"
-              icon={ClipboardCheck}
-              text="Execution is our product. Our Operations Unit applies corporate-grade project management rigor to agile development. We bridge the gap between complex engineering and business deadlines, ensuring that every project is delivered on time, within budget, and defect-free."
-              tags={[
-                "Agile Project Management",
-                "Quality Assurance",
-                "Deployment Strategy",
-              ]}
+              itemCount={3}
+              className="h-[600px] md:h-[500px]"
             />
           </div>
 
           {/* Squad/Pod Banner */}
           <motion.div
             variants={fadeInUp}
-            className="max-w-7xl mx-auto rounded-3xl p-8 md:p-12 relative overflow-hidden text-center md:text-left border border-white/10 bg-gradient-to-r from-gray-900 via-gray-900 to-[var(--color-bigchill)]/10"
+            className="max-w-7xl mx-auto rounded-3xl p-8 md:p-12 relative overflow-hidden text-center md:text-left border border-white/5 bg-gradient-to-br from-[#020617] via-[#0f172a] to-[#020617] shadow-[0_0_60px_-15px_rgba(14,165,164,0.1)] group/banner isolate"
           >
-            <div className="flex flex-col md:flex-row items-center justify-between gap-10 relative z-10">
+            {/* Ambient Radial Glow & Grid Mesh */}
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none opacity-20" />
+            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[var(--color-bigchill)]/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+
+            <div className="flex flex-col md:flex-row items-center justify-between gap-12 relative z-10">
               <div className="max-w-xl">
-                <h3 className="text-3xl font-bold font-serif mb-2">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-8 h-1 bg-[var(--color-bigchill)] rounded-full shadow-[0_0_10px_rgba(14,165,164,0.4)]" />
+                  <span className="font-mono text-xs text-[var(--color-bigchill)]/80 tracking-widest uppercase">
+                    System Architecture
+                  </span>
+                </div>
+
+                <h3 className="text-3xl md:text-4xl font-bold font-heading mb-4 tracking-tight text-white drop-shadow-sm">
                   The Vooklu Development Squad
                 </h3>
-                <h4 className="text-xl font-medium text-[var(--color-bigchill)] mb-4">
-                  How We Assemble Your Team
+
+                <h4 className="text-lg font-medium text-blue-200/80 mb-6 tracking-wide font-sans flex items-center gap-2">
+                  <span className="text-[var(--color-bigchill)]">///</span>
+                  Engineered for Velocity & Scale
                 </h4>
-                <p className="text-gray-300 text-lg leading-relaxed">
-                  We don't rely on generalists. For every enterprise project, we
-                  deploy a specialized "Pod" tailored to your technology stack:
+
+                <p className="text-gray-400 text-lg leading-relaxed border-l-2 border-white/10 pl-6">
+                  We don't just assign developers. We deploy a <span className="text-gray-200 font-medium">calibrated product pod</span> designed to ship enterprise-grade software from day one.
                 </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 w-full md:w-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full md:w-auto">
                 {[
                   {
-                    role: "1x Lead Architect",
-                    desc: "Oversees system design and security.",
+                    role: "Lead Architect",
+                    count: "1x",
+                    desc: "System Core & Security",
+                    accent: "border-cyan-500/30",
+                    highlight: "text-cyan-400",
                   },
                   {
-                    role: "2-3x Senior Developers",
-                    desc: "Specialized in React, Node, or Mobile.",
+                    role: "Senior Devs",
+                    count: "2-3x",
+                    desc: "React / Node / Mobile",
+                    accent: "border-indigo-500/30",
+                    highlight: "text-indigo-400",
                   },
                   {
-                    role: "1x QA Specialist",
-                    desc: "Dedicated to breaking the code before users do.",
+                    role: "QA Specialist",
+                    count: "1x",
+                    desc: "Automated Testing",
+                    accent: "border-pink-500/30",
+                    highlight: "text-pink-400",
                   },
                   {
-                    role: "1x Delivery Manager",
-                    desc: "Your single point of contact for updates.",
+                    role: "Product Manager",
+                    count: "1x",
+                    desc: "Timeline & Strategy",
+                    accent: "border-emerald-500/30",
+                    highlight: "text-emerald-400",
                   },
                 ].map((item, i) => (
                   <div
                     key={i}
-                    className="flex flex-col items-center text-center p-4 rounded-xl border border-white/5 bg-black/20 hover:border-[var(--color-bigchill)]/30 transition-colors w-full sm:w-auto sm:min-w-[140px] sm:max-w-[180px]"
+                    className={`group/card relative bg-[#0B1221]/80 backdrop-blur-md border border-white/5 rounded-lg p-5 w-full md:w-[260px] hover:-translate-y-0.5 hover:bg-white/[0.03] transition-all duration-200 overflow-hidden ${i === 0 ? "sm:col-span-2 md:col-span-1 border-l-2 !border-l-[var(--color-bigchill)]" : "border-l border-l-white/10"}`}
                   >
-                    <div className="w-2 h-2 rounded-full bg-[var(--color-bigchill)] shadow-[0_0_10px_var(--color-bigchill)] mb-3" />
-                    <div className="font-bold text-white text-sm mb-1">
+                    <div className="flex items-start justify-between mb-3">
+                      <div className={`font-mono text-xs ${item.highlight} bg-white/5 px-2 py-1 rounded border border-white/5 tracking-wider`}>
+                        {item.count}
+                      </div>
+                      <div className="w-1.5 h-1.5 rounded-full bg-white/20 group-hover/card:bg-[var(--color-bigchill)] transition-colors" />
+                    </div>
+
+                    <h5 className="text-gray-100 font-bold text-base mb-1 group-hover/card:text-white flex items-center gap-2">
                       {item.role}
-                    </div>
-                    <div className="text-[10px] text-gray-400 uppercase tracking-wider leading-tight">
-                      {item.desc}
-                    </div>
+                    </h5>
+
+                    <p className="text-gray-500 text-xs font-mono group-hover/card:text-gray-400 transition-colors">
+                      // {item.desc}
+                    </p>
+
+                    {/* Hover Glow Effect */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover/card:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none" />
                   </div>
                 ))}
               </div>
@@ -539,50 +575,34 @@ const About = () => {
         </Section>
 
         {/* 4. The Glass Kitchen (Timeline) */}
-        <Section className="bg-white/5 my-12 rounded-[3rem] mx-4 md:mx-8 border border-white/5">
-          <div className="text-center mb-16 pt-8">
-            <h2 className="text-3xl md:text-4xl font-bold font-serif mb-4">
-              The "Glass Kitchen" Approach
-            </h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">
-              We hate black boxes. That’s why we introduced the Vooklu Live
-              Tracker. When you sign a contract, you receive a unique{" "}
-              <strong>Reference ID</strong> to see exactly where your project
-              stands in real-time.
-            </p>
-          </div>
-
-          <div className="flex flex-col md:flex-row gap-4 max-w-7xl mx-auto px-6 overflow-x-auto pb-12 items-start justify-between">
-            {[
-              { step: 1, title: "Planning", desc: "Scope & Contract" },
-              { step: 2, title: "Designing", desc: "UI/UX Wireframes" },
-              { step: 3, title: "Development", desc: "Coding phase" }, // Active
-              { step: 4, title: "Testing", desc: "QA & Security" },
-              { step: 5, title: "Hosting", desc: "Server Setup" },
-              { step: 6, title: "Deployment", desc: "Live Launch" },
-            ].map((item, index) => (
-              <TimelineStep
-                key={index}
-                step={item.step}
-                title={item.title}
-                description={item.desc}
-                isActive={index === 2} // Make step 3 active for demo
-                isCompleted={index < 2}
-              />
-            ))}
-          </div>
+        <Section className="bg-[#0a0a0a] my-12 rounded-[3rem] mx-0 md:mx-8 border border-white/10 shadow-2xl relative">
+          <div className="absolute inset-0 bg-white/5 pointer-events-none" />
+          <ScrollTimeline
+            title='The "Glass Kitchen" Approach'
+            subtitle="We hate black boxes. Track your project's heartbeat in real-time."
+            cardEffect="glow"
+            timelineTitle="Project Lifecycle"
+            events={[
+              { year: "Phase 1", title: "Planning", description: "Scope definition, requirements gathering, and contract finalization. We align on specific deliverables." },
+              { year: "Phase 2", title: "Designing", description: "UI/UX wireframes, high-fidelity prototypes, and user journey mapping. You see the product before we code." },
+              { year: "Phase 3", title: "Development", description: "Sprint-based coding. You get a live staging link to watch your product come to life feature by feature." },
+              { year: "Phase 4", title: "Testing", description: "Rigorous QA, security scanning, and load testing to ensure a bug-free launch." },
+              { year: "Phase 5", title: "Hosting", description: "Server setup, domain configuration, and CDN integration for optimal performance." },
+              { year: "Phase 6", title: "Deployment", description: "Live launch and handover. We ensure a smooth transition to production." },
+            ]}
+          />
         </Section>
 
         {/* 5. Trust Signals: Capabilities & Anti-WP */}
         <Section className="py-20">
           <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto items-stretch">
             {/* Capabilities Card */}
-            <div className="glass-panel border border-white/10 p-8 rounded-2xl flex flex-col h-full">
+            <div className="bg-[#111] border border-white/10 p-8 rounded-2xl flex flex-col h-full shadow-lg">
               <div className="flex items-center gap-3 mb-8">
                 <div className="p-3 bg-[var(--color-bigchill)]/10 rounded-lg text-[var(--color-bigchill)]">
                   <Cpu size={28} fill="currentColor" fillOpacity={0.2} />
                 </div>
-                <h3 className="text-3xl font-bold font-serif">Capabilities</h3>
+                <h3 className="text-3xl font-bold font-serif text-white">Capabilities</h3>
               </div>
 
               <div className="grid grid-cols-2 gap-x-4 gap-y-6">
@@ -610,7 +630,7 @@ const About = () => {
             </div>
 
             {/* Tech We Don't Use Card */}
-            <div className="bg-red-900/5 border border-red-500/10 p-8 rounded-2xl flex flex-col h-full">
+            <div className="bg-[#1a0505] border border-red-500/10 p-8 rounded-2xl flex flex-col h-full shadow-lg">
               <div className="flex items-center gap-3 mb-8">
                 <div className="p-3 bg-red-500/10 rounded-lg text-red-500">
                   <XCircle size={28} fill="currentColor" fillOpacity={0.2} />
@@ -647,18 +667,18 @@ const About = () => {
 
         {/* 6. Tech Stack Marquee (Logo Version) */}
         <div className="py-16 bg-black border-y border-white/5">
-          <p className="text-center text-xs font-bold tracking-[0.2em] text-gray-600 uppercase mb-12">
+          <p className="text-center text-xs font-bold tracking-[0.2em] text-gray-400 uppercase mb-12">
             Powering Next-Gen Applications
           </p>
           <TechMarquee />
         </div>
 
         {/* 7. Split CTA */}
-        <Section className="pb-32 pt-20">
+        <Section className="pb-32 pt-20 bg-black">
           <div className="flex flex-col items-center text-center max-w-4xl mx-auto space-y-12">
             <motion.div
               whileHover={{ scale: 1.01 }}
-              className="p-12 bg-gradient-to-b from-[var(--color-bigchill)]/10 to-black border border-[var(--color-bigchill)]/30 rounded-3xl w-full relative overflow-hidden group shadow-[0_0_80px_-20px_rgba(14,165,164,0.3)]"
+              className="p-12 bg-[#0a0a0a] border border-[var(--color-bigchill)]/30 rounded-3xl w-full relative overflow-hidden group shadow-[0_0_80px_-20px_rgba(14,165,164,0.3)]"
             >
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(ellipse_at_top,rgba(14,165,164,0.2),transparent_70%)] pointer-events-none" />
 
@@ -696,7 +716,7 @@ const About = () => {
               </p>
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="text-gray-400 hover:text-white text-sm font-medium flex items-center justify-center gap-2 mx-auto transition-colors group"
+                className="text-gray-500 hover:text-gray-900 text-sm font-medium flex items-center justify-center gap-2 mx-auto transition-colors group"
               >
                 Join our Delivery Network{" "}
                 <ArrowRight

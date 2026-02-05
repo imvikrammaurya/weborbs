@@ -33,6 +33,51 @@
       background-position: -200% 0;
     }
   }
+
+  @keyframes marquee-left {
+    0% {
+      transform: translateX(0%);
+    }
+
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  @keyframes marquee-left-2 {
+    0% {
+      transform: translateX(100%);
+    }
+
+    100% {
+      transform: translateX(0%);
+    }
+  }
+
+  @keyframes marquee-right {
+    0% {
+      transform: translateX(0%);
+    }
+
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes marquee-right-2 {
+    0% {
+      transform: translateX(-100%);
+    }
+
+    100% {
+      transform: translateX(0%);
+    }
+  }
+
+  --animate-marquee-left: marquee-left 25s linear infinite;
+  --animate-marquee-left-2: marquee-left-2 25s linear infinite;
+  --animate-marquee-right: marquee-right 25s linear infinite;
+  --animate-marquee-right-2: marquee-right-2 25s linear infinite;
 }
 
 .animation-delay-2000 {
