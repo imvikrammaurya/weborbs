@@ -198,6 +198,10 @@ const BentoCard = ({
         />
       </div>
 
+      {/* Centered Radial Gradient */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] bg-[var(--color-bigchill)]/40 blur-[80px] rounded-full pointer-events-none" />
+
+
       <div
         className={`relative z-10 h-full flex flex-col ${isLarge ? "justify-center items-center text-center" : "justify-end"}`}
       >
@@ -226,20 +230,30 @@ const BentoCard = ({
   );
 };
 
-const EcoCard = ({ title, icon: Icon, text, tags }) => (
+const EcoCard = ({ title, icon: Icon, text, tags, number }) => (
   <motion.div
     variants={fadeInUp}
     className="group relative p-8 rounded-3xl border border-white/10 bg-[#111] hover:border-[var(--color-bigchill)]/30 transition-all duration-300 h-full flex flex-col shadow-lg"
   >
     <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-bigchill)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
 
+    {/* Centered Radial Gradient (Added for consistency) */}
+    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150px] h-[150px] bg-[var(--color-bigchill)]/20 blur-[60px] rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
     <div className="relative z-10 flex flex-col h-full">
-      <div className="mb-6 p-4 bg-white/5 w-fit rounded-2xl border border-white/5 group-hover:bg-[var(--color-bigchill)]/20 group-hover:border-[var(--color-bigchill)]/30 transition-colors">
-        <Icon
-          size={32}
-          className="text-[var(--color-bigchill)]"
-          strokeWidth={1.5}
-        />
+      <div className="flex justify-between items-start mb-6">
+        <div className="p-4 bg-white/5 w-fit rounded-2xl border border-white/5 group-hover:bg-[var(--color-bigchill)]/20 group-hover:border-[var(--color-bigchill)]/30 transition-colors">
+          <Icon
+            size={32}
+            className="text-[var(--color-bigchill)]"
+            strokeWidth={1.5}
+          />
+        </div>
+        {number && (
+          <span className="text-4xl font-serif font-bold text-white/10 group-hover:text-[var(--color-bigchill)]/40 transition-colors">
+            {number}
+          </span>
+        )}
       </div>
 
       <h3 className="text-2xl font-bold font-sans mb-4 text-white group-hover:text-[var(--color-bigchill)] transition-colors">
@@ -306,7 +320,7 @@ const TechMarquee = () => {
   ];
 
   return (
-    <div className="w-full overflow-hidden bg-white/5 py-12 border-y border-white/5 text-white">
+    <div className="w-full overflow-hidden bg-[var(--color-bigchill)]/5 py-12 border-y border-[var(--color-bigchill)]/10 text-gray-900">
       <div className="relative flex overflow-x-hidden group">
         <div className="animate-marquee-right group-hover:[animation-play-state:paused] whitespace-nowrap flex gap-20 items-center pl-10">
           {[...logos, ...logos, ...logos].map((item, i) => (
@@ -448,6 +462,7 @@ const About = () => {
             <ThreeDCarousel
               items={[
                 <EcoCard
+                  number="01"
                   title="Product Strategy & Experience"
                   icon={PenTool}
                   text="Great software starts with clear intent. Our Strategy Division translates your business goals into user-centric digital roadmaps. We don't just design screens; we engineer user journeys, ensuring every pixel serves a business function before a single line of code is written."
@@ -458,6 +473,7 @@ const About = () => {
                   ]}
                 />,
                 <EcoCard
+                  number="02"
                   title="Core Engineering & Architecture"
                   icon={Code2}
                   text="Our development is anchored by senior technical architects who oversee every build. We adhere to strict coding standards, utilizing 'One Codebase' methodologies to deploy unified applications across Web, Mobile, and Desktop. This ensures your product is scalable, secure, and future-proof."
@@ -468,6 +484,7 @@ const About = () => {
                   ]}
                 />,
                 <EcoCard
+                  number="03"
                   title="Delivery & Operations"
                   icon={ClipboardCheck}
                   text="Execution is our product. Our Operations Unit applies corporate-grade project management rigor to agile development. We bridge the gap between complex engineering and business deadlines, ensuring that every project is delivered on time, within budget, and defect-free."
@@ -486,32 +503,32 @@ const About = () => {
           {/* Squad/Pod Banner */}
           <motion.div
             variants={fadeInUp}
-            className="max-w-7xl mx-auto rounded-3xl p-8 md:p-12 relative overflow-hidden text-center md:text-left border border-white/5 bg-gradient-to-br from-[#020617] via-[#0f172a] to-[#020617] shadow-[0_0_60px_-15px_rgba(14,165,164,0.1)] group/banner isolate"
+            className="max-w-7xl mx-auto rounded-3xl p-8 md:p-12 relative overflow-hidden text-center md:text-left border border-white bg-white/60 backdrop-blur-2xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] group/banner isolate"
           >
             {/* Ambient Radial Glow & Grid Mesh */}
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none opacity-20" />
-            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[var(--color-bigchill)]/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(14,165,164,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(14,165,164,0.03)_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none opacity-40" />
+            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[var(--color-bigchill)]/5 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/3 pointer-events-none" />
 
             <div className="flex flex-col md:flex-row items-center justify-between gap-12 relative z-10">
               <div className="max-w-xl">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-8 h-1 bg-[var(--color-bigchill)] rounded-full shadow-[0_0_10px_rgba(14,165,164,0.4)]" />
-                  <span className="font-mono text-xs text-[var(--color-bigchill)]/80 tracking-widest uppercase">
+                  <span className="font-mono text-xs text-[var(--color-bigchill)] tracking-widest uppercase font-bold">
                     System Architecture
                   </span>
                 </div>
 
-                <h3 className="text-3xl md:text-4xl font-bold font-heading mb-4 tracking-tight text-white drop-shadow-sm">
+                <h3 className="text-3xl md:text-4xl font-bold font-heading mb-4 tracking-tight text-gray-900 drop-shadow-sm">
                   The Vooklu Development Squad
                 </h3>
 
-                <h4 className="text-lg font-medium text-blue-200/80 mb-6 tracking-wide font-sans flex items-center gap-2">
+                <h4 className="text-lg font-medium text-gray-700/80 mb-6 tracking-wide font-sans flex items-center gap-2">
                   <span className="text-[var(--color-bigchill)]">///</span>
                   Engineered for Velocity & Scale
                 </h4>
 
-                <p className="text-gray-400 text-lg leading-relaxed border-l-2 border-white/10 pl-6">
-                  We don't just assign developers. We deploy a <span className="text-gray-200 font-medium">calibrated product pod</span> designed to ship enterprise-grade software from day one.
+                <p className="text-gray-700 text-lg leading-relaxed border-l-2 border-[var(--color-bigchill)]/30 pl-6">
+                  We don't just assign developers. We deploy a <span className="text-gray-900 font-bold">calibrated product pod</span> designed to ship enterprise-grade software from day one.
                 </p>
               </div>
 
@@ -522,51 +539,55 @@ const About = () => {
                     count: "1x",
                     desc: "System Core & Security",
                     accent: "border-cyan-500/30",
-                    highlight: "text-cyan-400",
+                    highlight: "text-cyan-700",
+                    bgHighlight: "bg-cyan-50",
                   },
                   {
                     role: "Senior Devs",
                     count: "2-3x",
                     desc: "React / Node / Mobile",
                     accent: "border-indigo-500/30",
-                    highlight: "text-indigo-400",
+                    highlight: "text-indigo-700",
+                    bgHighlight: "bg-indigo-50",
                   },
                   {
                     role: "QA Specialist",
                     count: "1x",
                     desc: "Automated Testing",
                     accent: "border-pink-500/30",
-                    highlight: "text-pink-400",
+                    highlight: "text-pink-700",
+                    bgHighlight: "bg-pink-50",
                   },
                   {
                     role: "Product Manager",
                     count: "1x",
                     desc: "Timeline & Strategy",
                     accent: "border-emerald-500/30",
-                    highlight: "text-emerald-400",
+                    highlight: "text-emerald-700",
+                    bgHighlight: "bg-emerald-50",
                   },
                 ].map((item, i) => (
                   <div
                     key={i}
-                    className={`group/card relative bg-[#0B1221]/80 backdrop-blur-md border border-white/5 rounded-lg p-5 w-full md:w-[260px] hover:-translate-y-0.5 hover:bg-white/[0.03] transition-all duration-200 overflow-hidden ${i === 0 ? "sm:col-span-2 md:col-span-1 border-l-2 !border-l-[var(--color-bigchill)]" : "border-l border-l-white/10"}`}
+                    className={`group/card relative bg-white border border-gray-100 rounded-xl p-5 w-full md:w-[260px] hover:-translate-y-1 hover:shadow-xl transition-all duration-300 overflow-hidden shadow-lg border-l-4 !border-l-[var(--color-bigchill)] ${i === 0 ? "sm:col-span-2 md:col-span-1" : ""}`}
                   >
                     <div className="flex items-start justify-between mb-3">
-                      <div className={`font-mono text-xs ${item.highlight} bg-white/5 px-2 py-1 rounded border border-white/5 tracking-wider`}>
+                      <div className={`font-mono text-xs ${item.highlight} ${item.bgHighlight} px-2 py-1 rounded border border-black/5 tracking-wider font-bold`}>
                         {item.count}
                       </div>
-                      <div className="w-1.5 h-1.5 rounded-full bg-white/20 group-hover/card:bg-[var(--color-bigchill)] transition-colors" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-gray-200 group-hover/card:bg-[var(--color-bigchill)] transition-colors" />
                     </div>
 
-                    <h5 className="text-gray-100 font-bold text-base mb-1 group-hover/card:text-white flex items-center gap-2">
+                    <h5 className="text-gray-900 font-bold text-base mb-1 group-hover/card:text-black flex items-center gap-2">
                       {item.role}
                     </h5>
 
-                    <p className="text-gray-500 text-xs font-mono group-hover/card:text-gray-400 transition-colors">
+                    <p className="text-gray-700 text-xs font-mono group-hover/card:text-gray-900 transition-colors">
                       // {item.desc}
                     </p>
 
                     {/* Hover Glow Effect */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover/card:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-gray-50/50 to-transparent -translate-x-full group-hover/card:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none" />
                   </div>
                 ))}
               </div>
@@ -666,8 +687,8 @@ const About = () => {
         </Section>
 
         {/* 6. Tech Stack Marquee (Logo Version) */}
-        <div className="py-16 bg-black border-y border-white/5">
-          <p className="text-center text-xs font-bold tracking-[0.2em] text-gray-400 uppercase mb-12">
+        <div className="py-16 bg-transparent border-y border-[var(--color-bigchill)]/10">
+          <p className="text-center text-xs font-bold tracking-[0.2em] text-[var(--color-bigchill)] uppercase mb-12">
             Powering Next-Gen Applications
           </p>
           <TechMarquee />
@@ -711,16 +732,16 @@ const About = () => {
             </motion.div>
 
             <div className="pt-8 w-full max-w-md">
-              <p className="text-gray-600 text-sm mb-3 font-medium">
+              <p className="text-gray-400 text-base mb-3 font-medium">
                 Are you a top 1% developer?
               </p>
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="text-gray-500 hover:text-gray-900 text-sm font-medium flex items-center justify-center gap-2 mx-auto transition-colors group"
+                className="text-gray-200 hover:text-white text-base font-medium flex items-center justify-center gap-2 mx-auto transition-colors group"
               >
                 Join our Delivery Network{" "}
                 <ArrowRight
-                  size={14}
+                  size={16}
                   className="group-hover:translate-x-1 transition-transform"
                 />
               </button>
