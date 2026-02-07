@@ -216,7 +216,7 @@ const BentoCard = ({
           />
         </div>
         <h3
-          className={`text-2xl md:text-3xl font-bold font-serif mb-4 text-white ${isLarge ? "" : ""}`}
+          className={`text-2xl md:text-3xl font-bold mb-4 text-white ${isLarge ? "" : ""}`}
         >
           {title}
         </h3>
@@ -250,13 +250,13 @@ const EcoCard = ({ title, icon: Icon, text, tags, number }) => (
           />
         </div>
         {number && (
-          <span className="text-4xl font-serif font-bold text-white/10 group-hover:text-[var(--color-bigchill)]/40 transition-colors">
+          <span className="text-4xl font-heading font-bold text-white/10 group-hover:text-[var(--color-bigchill)]/40 transition-colors">
             {number}
           </span>
         )}
       </div>
 
-      <h3 className="text-2xl font-bold font-sans mb-4 text-white group-hover:text-[var(--color-bigchill)] transition-colors">
+      <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-[var(--color-bigchill)] transition-colors">
         {title}
       </h3>
 
@@ -369,7 +369,7 @@ const About = () => {
           </motion.div>
 
           <motion.h1
-            className="text-5xl md:text-7xl font-bold font-serif mb-8 tracking-tight max-w-5xl leading-[1.1] relative z-10 text-gray-900"
+            className="text-5xl md:text-7xl font-bold mb-8 tracking-tight max-w-5xl leading-[1.1] relative z-10 text-gray-900"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
@@ -448,7 +448,7 @@ const About = () => {
         {/* 3. Operational Operational Structure */}
         <Section>
           <div className="mb-16 text-center">
-            <h2 className="text-4xl md:text-5xl font-bold font-serif mb-6 text-gray-900">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
               Our Operational Structure
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -522,7 +522,7 @@ const About = () => {
                   The Vooklu Development Squad
                 </h3>
 
-                <h4 className="text-lg font-medium text-gray-700/80 mb-6 tracking-wide font-sans flex items-center gap-2">
+                <h4 className="text-lg font-medium text-gray-700/80 mb-6 tracking-wide flex items-center gap-2">
                   <span className="text-[var(--color-bigchill)]">///</span>
                   Engineered for Velocity & Scale
                 </h4>
@@ -599,7 +599,7 @@ const About = () => {
         <Section className="bg-[#0a0a0a] my-12 rounded-[3rem] mx-0 md:mx-8 border border-white/10 shadow-2xl relative">
           <div className="absolute inset-0 bg-white/5 pointer-events-none" />
           <ScrollTimeline
-            title='The "Glass Kitchen" Approach'
+            title='The Vooklu Delivery Framework'
             subtitle="We hate black boxes. Track your project's heartbeat in real-time."
             cardEffect="glow"
             timelineTitle="Project Lifecycle"
@@ -623,7 +623,7 @@ const About = () => {
                 <div className="p-3 bg-[var(--color-bigchill)]/10 rounded-lg text-[var(--color-bigchill)]">
                   <Cpu size={28} fill="currentColor" fillOpacity={0.2} />
                 </div>
-                <h3 className="text-3xl font-bold font-serif text-white">Capabilities</h3>
+                <h3 className="text-3xl font-bold text-white">Capabilities</h3>
               </div>
 
               <div className="grid grid-cols-2 gap-x-4 gap-y-6">
@@ -656,7 +656,7 @@ const About = () => {
                 <div className="p-3 bg-red-500/10 rounded-lg text-red-500">
                   <XCircle size={28} fill="currentColor" fillOpacity={0.2} />
                 </div>
-                <h3 className="text-3xl font-bold font-serif text-gray-200">
+                <h3 className="text-3xl font-bold text-gray-200">
                   The Tech We Don't Use
                 </h3>
               </div>
@@ -703,7 +703,7 @@ const About = () => {
             >
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(ellipse_at_top,rgba(14,165,164,0.2),transparent_70%)] pointer-events-none" />
 
-              <h3 className="text-4xl md:text-5xl font-bold font-serif mb-6 relative z-10 text-white leading-tight">
+              <h3 className="text-4xl md:text-5xl font-bold mb-6 relative z-10 text-white leading-tight">
                 Ready to build something <br />{" "}
                 <span className="text-[var(--color-bigchill)]">
                   world-class?
