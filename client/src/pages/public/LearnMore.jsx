@@ -29,9 +29,9 @@ import {
 import { Link } from "react-router-dom";
 
 // Import images (reusing from HeroSection for consistency until new assets are provided)
-import dashboardImg from "../assets/dashboard_analytics_dark_1767871281648.png";
-import serverImg from "../assets/server_metrics_card_1767871336352.png";
-import mobileImg from "../assets/hero-dashboard-7.png"; // Assuming this is mobile-like
+import dashboardImg from "../../assets/dashboard_analytics_dark_1767871281648.png";
+import serverImg from "../../assets/server_metrics_card_1767871336352.png";
+import mobileImg from "../../assets/hero-dashboard-7.png"; // Assuming this is mobile-like
 
 const LearnMore = () => {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
@@ -604,8 +604,8 @@ const LearnMore = () => {
                 transition={{ delay: index * 0.1 }}
                 viewport={{ once: true }}
                 className={`p-8 rounded-3xl flex flex-col transition-all duration-300 ${index === 2
-                    ? "bg-slate-900 text-white shadow-2xl scale-105 transform z-10"
-                    : "bg-white border border-slate-200 hover:border-slate-300 hover:shadow-xl text-slate-900"
+                  ? "bg-slate-900 text-white shadow-2xl scale-105 transform z-10"
+                  : "bg-white border border-slate-200 hover:border-slate-300 hover:shadow-xl text-slate-900"
                   }`}
               >
                 {index === 2 && (
@@ -637,8 +637,8 @@ const LearnMore = () => {
                 <a
                   href="#contact"
                   className={`w-full py-4 rounded-xl text-center font-bold text-sm transition-all ${index === 2
-                      ? "bg-[var(--color-bigchill)] text-white hover:bg-[#0b8a89]"
-                      : "bg-slate-100 text-slate-900 hover:bg-slate-200"
+                    ? "bg-[var(--color-bigchill)] text-white hover:bg-[#0b8a89]"
+                    : "bg-slate-100 text-slate-900 hover:bg-slate-200"
                     }`}
                 >
                   Choose Plan

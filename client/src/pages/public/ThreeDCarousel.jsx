@@ -1,6 +1,6 @@
 import { ArrowLeftCircle, ArrowRightCircle } from 'lucide-react';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { cn } from '../lib/utils';
+import { cn } from '../../lib/utils';
 
 // --- MINIMIZED CSS Styles (Core 3D positioning) ---
 const EMBEDDED_CSS = `
@@ -289,8 +289,8 @@ const ThreeDCarousel = ({
                         key={idx}
                         onClick={() => setActiveIndex(idx)}
                         className={`w-2 h-2 rounded-full transition-all duration-300 ${idx === activeIndex
-                                ? "bg-[var(--color-bigchill)] w-6"
-                                : "bg-gray-600 hover:bg-gray-400"
+                            ? "bg-[var(--color-bigchill)] w-6"
+                            : "bg-gray-600 hover:bg-gray-400"
                             }`}
                         aria-label={`Go to slide ${idx + 1}`}
                     />

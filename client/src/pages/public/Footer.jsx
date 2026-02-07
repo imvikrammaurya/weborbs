@@ -1,6 +1,6 @@
 import React from "react";
 import { Instagram, Linkedin, Youtube, Twitter } from "lucide-react";
-import Logo from "../assets/weborbs.png";
+import Logo from "../../assets/weborbs.png";
 
 export default function Footer() {
   return (

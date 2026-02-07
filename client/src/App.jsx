@@ -1,12 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
-import AllComponents from "./Components/AllComponents";
-import About from "./Components/About";
-import Navbar from "./Components/Navbar";
-import Footer from "./Components/Footer";
-import BackgroundGradient from "./Components/BackgroundGradient";
+import AllComponents from "./pages/public/AllComponents";
+import About from "./pages/public/About";
+import Navbar from "./pages/public/Navbar";
+import Footer from "./pages/public/Footer";
+import BackgroundGradient from "./pages/public/BackgroundGradient";
 
-import LearnMore from "./Components/LearnMore";
+import LearnMore from "./pages/public/LearnMore";
 
 function App() {
   return (

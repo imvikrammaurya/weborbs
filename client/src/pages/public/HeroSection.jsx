@@ -4,16 +4,16 @@ import { ArrowRight, Code, ShieldCheck, Zap } from "lucide-react";
 import { Link } from "react-router-dom";
 
 // Import assets
-import dashboardImg from "../assets/dashboard_analytics_dark_1767871281648.png";
+import dashboardImg from "../../assets/dashboard_analytics_dark_1767871281648.png";
 
-import serverImg from "../assets/server_metrics_card_1767871336352.png";
-// import heroDashboardImg from '../assets/hero-dashboard.png';
-import heroDashboardImg2 from "../assets/hero-dashboard-2.png";
-import heroDashboardImg3 from "../assets/hero-dashboard-3.png";
-import heroDashboardImg4 from "../assets/hero-dashboard-4.png";
-import heroDashboardImg5 from "../assets/hero-dashboard-5.png";
-import heroDashboardImg6 from "../assets/hero-dashboard-6.png";
-import heroDashboardImg7 from "../assets/hero-dashboard-7.png";
+import serverImg from "../../assets/server_metrics_card_1767871336352.png";
+// import heroDashboardImg from '../../assets/hero-dashboard.png';
+import heroDashboardImg2 from "../../assets/hero-dashboard-2.png";
+import heroDashboardImg3 from "../../assets/hero-dashboard-3.png";
+import heroDashboardImg4 from "../../assets/hero-dashboard-4.png";
+import heroDashboardImg5 from "../../assets/hero-dashboard-5.png";
+import heroDashboardImg6 from "../../assets/hero-dashboard-6.png";
+import heroDashboardImg7 from "../../assets/hero-dashboard-7.png";
 
 const HeroSection = ({ openModal }) => {
   return (

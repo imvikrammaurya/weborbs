@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
-import testingAndDeployment from "../assets/Process-testing_and_deployment.png";
+import testingAndDeployment from "../../assets/Process-testing_and_deployment.png";
 
 export default function Process() {
   const steps = [

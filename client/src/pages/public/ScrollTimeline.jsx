@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { cn } from "../lib/utils";
+import { cn } from "../../lib/utils";
 import { Calendar } from "lucide-react";
 
 // --- Inline Card Components ---
