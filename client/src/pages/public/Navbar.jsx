@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X, ChevronDown, Globe } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import AuthModal from "../../components/auth/AuthModal";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -10,6 +12,7 @@ const Navbar = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [isResourcesOpen, setIsResourcesOpen] = useState(false);
   const location = useLocation();
+  const { openAuthModal, isAuthModalOpen } = useAuth();
   const navigate = useNavigate();
 
   const isHomePage = location.pathname === "/";
@@ -205,7 +208,10 @@ const Navbar = () => {
             <div className="hidden md:flex items-center gap-4">
               <a
                 href="#"
-                onClick={() => handleInteraction("signin")}
+                onClick={() => {
+                  handleInteraction("signin");
+                  openAuthModal();
+                }}
                 className={`font-medium text-sm transition-colors border px-4 py-1 rounded-full ${flashingKey === "signin"
                   ? "text-bigchill border-bigchill"
                   : "text-slate-600 border-slate-200 hover:border-slate-400 hover:text-slate-900"
@@ -350,6 +356,7 @@ const Navbar = () => {
                 className={`inline-block text-base font-medium transition-colors ${flashingKey === "signin-mobile" ? "text-bigchill" : "text-slate-900 hover:text-slate-600"}`}
                 onClick={() => {
                   handleInteraction("signin-mobile");
+                  openAuthModal();
                   setIsMobileMenuOpen(false);
                 }}
               >
@@ -377,6 +384,8 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+
+      <AuthModal />
     </>
   );
 };
