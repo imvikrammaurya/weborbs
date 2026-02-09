@@ -21,12 +21,13 @@ const googleCallback = async (req, res) => {
         const token = generateToken(user._id);
 
         const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
-        const redirectPath = '/dashboard';
+        const redirectPath = user.profileCompleted ? '/dashboard' : '/complete-profile';
 
         res.redirect(`${clientUrl}/auth/callback?token=${token}&redirect=${redirectPath}`);
     } catch (error) {
         console.error(error);
-        res.redirect(`${process.env.CLIENT_URL || 'http://localhost:5173'}/login?error=auth_failed`);
+        const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
+        res.redirect(`${clientUrl}/login?error=auth_failed`);
     }
 };
 
@@ -90,13 +91,16 @@ const registerUser = async (req, res) => {
             return res.status(400).json({ success: false, message: 'User already exists' });
         }
 
+        // Check if manual signup includes required profile fields
+        const isProfileComplete = contactInfo && contactInfo.phone && contactInfo.company;
+
         // Create user
         const user = await User.create({
             name,
             email,
             password,
-            contactInfo,
-            profileCompleted: false
+            contactInfo: contactInfo || {},
+            profileCompleted: !!isProfileComplete
         });
 
         if (user) {
@@ -125,6 +129,11 @@ const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
 
+        // Validate request input
+        if (!email || !password || typeof email !== 'string' || typeof password !== 'string') {
+            return res.status(400).json({ success: false, message: 'Please provide valid email and password' });
+        }
+
         // Check for user email
         const user = await User.findOne({ email });
 
@@ -142,7 +151,7 @@ const loginUser = async (req, res) => {
             res.status(401).json({ success: false, message: 'Invalid credentials' });
         }
     } catch (error) {
-        console.error(error);
+        console.error('Login error:', error);
         res.status(500).json({ success: false, message: 'Server error' });
     }
 };

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../../context/AuthContext';
-import { X, Mail, Lock, User, ArrowRight, Github, Chrome } from 'lucide-react';
+import { X, Mail, Lock, User, ArrowRight, Github, Chrome, Briefcase, Phone } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const AuthModal = () => {
@@ -14,7 +14,9 @@ const AuthModal = () => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
-        password: ''
+        password: '',
+        phone: '',
+        company: ''
     });
 
     if (!isAuthModalOpen) return null;
@@ -32,7 +34,15 @@ const AuthModal = () => {
                 setError(result.message);
             }
         } else {
-            const result = await register(formData);
+            const result = await register({
+                name: formData.name,
+                email: formData.email,
+                password: formData.password,
+                contactInfo: {
+                    phone: formData.phone,
+                    company: formData.company // Maps to 'company' in Schema
+                }
+            });
             if (result.success) {
                 navigate('/dashboard');
             } else {
@@ -43,7 +53,8 @@ const AuthModal = () => {
     };
 
     const handleGoogleLogin = () => {
-        window.location.href = 'http://localhost:5000/api/auth/google';
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+        window.location.href = `${apiUrl}/auth/google`;
     };
 
     return (
@@ -98,19 +109,50 @@ const AuthModal = () => {
 
                         <form onSubmit={handleSubmit} className="space-y-4">
                             {!isLogin && (
-                                <div className="relative">
-                                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <User className="h-5 w-5 text-zinc-500" />
+                                <>
+                                    <div className="relative">
+                                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <User className="h-5 w-5 text-zinc-500" />
+                                        </div>
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            placeholder="Full Name"
+                                            value={formData.name}
+                                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                            className="w-full pl-10 pr-4 py-3 bg-zinc-950 border border-zinc-800 rounded-xl text-white placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+                                            required
+                                        />
                                     </div>
-                                    <input
-                                        type="text"
-                                        placeholder="Full Name"
-                                        value={formData.name}
-                                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                        className="w-full pl-10 pr-4 py-3 bg-zinc-950 border border-zinc-800 rounded-xl text-white placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
-                                        required
-                                    />
-                                </div>
+                                    <div className="relative">
+                                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <Phone className="h-5 w-5 text-zinc-500" />
+                                        </div>
+                                        <input
+                                            type="tel"
+                                            name="phone"
+                                            placeholder="Phone Number"
+                                            value={formData.phone}
+                                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                                            className="w-full pl-10 pr-4 py-3 bg-zinc-950 border border-zinc-800 rounded-xl text-white placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+                                            required
+                                        />
+                                    </div>
+                                    <div className="relative">
+                                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <Briefcase className="h-5 w-5 text-zinc-500" />
+                                        </div>
+                                        <input
+                                            type="text"
+                                            name="company"
+                                            placeholder="Company Name"
+                                            value={formData.company}
+                                            onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                                            className="w-full pl-10 pr-4 py-3 bg-zinc-950 border border-zinc-800 rounded-xl text-white placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+                                            required
+                                        />
+                                    </div>
+                                </>
                             )}
 
                             <div className="relative">
@@ -119,6 +161,7 @@ const AuthModal = () => {
                                 </div>
                                 <input
                                     type="email"
+                                    name="email"
                                     placeholder="Email Address"
                                     value={formData.email}
                                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -133,6 +176,7 @@ const AuthModal = () => {
                                 </div>
                                 <input
                                     type="password"
+                                    name="password"
                                     placeholder="Password"
                                     value={formData.password}
                                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}

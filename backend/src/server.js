@@ -12,7 +12,7 @@ require('./config/passport');
 const authRoutes = require('./routes/auth.routes');
 const chatRoutes = require('./routes/chat.routes');
 const projectRoutes = require('./routes/project.routes');
-const passport = require('./config/passport'); // Import configured passport
+
 
 const app = express();
 

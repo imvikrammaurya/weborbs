@@ -16,4 +16,8 @@ router.get('/google/callback', passport.authenticate('google', { session: false 
 
 router.post('/complete-profile', protect, authController.completeProfile);
 
+router.get('/health', (req, res) => {
+    res.status(200).json({ status: 'ok', service: 'auth' });
+});
+
 module.exports = router;

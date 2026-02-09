@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create axios instance with base URL
 const api = axios.create({
-    baseURL: 'http://localhost:5000/api', // Hardcoded as per MERN structure
+    baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api', // Fallback for dev without env
     headers: {
         'Content-Type': 'application/json',
     },
@@ -22,13 +22,23 @@ api.interceptors.request.use(
     }
 );
 
-export const loginUser = async (email, password) => {
+export const loginUser = async ({ email, password }) => {
     const response = await api.post('/auth/login', { email, password });
     return response.data;
 };
 
+// Ensure signup payload matches backend expectations for manual signup
 export const registerUser = async (userData) => {
-    const response = await api.post('/auth/register', userData);
+    const payload = {
+        name: userData.name,
+        email: userData.email,
+        password: userData.password,
+        contactInfo: {
+            phone: userData?.contactInfo?.phone || userData.phone,
+            company: userData?.contactInfo?.company || userData.company
+        }
+    };
+    const response = await api.post('/auth/register', payload);
     return response.data;
 };
 

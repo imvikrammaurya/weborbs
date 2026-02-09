@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { completeProfile } from '../../api/auth.api';
 import { User, Phone, Briefcase, CheckCircle } from 'lucide-react';
 
 const ProfileCompletionModal = () => {
-    const { user, setUser } = useAuth();
+    const { user, completeUserProfile } = useAuth();
     const [isOpen, setIsOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [formData, setFormData] = useState({
+        name: '', // Added name field
         phone: '',
         company: ''
     });
@@ -17,6 +17,10 @@ const ProfileCompletionModal = () => {
         // Check if user is logged in but profile is incomplete
         if (user && user.profileCompleted === false) {
             setIsOpen(true);
+            // Pre-fill name if available (e.g. from Google)
+            if (user.name) {
+                setFormData(prev => ({ ...prev, name: user.name }));
+            }
         } else {
             setIsOpen(false);
         }
@@ -35,22 +39,18 @@ const ProfileCompletionModal = () => {
         setError('');
 
         try {
-            const response = await completeProfile({
-                phone: formData.phone,
-                companyName: formData.company // API expects companyName
+            const result = await completeUserProfile({
+                companyName: formData.company,
+                phone: formData.phone
             });
 
-            if (response.success) {
-                // Update local user state
-                const updatedUser = { ...user, ...response.data, profileCompleted: true };
-                setUser(updatedUser);
-                localStorage.setItem('user', JSON.stringify(updatedUser));
+            if (result.success) {
                 setIsOpen(false);
             } else {
-                setError(response.message || 'Failed to update profile');
+                setError(result.message || 'Failed to update profile');
             }
         } catch (err) {
-            setError(err.response?.data?.message || 'An error occurred');
+            setError(err.message || 'An error occurred');
         } finally {
             setLoading(false);
         }
@@ -75,6 +75,19 @@ const ProfileCompletionModal = () => {
                     </p>
 
                     <form onSubmit={handleSubmit} className="space-y-4">
+                        <div className="relative">
+                            <User className="absolute left-3 top-3 text-zinc-500" size={18} />
+                            <input
+                                type="text"
+                                name="name"
+                                placeholder="Full Name"
+                                value={formData.name}
+                                onChange={handleChange}
+                                required
+                                className="w-full bg-zinc-800/50 border border-zinc-700 rounded-lg py-2.5 pl-10 pr-4 text-white placeholder-zinc-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                            />
+                        </div>
+
                         <div className="relative">
                             <Phone className="absolute left-3 top-3 text-zinc-500" size={18} />
                             <input
