@@ -10,24 +10,26 @@ import serverImg from "../../assets/server_metrics_card_1767871336352.png";
 const projects = [
     {
         id: 1,
-        title: "Bakery Management Website",
+        title: "Yellow Cryon Bakery",
         category: "Bakery Website",
         description: "A modern full-stack bakery web application built with React (Vite) and Express, integrated with Supabase for backend services, featuring authentication with JWT, secure password handling, and smooth UI animations using GSAP.",
         image: "https://ik.imagekit.io/vooklu/VOOKLU%20WEBSITE/WORK/image.png",
         tech: ["React", "Tailwind", "Node.js"],
         link: "https://bakery-sample-2.vercel.app/",
         color: "from-blue-500/20 to-purple-500/20",
+        price: "₹ 16,799.00",
         tags: ["Bakery", "Business"]
     },
     {
         id: 2,
-        title: "Bakery Demo Website",
+        title: "Brown Bakery Theme",
         category: "Bakery Website",
         description: "A simple bakery web project template that demonstrates a basic front-end layout for a bakery business, showcasing pages like home, menu, and maybe bakery info using standard web technologies.",
         image: "https://ik.imagekit.io/vooklu/VOOKLU%20WEBSITE/WORK/bakery-sample-1.png", // Placeholder
         tech: ["React", "Tailwind", "Node.js"],
         link: "https://bakery-simple-1.vercel.app/",
         color: "from-emerald-500/20 to-teal-500/20",
+        price: "₹ 8,499.00",
         tags: ["Bakery", "Business"]
     },
     {
@@ -39,6 +41,7 @@ const projects = [
         tech: ["Next.js", "PostgreSQL", "TypeScript"],
         link: "https://property-sample-1.vercel.app/",
         color: "from-cyan-500/20 to-blue-500/20",
+        price: "₹ 12,499.00",
         tags: ["Business", "Property"]
     },
     {
@@ -50,29 +53,32 @@ const projects = [
         tech: ["React", "Framer Motion", "GSAP"],
         link: "https://salon-sample-1.vercel.app/",
         color: "from-orange-500/20 to-red-500/20",
+        price: "₹ 8,499.00",
         tags: ["Salon", "Business"]
     },
     {
         id: 5,
-        title: "Filler Space",
-        category: "Healthcare",
-        description: "Telemedicine platform connecting patients with doctors for virtual consultations and prescription management.",
-        image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1470&auto=format&fit=crop",
+        title: "Red Heart Bakery",
+        category: "Bakery Website",
+        description: "A modern  bakery web application built with React (Vite) and Express, integrated with Supabase for backend services, featuring authentication with JWT, secure password handling, and smooth UI animations using GSAP.",
+        image: "https://ik.imagekit.io/vooklu/VOOKLU%20WEBSITE/WORK/Bakery-sample-4.png",
         tech: ["React", "WebRTC", "Socket.io"],
         link: "#",
         color: "from-rose-500/20 to-pink-500/20",
-        tags: ["Salon", "Business"]
+        price: "₹ 14,399",
+        tags: ["Bakery", "Business"]
     },
     {
         id: 6,
-        title: "Filler space",
-        category: "Web3",
-        description: "Cryptocurrency tracking and trading platform with real-time market data and wallet integration.",
+        title: "Property Website",
+        category: "Property Website",
+        description: "A modern property web application built with React (Vite) and Express, integrated with Supabase for backend services, featuring authentication with JWT, secure password handling, and smooth UI animations using GSAP.",
         image: "https://ik.imagekit.io/vooklu/VOOKLU%20WEBSITE/random%20images/image.png",
         tech: ["Web3.js", "Solidity", "React"],
         link: "#",
         color: "from-indigo-500/20 to-violet-500/20",
-        tags: ["Shopify", "Business"]
+        price: "₹ 15,499.00",
+        tags: ["Property", "Business"]
     }
 ];
 
@@ -208,6 +214,12 @@ const Work = () => {
                                     </div>
 
                                     <div className="flex flex-wrap gap-2 mt-auto">
+                                        {project.price && (
+                                            <div className="w-full mb-3 pb-3 border-b border-slate-100 flex items-center justify-between">
+                                                <span className="text-sm font-medium text-slate-500">Price</span>
+                                                <span className="text-lg font-bold text-[var(--color-bigchill)]">{project.price}</span>
+                                            </div>
+                                        )}
                                         {project.tech.map((t, i) => (
                                             <span key={i} className="text-xs font-medium text-slate-500 bg-slate-50 border border-slate-100 px-2 py-1 rounded">
                                                 {t}
