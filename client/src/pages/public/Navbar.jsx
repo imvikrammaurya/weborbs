@@ -366,20 +366,19 @@ const Navbar = () => {
 
             {/* Primary CTA at Bottom */}
             <div className="mt-auto pt-8 pb-4">
-              <a
-                href="#contact"
+              <Link
+                to="/contact"
                 className={`w-full text-lg font-medium py-4 rounded-xl shadow-sm transition-all text-center block ${flashingKey === "startproject-mobile"
                   ? "bg-white text-bigchill border-2 border-bigchill"
                   : "bg-slate-900 text-white hover:bg-slate-800"
                   }`}
                 onClick={() => {
                   handleInteraction("startproject-mobile");
-                  handleNavigation("#contact");
                   setIsMobileMenuOpen(false);
                 }}
               >
                 Start a Project
-              </a>
+              </Link>
             </div>
           </div>
         </div>

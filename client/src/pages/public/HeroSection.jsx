@@ -251,7 +251,7 @@ const HeroSection = ({ openModal }) => {
           className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4"
         >
           <Link
-            to="/contact"
+            to="/pricing"
             className="w-full sm:w-auto px-8 py-4 bg-bigchill text-white font-semibold rounded-lg hover:brightness-110 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2 group"
           >
             Let’s Build Your Product

@@ -16,6 +16,8 @@ import ProfileCompletionModal from "./components/auth/ProfileCompletionModal";
 const AllComponents = lazy(() => import("./pages/public/AllComponents"));
 const About = lazy(() => import("./pages/public/About"));
 const Work = lazy(() => import("./pages/public/Work"));
+const Pricing = lazy(() => import("./pages/public/Pricing"));
+const Contact = lazy(() => import("./pages/public/Contact"));
 const LearnMore = lazy(() => import("./pages/public/LearnMore"));
 const Login = lazy(() => import("./pages/auth/Login"));
 const AdminLogin = lazy(() => import("./pages/auth/AdminLogin"));
@@ -47,6 +49,8 @@ function App() {
             <Route path="/" element={<AllComponents />} />
             <Route path="/about" element={<About />} />
             <Route path="/work" element={<Work />} />
+            <Route path="/pricing" element={<Pricing />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/learn-more" element={<LearnMore />} />
 
             {/* Auth Routes */}

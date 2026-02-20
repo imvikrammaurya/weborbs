@@ -1,5 +1,6 @@
 import React from "react";
 import { Instagram, Linkedin, Youtube, Twitter } from "lucide-react";
+import { Link } from "react-router-dom";
 import Logo from "../../assets/weborbs.png";
 
 export default function Footer() {
@@ -77,9 +78,9 @@ export default function Footer() {
               </a>
             </li>
             <li>
-              <a href="#" className="hover:text-white transition-colors">
+              <Link to="/contact" className="hover:text-white transition-colors">
                 Contact
-              </a>
+              </Link>
             </li>
             <li>
               <a href="#" className="hover:text-white transition-colors">
