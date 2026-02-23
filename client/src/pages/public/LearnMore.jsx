@@ -199,13 +199,13 @@ const LearnMore = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
-              <a
-                href="#pricing"
+              <Link
+                to="/pricing"
                 className="w-full sm:w-auto px-8 py-4 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 hover:shadow-lg transition-all flex items-center justify-center gap-2 group transform hover:-translate-y-1"
               >
                 Get Started
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </a>
+              </Link>
               <button
                 onClick={() => setIsBookingModalOpen(true)}
                 className="w-full sm:w-auto px-8 py-4 bg-white text-slate-900 font-bold rounded-xl border-2 border-slate-100 hover:border-slate-200 hover:shadow-md transition-all flex items-center justify-center gap-2"

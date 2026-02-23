@@ -16,6 +16,9 @@ const projectRoutes = require('./routes/project.routes');
 
 const app = express();
 
+// Security Settings
+app.disable('x-powered-by');
+
 // Middleware
 app.use(cors());
 app.use(express.json());

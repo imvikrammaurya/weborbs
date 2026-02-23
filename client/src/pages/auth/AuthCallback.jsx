@@ -11,7 +11,13 @@ const AuthCallback = () => {
         if (!loading) {
             if (isAuthenticated) {
                 const params = new URLSearchParams(location.search);
-                const redirectPath = params.get('redirect') || '/dashboard';
+                const redirectParam = params.get('redirect');
+                let redirectPath = '/dashboard';
+
+                if (redirectParam && typeof redirectParam === 'string' && redirectParam.startsWith('/') && !redirectParam.startsWith('//')) {
+                    redirectPath = redirectParam;
+                }
+
                 navigate(redirectPath);
             } else {
                 navigate('/login');

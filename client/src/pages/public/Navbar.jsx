@@ -82,10 +82,10 @@ const Navbar = () => {
   }, [isMobileMenuOpen]);
 
   const navLinks = [
-    { name: "Services", href: "#services" },
-    { name: "Solutions", href: "#process" },
+    { name: "Solutions", href: "/learn-more" },
     { name: "Work", href: "/work" },
     { name: "About", href: "/about" },
+    { name: "Contact Us", href: "/contact" },
   ];
 
   return (
