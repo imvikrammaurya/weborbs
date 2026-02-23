@@ -50,9 +50,9 @@ const Pricing = () => {
         },
         {
             id: "advanced",
-            name: "Advanced (E-commerce)",
+            name: "Enterprise",
             description: "Full-scale e-commerce solutions and complex web applications.",
-            price: "₹ 50,000+",
+            price: "Custom",
             features: [
                 "Unlimited Pages (Dynamic)",
                 "Full E-commerce Functionality",
@@ -144,7 +144,7 @@ const Pricing = () => {
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: index * 0.1, duration: 0.5 }}
                                         key={tier.id}
-                                        className={`relative bg-white/90 backdrop-blur-xl rounded-3xl p-6 lg:p-8 border ${tier.borderColor} shadow-xl flex flex-col transition-transform hover:-translate-y-2 duration-300`}
+                                        className={`group relative bg-white/90 backdrop-blur-xl rounded-3xl p-6 lg:p-8 border ${tier.borderColor} shadow-xl flex flex-col transition-transform hover:-translate-y-2 duration-300`}
                                     >
                                         {tier.popular && (
                                             <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
@@ -184,10 +184,7 @@ const Pricing = () => {
 
                                         <Link
                                             to="/contact"
-                                            className={`w-full py-4 rounded-xl font-bold text-center transition-all duration-300 ${tier.popular
-                                                ? "bg-[var(--color-bigchill)] text-white hover:bg-[#097a7a] shadow-lg hover:shadow-[var(--color-bigchill)]/40"
-                                                : "bg-slate-100 text-slate-800 hover:bg-slate-200"
-                                                }`}
+                                            className="w-full py-4 rounded-xl font-bold text-center transition-all duration-300 bg-slate-100 text-slate-800 group-hover:bg-[var(--color-bigchill)] group-hover:text-white group-hover:shadow-lg group-hover:shadow-[var(--color-bigchill)]/40 hover:!bg-[#097a7a]"
                                         >
                                             Get Started
                                         </Link>
