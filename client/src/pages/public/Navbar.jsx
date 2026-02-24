@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Menu, X, ChevronDown, Globe } from "lucide-react";
+import { Menu, X, Globe } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import AuthModal from "../../components/auth/AuthModal";
@@ -10,7 +10,6 @@ const Navbar = () => {
   const [activeLink, setActiveLink] = useState("Services");
   const [flashingKey, setFlashingKey] = useState(null);
   const [isVisible, setIsVisible] = useState(true);
-  const [isResourcesOpen, setIsResourcesOpen] = useState(false);
   const location = useLocation();
   const { openAuthModal, isAuthModalOpen } = useAuth();
   const navigate = useNavigate();
@@ -51,7 +50,6 @@ const Navbar = () => {
       // Determine visibility based on scroll direction
       if (currentScrollY > lastScrollY && currentScrollY > 70) {
         setIsVisible(false); // Hide when scrolling down
-        setIsResourcesOpen(false); // Close dropdown when scrolling down
       } else {
         setIsVisible(true); // Show when scrolling up
       }
@@ -82,10 +80,12 @@ const Navbar = () => {
   }, [isMobileMenuOpen]);
 
   const navLinks = [
-    { name: "Solutions", href: "/learn-more" },
-    { name: "Work", href: "/work" },
+    { name: "Services", href: "/learn-more" },
+    { name: "Products", href: "/products" },
+    { name: "Case Studies", href: "/work" },
+    { name: "Pricing", href: "/pricing" },
     { name: "About", href: "/about" },
-    { name: "Contact Us", href: "/contact" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (
@@ -125,7 +125,6 @@ const Navbar = () => {
                       setActiveLink(link.name);
                       handleInteraction(link.name);
                       handleNavigation(link.href);
-                      setIsResourcesOpen(false);
                     }}
                     className={`text-sm font-medium transition-colors ${flashingKey === link.name
                       ? "text-bigchill"
@@ -143,7 +142,6 @@ const Navbar = () => {
                     onClick={() => {
                       setActiveLink(link.name);
                       handleInteraction(link.name);
-                      setIsResourcesOpen(false);
                     }}
                     className={`text-sm font-medium transition-colors ${flashingKey === link.name
                       ? "text-bigchill"
@@ -156,52 +154,6 @@ const Navbar = () => {
                   </Link>
                 ),
               )}
-
-              <div className="relative group">
-                <button
-                  onClick={() => {
-                    handleInteraction("resources");
-                    setIsResourcesOpen(!isResourcesOpen);
-                  }}
-                  className={`flex items-center gap-1 text-sm font-medium transition-colors focus:outline-none ${flashingKey === "resources"
-                    ? "text-bigchill"
-                    : "text-slate-600 hover:text-slate-900"
-                    }`}
-                >
-                  Resources
-                  <ChevronDown
-                    size={11}
-                    className={`transition-transform duration-200 ${isResourcesOpen ? "rotate-180" : ""}`}
-                  />
-                </button>
-
-                {/* Dropdown Menu (Click Toggle Only) */}
-                <div
-                  className={`absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 transition-all duration-200 delay-150 transform origin-top-left ring-1 ring-black/5 ${isResourcesOpen
-                    ? "opacity-100 visible"
-                    : "opacity-0 invisible"
-                    }`}
-                >
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50"
-                  >
-                    Blog
-                  </a>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50"
-                  >
-                    Case Studies
-                  </a>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50"
-                  >
-                    Documentation
-                  </a>
-                </div>
-              </div>
             </div>
 
             {/* Desktop Right Actions */}
@@ -304,49 +256,6 @@ const Navbar = () => {
                   </Link>
                 ),
               )}
-            </div>
-
-            {/* Subtle Divider before Resources */}
-            <div className="my-2"></div>
-
-            <div className="flex flex-col">
-              <button
-                className={`w-full flex items-center justify-between text-lg font-medium py-3 border-b border-slate-50 transition-colors ${flashingKey === "resources-mobile" ? "text-bigchill" : "text-slate-600"}`}
-                onClick={() => {
-                  handleInteraction("resources-mobile");
-                  setIsResourcesOpen(!isResourcesOpen);
-                }}
-              >
-                Resources
-                <ChevronDown
-                  size={16}
-                  className={`transition-transform duration-300 ${isResourcesOpen ? "rotate-180" : ""}`}
-                />
-              </button>
-
-              {/* Mobile Submenu */}
-              <div
-                className={`overflow-hidden transition-all duration-300 ease-in-out ${isResourcesOpen
-                  ? "max-h-40 opacity-100 mt-2"
-                  : "max-h-0 opacity-0"
-                  }`}
-              >
-                <div className="flex flex-col space-y-3 pl-4 border-l-2 border-slate-100 ml-1">
-                  {["Blog", "Case Studies", "Documentation"].map((item) => (
-                    <a
-                      key={item}
-                      href="#"
-                      className="text-base text-slate-500 hover:text-slate-900 font-medium transition-colors"
-                      onClick={() => {
-                        handleInteraction(item);
-                        setIsMobileMenuOpen(false);
-                      }}
-                    >
-                      {item}
-                    </a>
-                  ))}
-                </div>
-              </div>
             </div>
 
             {/* Sign In Link (below nav links) */}
