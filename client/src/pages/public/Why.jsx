@@ -156,14 +156,14 @@ const Why = () => {
                     <div
                       key={reason.id}
                       className={`text-xl font-medium transition-all duration-300 cursor-pointer flex items-center gap-4 ${idx === activeIndex
-                          ? "text-white translate-x-2"
-                          : "text-gray-600 hover:text-gray-400"
+                        ? "text-white translate-x-2"
+                        : "text-gray-600 hover:text-gray-400"
                         }`}
                     >
                       <div
                         className={`w-2 h-2 rounded-full transition-all duration-300 ${idx === activeIndex
-                            ? "bg-bigchill shadow-[0_0_8px_#0EA5A4]"
-                            : "bg-gray-700"
+                          ? "bg-bigchill shadow-[0_0_8px_#0EA5A4]"
+                          : "bg-gray-700"
                           }`}
                       />
                       {reason.category}

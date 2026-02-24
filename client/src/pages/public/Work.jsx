@@ -4,8 +4,8 @@ import { ArrowUpRight, ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
 
 // Placeholder images - using existing assets where possible or external placeholders
-import dashboardImg from "../../assets/dashboard_analytics_dark_1767871281648.png";
-import serverImg from "../../assets/server_metrics_card_1767871336352.png";
+import dashboardImg from "../../assets/dashboard_analytics_dark_1767871281648.avif";
+import serverImg from "../../assets/server_metrics_card_1767871336352.avif";
 
 const projects = [
     {
@@ -13,7 +13,7 @@ const projects = [
         title: "Yellow Cryon Bakery",
         category: "Bakery Website",
         description: "A modern full-stack bakery web application built with React (Vite) and Express, integrated with Supabase for backend services, featuring authentication with JWT, secure password handling, and smooth UI animations using GSAP.",
-        image: "https://ik.imagekit.io/vooklu/VOOKLU%20WEBSITE/WORK/image.png",
+        image: "https://ik.imagekit.io/vooklu/VOOKLU%20WEBSITE/WORK/image_converted.avif?updatedAt=1771937767289",
         tech: ["React", "Tailwind", "Node.js"],
         link: "https://bakery-sample-2.vercel.app/",
         color: "from-blue-500/20 to-purple-500/20",
@@ -25,7 +25,7 @@ const projects = [
         title: "Brown Bakery Theme",
         category: "Bakery Website",
         description: "A simple bakery web project template that demonstrates a basic front-end layout for a bakery business, showcasing pages like home, menu, and maybe bakery info using standard web technologies.",
-        image: "https://ik.imagekit.io/vooklu/VOOKLU%20WEBSITE/WORK/bakery-sample-1.png", // Placeholder
+        image: "https://ik.imagekit.io/vooklu/VOOKLU%20WEBSITE/WORK/bakery-sample-1_converted.avif?updatedAt=1771937767283", // Placeholder
         tech: ["React", "Tailwind", "Node.js"],
         link: "https://bakery-simple-1.vercel.app/",
         color: "from-emerald-500/20 to-teal-500/20",
@@ -37,7 +37,7 @@ const projects = [
         title: "Property Dealer Website",
         category: "Property Dealer Website",
         description: "A sample starter project demonstrating the core structure of a real estate/property listing application — likely includes features to display properties, manage listings, and serve as a template for building property-based web apps.",
-        image: "https://ik.imagekit.io/vooklu/VOOKLU%20WEBSITE/WORK/property-sample-1.png",
+        image: "https://ik.imagekit.io/vooklu/VOOKLU%20WEBSITE/WORK/property-sample-1_converted.avif?updatedAt=1771937767004",
         tech: ["Next.js", "PostgreSQL", "TypeScript"],
         link: "https://property-sample-1.vercel.app/",
         color: "from-cyan-500/20 to-blue-500/20",
@@ -49,7 +49,7 @@ const projects = [
         title: "Salon Booking & Management Sample App",
         category: "Salon Website",
         description: "A simple sample project demonstrating a salon booking/management system, showcasing how customers can view services and schedule appointments while exploring basic UI and backend logic typical of salon-style applications.",
-        image: "https://ik.imagekit.io/vooklu/VOOKLU%20WEBSITE/WORK/salon-sample-1.png",
+        image: "https://ik.imagekit.io/vooklu/VOOKLU%20WEBSITE/WORK/salon-sample-1_converted.avif?updatedAt=1771937767023",
         tech: ["React", "Framer Motion", "GSAP"],
         link: "https://salon-sample-1.vercel.app/",
         color: "from-orange-500/20 to-red-500/20",
@@ -61,9 +61,9 @@ const projects = [
         title: "Red Heart Bakery",
         category: "Bakery Website",
         description: "A modern  bakery web application built with React (Vite) and Express, integrated with Supabase for backend services, featuring authentication with JWT, secure password handling, and smooth UI animations using GSAP.",
-        image: "https://ik.imagekit.io/vooklu/VOOKLU%20WEBSITE/WORK/Bakery-sample-4.png",
+        image: "https://ik.imagekit.io/vooklu/VOOKLU%20WEBSITE/WORK/Bakery-sample-4_converted.avif?updatedAt=1771937767282",
         tech: ["React", "WebRTC", "Socket.io"],
-        link: "#",
+        link: "https://bakery-sample-4.vercel.app/",
         color: "from-rose-500/20 to-pink-500/20",
         price: "₹ 14,399",
         tags: ["Bakery", "Business"]
@@ -73,7 +73,7 @@ const projects = [
         title: "Property Website",
         category: "Property Website",
         description: "A modern property web application built with React (Vite) and Express, integrated with Supabase for backend services, featuring authentication with JWT, secure password handling, and smooth UI animations using GSAP.",
-        image: "https://ik.imagekit.io/vooklu/VOOKLU%20WEBSITE/random%20images/image.png",
+        image: "https://ik.imagekit.io/vooklu/VOOKLU%20WEBSITE/random%20images/image_converted.avif?updatedAt=1771937827653",
         tech: ["Web3.js", "Solidity", "React"],
         link: "#",
         color: "from-indigo-500/20 to-violet-500/20",

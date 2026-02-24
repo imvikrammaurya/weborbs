@@ -1,7 +1,7 @@
 import React from "react";
 import { Instagram, Linkedin, Youtube, Twitter } from "lucide-react";
 import { Link } from "react-router-dom";
-import Logo from "../../assets/weborbs.png";
+import Logo from "../../assets/weborbs.avif";
 
 export default function Footer() {
   return (

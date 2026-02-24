@@ -29,9 +29,9 @@ import {
 import { Link } from "react-router-dom";
 
 // Import images (reusing from HeroSection for consistency until new assets are provided)
-import dashboardImg from "../../assets/dashboard_analytics_dark_1767871281648.png";
-import serverImg from "../../assets/server_metrics_card_1767871336352.png";
-import mobileImg from "../../assets/hero-dashboard-7.png"; // Assuming this is mobile-like
+import dashboardImg from "../../assets/dashboard_analytics_dark_1767871281648.avif";
+import serverImg from "../../assets/server_metrics_card_1767871336352.avif";
+import mobileImg from "../../assets/hero-dashboard-7.avif"; // Assuming this is mobile-like
 
 const LearnMore = () => {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
