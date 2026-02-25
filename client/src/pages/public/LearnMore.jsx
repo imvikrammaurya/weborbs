@@ -35,6 +35,7 @@ import mobileImg from "../../assets/hero-dashboard-7.avif"; // Assuming this is 
 
 const LearnMore = () => {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+  const [hoveredPlan, setHoveredPlan] = useState(null);
 
   // Scroll to top on mount
   useEffect(() => {
@@ -599,36 +600,38 @@ const LearnMore = () => {
             {pricingPlans.map((plan, index) => (
               <motion.div
                 key={index}
+                onMouseEnter={() => setHoveredPlan(index)}
+                onMouseLeave={() => setHoveredPlan(null)}
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className={`p-8 rounded-3xl flex flex-col transition-all duration-300 ${index === 2
+                className={`p-8 rounded-3xl flex flex-col transition-all duration-300 ${hoveredPlan === index
                   ? "bg-slate-900 text-white shadow-2xl scale-105 transform z-10"
                   : "bg-white border border-slate-200 hover:border-slate-300 hover:shadow-xl text-slate-900"
                   }`}
               >
                 {index === 2 && (
-                  <span className="mb-6 inline-block bg-[var(--color-bigchill)] text-white text-[10px] font-bold px-3 py-1 rounded-full w-fit uppercase tracking-widest">
+                  <span className={`mb-6 inline-block text-[10px] font-bold px-3 py-1 rounded-full w-fit uppercase tracking-widest transition-colors ${hoveredPlan === index ? 'bg-[var(--color-bigchill)] text-white' : 'bg-[var(--color-bigchill)]/10 text-[var(--color-bigchill)]'}`}>
                     Best Value
                   </span>
                 )}
                 <div className="text-4xl mb-4">{plan.icon}</div>
-                <h3 className={`text-xl font-bold mb-2 ${index === 2 ? 'text-white' : 'text-slate-900'}`}>
+                <h3 className={`text-xl font-bold mb-2 transition-colors ${hoveredPlan === index ? 'text-white' : 'text-slate-900'}`}>
                   {plan.title}
                 </h3>
-                <div className={`text-2xl font-bold mb-6 ${index === 2 ? 'text-[var(--color-bigchill)]' : 'text-slate-900'}`}>
+                <div className={`text-2xl font-bold mb-6 transition-colors ${hoveredPlan === index ? 'text-[var(--color-bigchill)]' : 'text-slate-900'}`}>
                   {plan.price}
                 </div>
                 <ul className="space-y-4 mb-8 flex-1">
                   {plan.features.map((feature, i) => (
                     <li
                       key={i}
-                      className={`flex items-start text-sm ${index === 2 ? 'text-slate-300' : 'text-slate-600'}`}
+                      className={`flex items-start text-sm transition-colors ${hoveredPlan === index ? 'text-slate-300' : 'text-slate-600'}`}
                     >
                       <CheckCircle
                         size={18}
-                        className={`mr-2 mt-0.5 shrink-0 ${index === 2 ? 'text-[var(--color-bigchill)]' : 'text-slate-400'}`}
+                        className={`mr-2 mt-0.5 shrink-0 transition-colors ${hoveredPlan === index ? 'text-[var(--color-bigchill)]' : 'text-slate-400'}`}
                       />
                       {feature}
                     </li>
@@ -636,7 +639,7 @@ const LearnMore = () => {
                 </ul>
                 <a
                   href="#contact"
-                  className={`w-full py-4 rounded-xl text-center font-bold text-sm transition-all ${index === 2
+                  className={`w-full py-4 rounded-xl text-center font-bold text-sm transition-all ${hoveredPlan === index
                     ? "bg-[var(--color-bigchill)] text-white hover:bg-[#0b8a89]"
                     : "bg-slate-100 text-slate-900 hover:bg-slate-200"
                     }`}
