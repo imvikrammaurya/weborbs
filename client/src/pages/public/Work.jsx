@@ -79,10 +79,22 @@ const projects = [
         color: "from-indigo-500/20 to-violet-500/20",
         price: "₹ 15,499.00",
         tags: ["Property", "Business"]
+    },
+    {
+        id: 7,
+        title: "Burger Shack",
+        category: "Restaurant Website",
+        description: "Burger Shack is a smooth and easy-to-use online food ordering app where customers can explore the menu, customize their favorite meals, place orders, and track them in real time. It feels just like ordering from a real restaurant — simple, fast, and satisfying.",
+        image: "https://ik.imagekit.io/vooklu/VOOKLU%20WEBSITE/WORK/restraunt_sample_1.avif?updatedAt=1772183415922",
+        tech: ["React", "Tailwind", "Node.js"],
+        link: "https://restaurant-sample-1-nu.vercel.app/",
+        color: "from-indigo-500/20 to-violet-500/20",
+        price: "₹ 15,499.00",
+        tags: ["Restaurant", "Business"]
     }
 ];
 
-const filterTags = ["All", "Property", "Bakery", "Salon", "Business", "Shopify"];
+const filterTags = ["All", "Property", "Bakery", "Restaurant", "Salon", "Business", "Shopify"];
 
 const Work = () => {
     const [activeTag, setActiveTag] = useState("All");
@@ -171,8 +183,13 @@ const Work = () => {
                                 {/* Image Section */}
                                 <a
                                     href={project.link}
-                                    // target="_blank" // For external links
-                                    // rel="noopener noreferrer"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={(e) => {
+                                        if (project.link === '#') {
+                                            e.preventDefault();
+                                        }
+                                    }}
                                     className="relative h-64 overflow-hidden bg-slate-100 block cursor-pointer group/image"
                                 >
                                     <motion.img
