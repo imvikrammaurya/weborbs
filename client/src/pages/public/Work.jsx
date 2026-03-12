@@ -120,6 +120,20 @@ const projects = [
     price: "₹ 5,499.00",
     tags: ["Technition", "Business"],
   },
+  {
+    id: 9,
+    title: "Hotel Listing",
+    category: "Hotel Website",
+    description:
+      "Wonderbnb connects travelers with unique, local stays through curated categories and transparent pricing. Discover, save, and book your next unforgettable adventure with ease.",
+    image:
+      "https://ik.imagekit.io/vooklu/VOOKLU%20WEBSITE/WORK/Hotel%20listing.avif",
+    tech: ["React", "Tailwind", "Node.js"],
+    link: "#",
+    color: "from-indigo-500/20 to-violet-500/20",
+    price: "₹ 55,499.00",
+    tags: ["Hotel", "Business"],
+  },
 ];
 
 const filterTags = [
