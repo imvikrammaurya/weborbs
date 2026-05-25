@@ -16,7 +16,7 @@ const Pricing = () => {
             id: "basic",
             name: "Basic",
             description: "Perfect for static websites, landing pages, and portfolios.",
-            price: "₹ 7,999",
+            price: "₹ 7,899",
             deliveryTime: "1-3 days",
             features: [
                 "Up to 5 Pages",
@@ -42,7 +42,7 @@ const Pricing = () => {
             id: "intermediate",
             name: "Intermediate",
             description: "Ideal for businesses needing dynamic content and CRUD operations.",
-            price: "₹ 25,000",
+            price: "₹ 24,899",
             priceNote: "",
             deliveryTime: "1-2 weeks",
             features: [
@@ -71,7 +71,7 @@ const Pricing = () => {
             id: "advanced",
             name: "Enterprise",
             description: "Full-scale e-commerce solutions and complex web applications.",
-            price: "₹ 49,999 +",
+            price: "₹ 40,000 +",
             deliveryTime: "4-6 weeks",
             features: [
                 "Unlimited Pages (Dynamic)",

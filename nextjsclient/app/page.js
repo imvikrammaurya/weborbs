@@ -8,6 +8,7 @@ import WhatWeDo from "../components/public/WhatWeDo";
 import Questions from "../components/public/Questions";
 import Why from "../components/public/Why";
 import ClientVoice from "../components/public/ClientVoice";
+import WhatWeBuild from "@/components/public/WhatWeBuild";
 
 const BookingModal = dynamic(() => import("../components/public/BookingModal"), { ssr: false });
 
@@ -20,7 +21,7 @@ export default function Home() {
   return (
     <main>
       <HeroSection openModal={openModal} />
-      <WhatWeDo />
+      <WhatWeBuild />
       <Why />
       <Process />
       <ClientVoice />
